@@ -2,6 +2,7 @@
 
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/UI/screens/otp_screen.dart';
+import 'package:data_hub/UI/widgets/account_button.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -210,30 +211,8 @@ class _SignUpState extends State<SignUp> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 6.h,
-                        width: 43.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: lighterGrey),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Container(),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 6.h,
-                        width: 43.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: lighterGrey),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Container(),
-                      ),
-                    ),
+                    AccountButton(imageUrl: 'assets/sign_in/google.png'),
+                    AccountButton(imageUrl: 'assets/sign_in/apple.png'),
                   ],
                 ),
                 const Spacer(),
