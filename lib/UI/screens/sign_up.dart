@@ -1,10 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/UI/screens/otp_screen.dart';
-import 'package:email_auth/email_auth.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../widgets/blue_button.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -31,17 +34,22 @@ class _SignUpState extends State<SignUp> {
     );
     if (await myauth.sendOTP() == true) {
       const snackBar = SnackBar(content: Text("OTP has been sent"));
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => OTPScreen()),
+      // Navigator.pushNamed(context, '/otp_screen');
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => OTPScreen(myauth: myauth),
+        ),
       );
     } else {
       const snackBar = SnackBar(content: Text("OTP could not be sent"));
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  void signUp() {
+    if (formKey.currentState!.validate()) {
+      sendOTP();
     }
   }
 
@@ -170,30 +178,11 @@ class _SignUpState extends State<SignUp> {
                 SizedBox(
                   height: 3.h,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      sendOTP();
-                    }
-                  },
-                  child: Container(
-                    height: 6.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: blue,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Sign Up',
-                        style: GoogleFonts.roboto(
-                          color: whiteText,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                BlueButton(
+                    text: 'Sign Up',
+                    onTap: () {
+                      signUp();
+                    }),
                 SizedBox(
                   height: 4.h,
                 ),
@@ -230,15 +219,7 @@ class _SignUpState extends State<SignUp> {
                           border: Border.all(color: lighterGrey),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Center(
-                          child: Text(
-                            'Sign Up',
-                            style: GoogleFonts.roboto(
-                              color: whiteText,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
+                        child: Container(),
                       ),
                     ),
                     GestureDetector(
@@ -250,15 +231,7 @@ class _SignUpState extends State<SignUp> {
                           border: Border.all(color: lighterGrey),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Center(
-                          child: Text(
-                            'Sign Up',
-                            style: GoogleFonts.roboto(
-                              color: whiteText,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
+                        child: Container(),
                       ),
                     ),
                   ],
@@ -273,6 +246,7 @@ class _SignUpState extends State<SignUp> {
                         'Already have an account? ',
                         style: GoogleFonts.roboto(
                           color: darkerGrey,
+                          fontSize: 16.sp,
                         ),
                       ),
                       Text(
@@ -280,6 +254,7 @@ class _SignUpState extends State<SignUp> {
                         style: GoogleFonts.roboto(
                           color: green,
                           fontWeight: FontWeight.w700,
+                          fontSize: 16.sp,
                         ),
                       ),
                     ],
