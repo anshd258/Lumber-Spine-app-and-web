@@ -1,58 +1,16 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:data_hub/Middleware/constants/colors.dart';
-import 'package:data_hub/UI/screens/otp_screen.dart';
-import 'package:data_hub/UI/widgets/account_button.dart';
-import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../Middleware/constants/colors.dart';
 import '../widgets/blue_button.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  SignInScreen({super.key});
 
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController _name = TextEditingController();
   final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-
-  EmailOTP myauth = EmailOTP();
-
-  void sendOTP() async {
-    myauth.setConfig(
-      appEmail: "gagandeep4989@gmail.com",
-      appName: "Data Hub",
-      userEmail: _email.text,
-      otpLength: 4,
-      otpType: OTPType.digitsOnly,
-    );
-    if (await myauth.sendOTP() == true) {
-      const snackBar = SnackBar(content: Text("OTP has been sent"));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      // Navigator.pushNamed(context, '/otp_screen');
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => OTPScreen(myauth: myauth),
-        ),
-      );
-    } else {
-      const snackBar = SnackBar(content: Text("OTP could not be sent"));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-  }
-
-  void signUp() {
-    if (formKey.currentState!.validate()) {
-      sendOTP();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,61 +117,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   },
                 ),
                 SizedBox(
-                  height: 2.5.h,
-                ),
-                TextFormField(
-                  controller: _password,
-                  cursorColor: black,
-                  decoration: const InputDecoration(
-                    hintText: 'Password',
-                    border: InputBorder.none,
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Enter a password";
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                SizedBox(
                   height: 3.h,
                 ),
-                BlueButton(
-                    text: 'Sign Up',
-                    onTap: () {
-                      signUp();
-                    }),
+                BlueButton(text: 'Sign In', onTap: () {}),
                 SizedBox(
                   height: 4.h,
-                ),
-                Row(
-                  children: <Widget>[
-                    const Expanded(child: Divider()),
-                    SizedBox(
-                      width: 3.w,
-                    ),
-                    Text(
-                      "OR",
-                      style: GoogleFonts.roboto(
-                        color: grey,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 3.w,
-                    ),
-                    const Expanded(child: Divider()),
-                  ],
-                ),
-                SizedBox(
-                  height: 4.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AccountButton(imageUrl: 'assets/sign_in/google.png'),
-                    AccountButton(imageUrl: 'assets/sign_in/apple.png'),
-                  ],
                 ),
                 const Spacer(),
                 Align(
@@ -222,7 +130,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Already have an account? ',
+                        'Don\'t have an account?',
                         style: GoogleFonts.roboto(
                           color: darkerGrey,
                           fontSize: 16.sp,
@@ -230,10 +138,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/signin_screen');
+                          Navigator.pushNamed(context, '/signup_screen');
                         },
                         child: Text(
-                          'Sign In',
+                          'Sign Up',
                           style: GoogleFonts.roboto(
                             color: green,
                             fontWeight: FontWeight.w700,
