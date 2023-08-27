@@ -1,4 +1,7 @@
 import 'package:data_hub/Middleware/constants/colors.dart';
+import 'package:data_hub/UI/screens/otp_screen.dart';
+import 'package:email_auth/email_auth.dart';
+import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -12,6 +15,35 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final formKey = GlobalKey<FormState>();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
+  EmailOTP myauth = EmailOTP();
+
+  void sendOTP() async {
+    myauth.setConfig(
+      appEmail: "gagandeep4989@gmail.com",
+      appName: "Data Hub",
+      userEmail: _email.text,
+      otpLength: 4,
+      otpType: OTPType.digitsOnly,
+    );
+    if (await myauth.sendOTP() == true) {
+      const snackBar = SnackBar(content: Text("OTP has been sent"));
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => OTPScreen()),
+      );
+    } else {
+      const snackBar = SnackBar(content: Text("OTP could not be sent"));
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +114,7 @@ class _SignUpState extends State<SignUp> {
                   height: 3.h,
                 ),
                 TextFormField(
+                  controller: _name,
                   cursorColor: black,
                   decoration: const InputDecoration(
                     hintText: 'Full name',
@@ -100,6 +133,7 @@ class _SignUpState extends State<SignUp> {
                   height: 2.5.h,
                 ),
                 TextFormField(
+                  controller: _email,
                   cursorColor: black,
                   decoration: const InputDecoration(
                     hintText: 'Email',
@@ -109,7 +143,7 @@ class _SignUpState extends State<SignUp> {
                     if (value!.isEmpty ||
                         !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,5}')
                             .hasMatch(value)) {
-                      return "Enter correct name";
+                      return "Enter correct email";
                     } else {
                       return null;
                     }
@@ -119,15 +153,15 @@ class _SignUpState extends State<SignUp> {
                   height: 2.5.h,
                 ),
                 TextFormField(
+                  controller: _password,
                   cursorColor: black,
                   decoration: const InputDecoration(
                     hintText: 'Password',
                     border: InputBorder.none,
                   ),
                   validator: (value) {
-                    if (value!.isEmpty ||
-                        !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                      return "Enter correct name";
+                    if (value!.isEmpty) {
+                      return "Enter a password";
                     } else {
                       return null;
                     }
@@ -137,7 +171,11 @@ class _SignUpState extends State<SignUp> {
                   height: 3.h,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    if (formKey.currentState!.validate()) {
+                      sendOTP();
+                    }
+                  },
                   child: Container(
                     height: 6.h,
                     width: double.infinity,
@@ -184,13 +222,7 @@ class _SignUpState extends State<SignUp> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        if (formKey.currentState!.validate()) {
-                          const snackBar =
-                              SnackBar(content: Text('Submitting form'));
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        }
-                      },
+                      onTap: () {},
                       child: Container(
                         height: 6.h,
                         width: 43.w,

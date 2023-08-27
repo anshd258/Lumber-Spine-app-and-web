@@ -38,6 +38,7 @@ dependencies:
   email_auth: ^1.0.0
   responsive_sizer: ^3.2.0
   google_fonts: ^4.0.4
+  email_otp: ^2.0.1
 
 dev_dependencies:
   flutter_test:
