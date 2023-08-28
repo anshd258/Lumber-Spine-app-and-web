@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BlueButton extends StatelessWidget {
-  String text;
-  Function onTap;
-  BlueButton({super.key, required this.text, required this.onTap});
+  final String text;
+  final Function onTap;
+  const BlueButton({super.key, required this.text, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

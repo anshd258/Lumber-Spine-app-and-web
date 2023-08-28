@@ -4,8 +4,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../Middleware/constants/colors.dart';
 
 class AccountButton extends StatelessWidget {
-  String imageUrl;
-  AccountButton({super.key, required this.imageUrl});
+  final String imageUrl;
+  const AccountButton({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {

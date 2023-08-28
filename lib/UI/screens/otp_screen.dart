@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +10,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../Middleware/constants/colors.dart';
 
 class OTPScreen extends StatefulWidget {
-  EmailOTP myauth;
-  OTPScreen({super.key, required this.myauth});
+  final EmailOTP myauth;
+  const OTPScreen({super.key, required this.myauth});
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -24,13 +26,12 @@ class _OTPScreenState extends State<OTPScreen> {
       const snackBar = SnackBar(
         content: Text("OTP is verified"),
       );
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Navigator.pushNamed(context, '/country_dropdown_screen');
     } else {
       const snackBar = SnackBar(
         content: Text("Invalid OTP"),
       );
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
