@@ -94,6 +94,7 @@ class _CountryDropdownState extends State<CountryDropdown> {
                     },
                     decoration: InputDecoration(
                       hintText: 'Search',
+                      hintStyle: GoogleFonts.roboto(),
                       icon: Icon(Icons.search, size: 22.sp),
                       border: InputBorder.none,
                     ),

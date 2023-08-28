@@ -1,3 +1,4 @@
+import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:data_hub/UI/widgets/country_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Middleware/constants/colors.dart';
 
-class CountryDropdownScreen extends StatelessWidget {
-  const CountryDropdownScreen({super.key});
+class CountryScreen extends StatelessWidget {
+  const CountryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +24,7 @@ class CountryDropdownScreen extends StatelessWidget {
               SizedBox(
                 height: 1.h,
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  height: 5.h,
-                  width: 11.1.w,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: lighterGrey),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      color: black,
-                    ),
-                  ),
-                ),
-              ),
+              const MyBackButton(),
               SizedBox(
                 height: 4.h,
               ),
@@ -75,7 +58,11 @@ class CountryDropdownScreen extends StatelessWidget {
               ),
               const CountryDropdown(),
               const Spacer(),
-              BlueButton(text: 'Continue', onTap: () {}),
+              BlueButton(
+                  text: 'Continue',
+                  onTap: () {
+                    Navigator.pushNamed(context, '/about_screen');
+                  }),
               SizedBox(
                 height: 2.h,
               ),

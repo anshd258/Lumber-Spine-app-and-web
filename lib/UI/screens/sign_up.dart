@@ -3,6 +3,7 @@
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/UI/screens/otp_screen.dart';
 import 'package:data_hub/UI/widgets/account_button.dart';
+import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -71,20 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: 1.h,
                 ),
-                Container(
-                  height: 5.h,
-                  width: 11.1.w,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: lighterGrey),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      color: black,
-                    ),
-                  ),
-                ),
+                const MyBackButton(),
                 SizedBox(
                   height: 3.h,
                 ),

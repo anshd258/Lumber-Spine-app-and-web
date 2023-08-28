@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _OTPScreenState extends State<OTPScreen> {
         content: Text("OTP is verified"),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      Navigator.pushNamed(context, '/country_dropdown_screen');
+      Navigator.pushNamed(context, '/country_screen');
     } else {
       const snackBar = SnackBar(
         content: Text("Invalid OTP"),
@@ -66,25 +67,7 @@ class _OTPScreenState extends State<OTPScreen> {
               SizedBox(
                 height: 1.h,
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  height: 5.h,
-                  width: 11.1.w,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: lighterGrey),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      color: black,
-                    ),
-                  ),
-                ),
-              ),
+              const MyBackButton(),
               SizedBox(
                 height: 4.h,
               ),

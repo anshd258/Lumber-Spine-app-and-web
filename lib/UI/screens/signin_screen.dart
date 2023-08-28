@@ -27,24 +27,7 @@ class SignInScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 1.h,
-                ),
-                Container(
-                  height: 5.h,
-                  width: 11.1.w,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: lighterGrey),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      color: black,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 3.h,
+                  height: 7.h,
                 ),
                 Row(
                   children: [
