@@ -1,4 +1,5 @@
 import 'package:data_hub/UI/screens/about_screen.dart';
+import 'package:data_hub/UI/screens/registration_completed_screen.dart';
 import 'package:data_hub/UI/screens/sign_up.dart';
 import 'package:data_hub/UI/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,5 +13,7 @@ var routes = <String, WidgetBuilder>{
   '/signin_screen': (context) => SignInScreen(),
   '/country_screen': (context) => const CountryScreen(),
   '/about_screen': (context) => AboutScreen(),
+  '/registration_completed_screen': (context) =>
+      const RegistrationCompletedScreen(),
   // '/otp_screen': (context) => OTPScreen(),
 };
