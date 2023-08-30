@@ -40,11 +40,13 @@ class BottomNavBar extends StatelessWidget {
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                 ),
-              )
+              ),
             ],
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/analyze_screen');
+            },
             child: CircleAvatar(
               backgroundColor: const Color.fromARGB(255, 241, 90, 64),
               child: Icon(

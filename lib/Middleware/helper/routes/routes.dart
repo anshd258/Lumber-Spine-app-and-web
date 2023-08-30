@@ -1,4 +1,5 @@
 import 'package:data_hub/UI/screens/about_screen.dart';
+import 'package:data_hub/UI/screens/analyze_screen.dart';
 import 'package:data_hub/UI/screens/home_screen.dart';
 import 'package:data_hub/UI/screens/registration_completed_screen.dart';
 import 'package:data_hub/UI/screens/sign_up.dart';
@@ -18,4 +19,5 @@ var routes = <String, WidgetBuilder>{
   '/registration_completed_screen': (context) =>
       const RegistrationCompletedScreen(),
   '/home_screen': (context) => const HomeScreen(),
+  '/analyze_screen': (context) => AnalyzeScreen(),
 };

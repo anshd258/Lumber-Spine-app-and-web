@@ -83,24 +83,30 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: const Color.fromARGB(200, 243, 243, 243),
                   borderRadius: BorderRadius.circular(12.sp),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Options(
                       name: 'Analyze',
                       url: "assets/home_page/analyze.png",
+                      onTap: () {
+                        Navigator.pushNamed(context, '/analyze_screen');
+                      },
                     ),
                     Options(
                       name: 'Sync',
                       url: "assets/home_page/refresh.png",
+                      onTap: () {},
                     ),
                     Options(
                       name: 'Share',
                       url: "assets/home_page/share.png",
+                      onTap: () {},
                     ),
                     Options(
                       name: 'More',
                       url: "assets/home_page/more.png",
+                      onTap: () {},
                     ),
                   ],
                 ),
@@ -143,19 +149,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 1.h,
               ),
               const HistoryCard(
-                url: 'assets/home_page/vibration.png',
-                title: 'Vibrations sensors',
-                subtitle: 'Linear',
-                value: '-15.99 aw',
+                url: 'assets/home_page/hbv.png',
+                title: '',
+                subtitle: 'RMS-Peak-MSDV',
+                value: '+2,045.00 wa',
               ),
               Divider(color: lighterGrey),
               SizedBox(
                 height: 1.h,
               ),
               const HistoryCard(
-                url: 'assets/home_page/vibration.png',
-                title: 'Vibrations sensors',
-                subtitle: 'Linear',
+                url: 'assets/home_page/lumber.png',
+                title: 'Lumber Spine',
+                subtitle: 'Sent',
                 value: '-15.99 aw',
               ),
               Divider(color: lighterGrey),
@@ -288,7 +294,7 @@ class Carousel extends StatelessWidget {
                           'Lumber Spline Measurement',
                           style: GoogleFonts.roboto(
                             color: whiteText,
-                            fontSize: 14.sp,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -348,12 +354,14 @@ class Carousel extends StatelessWidget {
 class Options extends StatelessWidget {
   final String name;
   final String url;
-  const Options({super.key, required this.name, required this.url});
+  final Function onTap;
+  const Options(
+      {super.key, required this.name, required this.url, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => onTap(),
       child: Column(
         children: [
           SizedBox(
