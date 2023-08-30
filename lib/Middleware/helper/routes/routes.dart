@@ -1,3 +1,4 @@
+import 'package:data_hub/UI/screens/R_factor_screen.dart';
 import 'package:data_hub/UI/screens/about_screen.dart';
 import 'package:data_hub/UI/screens/analyze_screen.dart';
 import 'package:data_hub/UI/screens/home_screen.dart';
@@ -10,7 +11,7 @@ import '../../../UI/screens/country_screen.dart';
 import '../../../UI/screens/signin_screen.dart';
 
 var routes = <String, WidgetBuilder>{
-  '/': (context) => HomeScreen(),
+  '/': (context) => AnalyzeScreen(),
   '/signup_screen': (context) => const SignUpScreen(),
   '/signin_screen': (context) => SignInScreen(),
   // '/otp_screen': (context) => OTPScreen(),
@@ -19,5 +20,6 @@ var routes = <String, WidgetBuilder>{
   '/registration_completed_screen': (context) =>
       const RegistrationCompletedScreen(),
   '/home_screen': (context) => const HomeScreen(),
-  '/analyze_screen': (context) => AnalyzeScreen(),
+  '/analyze_screen': (context) => const AnalyzeScreen(),
+  '/R_factor_screen': (context) => RFactorScreen(),
 };

@@ -10,3 +10,4 @@ Color lighterGrey = const Color(0xffE5E7EB);
 Color black = Colors.black;
 Color yellow = const Color.fromARGB(255, 234, 193, 16);
 Color red = const Color.fromARGB(255, 255, 81, 47);
+Color transBlack = const Color.fromARGB(120, 0, 0, 0);

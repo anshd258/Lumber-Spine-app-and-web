@@ -1,15 +1,118 @@
 import 'package:data_hub/UI/widgets/back_button.dart';
+import 'package:data_hub/UI/widgets/blue_button.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Middleware/constants/colors.dart';
 
-class AnalyzeScreen extends StatelessWidget {
-  AnalyzeScreen({super.key});
+class AnalyzeScreen extends StatefulWidget {
+  const AnalyzeScreen({super.key});
 
-  String desc =
+  @override
+  State<AnalyzeScreen> createState() => _AnalyzeScreenState();
+}
+
+class _AnalyzeScreenState extends State<AnalyzeScreen> {
+  final String desc =
       'the person subjected to the vibration is seated in an upright position and does not voluntarily rise from the seat during the exposure. Different postures can result in different responses in the spine.';
+
+  String finalFilePath = '';
+
+  Future<void> _handleFileUpload() async {
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ['csv']);
+
+    if (result != null) {
+      String? filePath = result.files.single.path;
+      if (filePath != null) {
+        setState(() {
+          finalFilePath = filePath;
+          print('::::::::::::::::::::');
+          print(finalFilePath);
+        });
+      }
+    }
+  }
+
+  void showUploadDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Padding(
+            padding: EdgeInsets.all(16.sp),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Start Test",
+                      style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp,
+                      ),
+                    ),
+                    const Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.close_rounded,
+                        size: 20.sp,
+                        color: red,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 3.h),
+                Text(
+                  "File Upload",
+                  style: GoogleFonts.roboto(
+                      fontSize: 16.sp, fontWeight: FontWeight.w500),
+                ),
+                SizedBox(height: 3.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "CSV",
+                      style: GoogleFonts.roboto(fontSize: 16.sp),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        _handleFileUpload();
+                      },
+                      child: Container(
+                        height: 3.5.h,
+                        width: 10.w,
+                        decoration: BoxDecoration(
+                          color: yellow,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.add, size: 18.sp, color: black),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 8.h),
+                BlueButton(
+                    text: 'Proceed',
+                    onTap: () {
+                      Navigator.pushNamed(context, '/R_factor_screen');
+                    })
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +147,16 @@ class AnalyzeScreen extends StatelessWidget {
               MyCard(
                 title: 'Lumber Spline Measurement',
                 desc: desc,
-                onTap: () {},
+                onTap: () {
+                  showUploadDialog(context);
+                },
               ),
               MyCard(
                 title: 'Calculated parameters in HBV module',
                 desc: desc,
-                onTap: () {},
+                onTap: () {
+                  showUploadDialog(context);
+                },
               ),
               Text(
                 '+ More Coming Soon',

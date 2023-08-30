@@ -44,6 +44,7 @@ dependencies:
   carousel_slider: ^4.2.1
   intl: ^0.18.1
   font_awesome_flutter: ^10.5.0
+  file_picker: ^5.3.4
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,7 @@ flutter:
     - assets/about_page/
     - assets/reg_complete/
     - assets/home_page/
+    - assets/analyze/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
