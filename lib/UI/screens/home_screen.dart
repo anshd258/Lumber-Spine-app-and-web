@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:intl/intl.dart';
 import '../../Middleware/constants/colors.dart';
+import '../widgets/bottom_navbar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: GoogleFonts.roboto(
                           color: blue,
                           fontSize: 15.sp,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       Text(
@@ -105,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(
-                height: 2.h,
+                height: 3.h,
               ),
               Row(
                 children: [
@@ -129,13 +130,107 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               SizedBox(
-                height: 2.h,
+                height: 3.h,
               ),
-              Card()
+              const HistoryCard(
+                url: 'assets/home_page/vibration.png',
+                title: 'Vibrations sensors',
+                subtitle: 'Linear',
+                value: '-15.99 aw',
+              ),
+              Divider(color: lighterGrey),
+              SizedBox(
+                height: 1.h,
+              ),
+              const HistoryCard(
+                url: 'assets/home_page/vibration.png',
+                title: 'Vibrations sensors',
+                subtitle: 'Linear',
+                value: '-15.99 aw',
+              ),
+              Divider(color: lighterGrey),
+              SizedBox(
+                height: 1.h,
+              ),
+              const HistoryCard(
+                url: 'assets/home_page/vibration.png',
+                title: 'Vibrations sensors',
+                subtitle: 'Linear',
+                value: '-15.99 aw',
+              ),
+              Divider(color: lighterGrey),
+              const Spacer(),
+              const BottomNavBar(),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class HistoryCard extends StatelessWidget {
+  final String url;
+  final String title;
+  final String subtitle;
+  final String value;
+
+  const HistoryCard({
+    super.key,
+    required this.url,
+    this.title = '',
+    this.subtitle = '',
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          height: 7.h,
+          width: 20.w,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(url),
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: GoogleFonts.roboto(
+                color: blue,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 0.8.h,
+            ),
+            Text(
+              subtitle,
+              style: GoogleFonts.roboto(
+                color: darkerGrey,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+        const Spacer(),
+        Text(
+          value,
+          style: GoogleFonts.roboto(
+            color: blue,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -176,10 +271,15 @@ class Carousel extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Image.asset(
-                              "assets/home_page/w.png",
-                              width: 35.w,
+                            Container(
                               height: 3.h,
+                              width: 12.w,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("assets/home_page/w.png"),
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
                             ),
                           ],
                         ),
