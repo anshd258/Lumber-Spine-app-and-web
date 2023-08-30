@@ -101,7 +101,12 @@ class AboutScreen extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              BlueButton(text: 'Proceed', onTap: () {}),
+              BlueButton(
+                  text: 'Proceed',
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, '/registration_completed_screen');
+                  }),
               SizedBox(
                 height: 2.h,
               ),
