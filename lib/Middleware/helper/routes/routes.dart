@@ -12,7 +12,7 @@ import '../../../UI/screens/country_screen.dart';
 import '../../../UI/screens/signin_screen.dart';
 
 var routes = <String, WidgetBuilder>{
-  '/': (context) => AnalyzeScreen(),
+  '/': (context) => const SplashScreen(),
   '/signup_screen': (context) => const SignUpScreen(),
   '/signin_screen': (context) => SignInScreen(),
   // '/otp_screen': (context) => OTPScreen(),
