@@ -104,7 +104,7 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
                 BlueButton(
                     text: 'Proceed',
                     onTap: () {
-                      Navigator.pushNamed(context, '/R_factor_screen');
+                      Navigator.pushNamed(context, '/checklist_screen');
                     })
               ],
             ),
