@@ -15,6 +15,7 @@ class RFactorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Padding(
           padding: EdgeInsets.all(15.sp),
           child: Column(
@@ -36,7 +37,7 @@ class RFactorScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 4.h,
+                height: 3.h,
               ),
               Container(
                 height: 2.h,
@@ -47,10 +48,10 @@ class RFactorScreen extends StatelessWidget {
                 )),
               ),
               SizedBox(
-                height: 7.h,
+                height: 2.h,
               ),
               Container(
-                height: 60.h,
+                height: 72.5.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.sp),
@@ -113,7 +114,7 @@ class RFactorScreen extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          height: 45.h,
+                          height: 59.h,
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: transBlack,
@@ -122,7 +123,60 @@ class RFactorScreen extends StatelessWidget {
                               bottomRight: Radius.circular(12.sp),
                             ),
                           ),
-                          child: Column(),
+                          child: Padding(
+                            padding: EdgeInsets.all(12.sp),
+                            child: Column(
+                              children: [
+                                const TextRow(variable: 'N', value: '100'),
+                                TextFormField(
+                                  style: GoogleFonts.roboto(color: whiteText),
+                                  cursorColor: whiteText,
+                                  decoration: textFieldDecoration(
+                                      '(the number of exposure days per year)'),
+                                ),
+                                SizedBox(height: 1.h),
+                                const TextRow(variable: 'i', value: '3'),
+                                TextFormField(
+                                  style: GoogleFonts.roboto(color: whiteText),
+                                  cursorColor: whiteText,
+                                  decoration:
+                                      textFieldDecoration('(year counter)'),
+                                ),
+                                SizedBox(height: 1.h),
+                                const TextRow(variable: 'n', value: '100'),
+                                TextFormField(
+                                  style: GoogleFonts.roboto(color: whiteText),
+                                  cursorColor: whiteText,
+                                  decoration: textFieldDecoration(
+                                      '(the number of years of exposure)'),
+                                ),
+                                SizedBox(height: 1.h),
+                                const TextRow(variable: 'C', value: '100'),
+                                TextFormField(
+                                  style: GoogleFonts.roboto(color: whiteText),
+                                  cursorColor: whiteText,
+                                  decoration: textFieldDecoration(
+                                      '(constant representing the static stress due to gravitational force)'),
+                                ),
+                                SizedBox(height: 1.h),
+                                const TextRow(variable: 'Sui', value: '3'),
+                                TextFormField(
+                                  style: GoogleFonts.roboto(color: whiteText),
+                                  cursorColor: whiteText,
+                                  decoration: textFieldDecoration(
+                                      '(the strength of the lumbar spine for a person of age (b+i) years)'),
+                                ),
+                                SizedBox(height: 1.h),
+                                const TextRow(variable: 'b', value: '3'),
+                                TextFormField(
+                                  style: GoogleFonts.roboto(color: whiteText),
+                                  cursorColor: whiteText,
+                                  decoration: textFieldDecoration(
+                                      '(age at which the exposure starts)'),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -135,6 +189,53 @@ class RFactorScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  InputDecoration textFieldDecoration(String hint) {
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: GoogleFonts.roboto(
+          fontSize: 13.sp, color: const Color.fromARGB(170, 255, 255, 255)),
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: whiteText),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: whiteText),
+      ),
+    );
+  }
+}
+
+class TextRow extends StatelessWidget {
+  final String variable;
+  final String value;
+  const TextRow({
+    super.key,
+    required this.variable,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          variable,
+          style: GoogleFonts.roboto(
+            color: whiteText,
+            fontSize: 16.sp,
+          ),
+        ),
+        const Spacer(),
+        Text(
+          value,
+          style: GoogleFonts.roboto(
+            color: whiteText,
+            fontSize: 16.sp,
+          ),
+        )
+      ],
     );
   }
 }
