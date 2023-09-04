@@ -1,4 +1,8 @@
+import 'package:data_hub/Middleware/bloc/sign_in/sign_in_bloc.dart';
+import 'package:data_hub/Middleware/bloc/sign_in/sign_in_event.dart';
+import 'package:data_hub/Middleware/bloc/sign_in/sign_in_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -9,8 +13,8 @@ class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController _name = TextEditingController();
   final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,46 +67,77 @@ class SignInScreen extends StatelessWidget {
                 SizedBox(
                   height: 3.h,
                 ),
-                TextFormField(
-                  controller: _name,
-                  cursorColor: black,
-                  decoration: const InputDecoration(
-                    hintText: 'Full name',
-                    border: InputBorder.none,
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty ||
-                        !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                      return "Enter correct name";
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
+                BlocBuilder<SignInBloc, SignInState>(builder: (context, state) {
+                  return TextFormField(
+                    onChanged: (val) {
+                      BlocProvider.of<SignInBloc>(context).add(
+                        SignInTextChangedEvent(
+                          emailValue: _email.text,
+                          passwordValue: _password.text,
+                        ),
+                      );
+                    },
+                    controller: _email,
+                    cursorColor: black,
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      border: InputBorder.none,
+                      errorText: (state is SignInErrorState)
+                          ? state.errorMessage
+                          : null,
+                    ),
+                  );
+                }),
                 SizedBox(
                   height: 2.5.h,
                 ),
-                TextFormField(
-                  controller: _email,
-                  cursorColor: black,
-                  decoration: const InputDecoration(
-                    hintText: 'Email',
-                    border: InputBorder.none,
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty ||
-                        !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,5}')
-                            .hasMatch(value)) {
-                      return "Enter correct email";
-                    } else {
-                      return null;
-                    }
+                BlocBuilder<SignInBloc, SignInState>(
+                  builder: (context, state) {
+                    //Specifying UI based on events
+                    return TextFormField(
+                      //Firing Event
+                      onChanged: (val) {
+                        BlocProvider.of<SignInBloc>(context).add(
+                          SignInTextChangedEvent(
+                            emailValue: _email.text,
+                            passwordValue: _password.text,
+                          ),
+                        );
+                      },
+                      controller: _password,
+                      cursorColor: black,
+                      decoration: InputDecoration(
+                        hintText: 'Password',
+                        border: InputBorder.none,
+                        errorText: (state is SignInErrorState)
+                            ? state.errorMessage
+                            : null,
+                      ),
+                    );
                   },
                 ),
                 SizedBox(
                   height: 3.h,
                 ),
-                BlueButton(text: 'Sign In', onTap: () {}),
+                BlocBuilder<SignInBloc, SignInState>(
+                  builder: (context, state) {
+                    if (state is SignInSubmittedState) {
+                      Navigator.pushNamed(context, '/home_screen');
+                    }
+                    return BlueButton(
+                        text: 'Sign In',
+                        onTap: () {
+                          if (state is SignInValidState) {
+                            BlocProvider.of<SignInBloc>(context).add(
+                              SignInSubmittedEvent(
+                                email: _email.text,
+                                password: _password.text,
+                              ),
+                            );
+                          }
+                        });
+                  },
+                ),
                 SizedBox(
                   height: 4.h,
                 ),
