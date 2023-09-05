@@ -5,9 +5,15 @@ class SignInInitialState extends SignInState {}
 
 class SignInValidState extends SignInState {}
 
-class SignInErrorState extends SignInState {
+class SignInEmailErrorState extends SignInState {
   final String errorMessage;
-  SignInErrorState(
+  SignInEmailErrorState(
+    this.errorMessage,
+  );
+}
+class SignInPasswordErrorState extends SignInState {
+  final String errorMessage;
+  SignInPasswordErrorState(
     this.errorMessage,
   );
 }

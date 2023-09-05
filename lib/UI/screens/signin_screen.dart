@@ -71,9 +71,8 @@ class SignInScreen extends StatelessWidget {
                   return TextFormField(
                     onChanged: (val) {
                       BlocProvider.of<SignInBloc>(context).add(
-                        SignInTextChangedEvent(
+                        SignInEmailChangedEvent(
                           emailValue: _email.text,
-                          passwordValue: _password.text,
                         ),
                       );
                     },
@@ -82,7 +81,7 @@ class SignInScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: 'Email',
                       border: InputBorder.none,
-                      errorText: (state is SignInErrorState)
+                      errorText: (state is SignInEmailErrorState)
                           ? state.errorMessage
                           : null,
                     ),
@@ -98,8 +97,7 @@ class SignInScreen extends StatelessWidget {
                       //Firing Event
                       onChanged: (val) {
                         BlocProvider.of<SignInBloc>(context).add(
-                          SignInTextChangedEvent(
-                            emailValue: _email.text,
+                          SignInPasswordChangedEvent(
                             passwordValue: _password.text,
                           ),
                         );
@@ -109,7 +107,7 @@ class SignInScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         hintText: 'Password',
                         border: InputBorder.none,
-                        errorText: (state is SignInErrorState)
+                        errorText: (state is SignInPasswordErrorState)
                             ? state.errorMessage
                             : null,
                       ),
@@ -119,24 +117,28 @@ class SignInScreen extends StatelessWidget {
                 SizedBox(
                   height: 3.h,
                 ),
-                BlocBuilder<SignInBloc, SignInState>(
-                  builder: (context, state) {
+                BlocListener<SignInBloc, SignInState>(
+                  listener: (context, state) {
                     if (state is SignInSubmittedState) {
                       Navigator.pushNamed(context, '/home_screen');
                     }
-                    return BlueButton(
-                        text: 'Sign In',
-                        onTap: () {
-                          if (state is SignInValidState) {
-                            BlocProvider.of<SignInBloc>(context).add(
-                              SignInSubmittedEvent(
-                                email: _email.text,
-                                password: _password.text,
-                              ),
-                            );
-                          }
-                        });
                   },
+                  child: BlocBuilder<SignInBloc, SignInState>(
+                    builder: (context, state) {
+                      return BlueButton(
+                          text: 'Sign In',
+                          onTap: () {
+                            if (state is SignInValidState) {
+                              BlocProvider.of<SignInBloc>(context).add(
+                                SignInSubmittedEvent(
+                                  email: _email.text,
+                                  password: _password.text,
+                                ),
+                              );
+                            }
+                          });
+                    },
+                  ),
                 ),
                 SizedBox(
                   height: 4.h,
