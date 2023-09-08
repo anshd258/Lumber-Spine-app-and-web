@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:data_hub/Middleware/bloc/sign_in/sign_in_bloc.dart';
-import 'package:data_hub/Middleware/bloc/sign_in/sign_in_event.dart';
+// import 'package:data_hub/Middleware/bloc/sign_in/sign_in_bloc.dart';
+// import 'package:data_hub/Middleware/bloc/sign_in/sign_in_event.dart';
 import 'package:data_hub/Middleware/bloc/sign_up/sign_up_bloc.dart';
 import 'package:data_hub/Middleware/bloc/sign_up/sign_up_events.dart';
 import 'package:data_hub/Middleware/bloc/sign_up/sign_up_states.dart';
@@ -187,7 +187,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 BlocListener<SignUpBloc, SignUpState>(
                   listener: (context, state) {
-                    
                     if (state is OTPSentState) {
                       EmailOTP au=state.myAuth;
                       Navigator.push(

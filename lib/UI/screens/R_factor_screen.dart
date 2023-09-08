@@ -184,7 +184,11 @@ class RFactorScreen extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              BlueButton(text: 'Proceed', onTap: () {})
+              BlueButton(
+                  text: 'Proceed',
+                  onTap: () {
+                    Navigator.pushNamed(context, '/graph_screen');
+                  })
             ],
           ),
         ),

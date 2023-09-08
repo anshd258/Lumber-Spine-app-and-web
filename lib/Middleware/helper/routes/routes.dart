@@ -4,8 +4,8 @@ import 'package:data_hub/UI/screens/R_factor_screen.dart';
 import 'package:data_hub/UI/screens/about_screen.dart';
 import 'package:data_hub/UI/screens/analyze_screen.dart';
 import 'package:data_hub/UI/screens/checklist_screen.dart';
+import 'package:data_hub/UI/screens/graph_screen.dart';
 import 'package:data_hub/UI/screens/home_screen.dart';
-import 'package:data_hub/UI/screens/otp_screen.dart';
 import 'package:data_hub/UI/screens/registration_completed_screen.dart';
 import 'package:data_hub/UI/screens/sign_up.dart';
 import 'package:data_hub/UI/screens/splash_screen.dart';
@@ -25,7 +25,7 @@ var routes = <String, WidgetBuilder>{
 
   '/signup_screen': (context) => BlocProvider(
         create: (context) => SignUpBloc(),
-        child: SignUpScreen(),
+        child: const SignUpScreen(),
       ),
 
   // '/otp_screen': (context) => OTPScreen(),
@@ -44,4 +44,6 @@ var routes = <String, WidgetBuilder>{
   '/checklist_screen': (context) => const ChecklistScreen(),
 
   '/R_factor_screen': (context) => RFactorScreen(),
+
+  '/graph_screen': (context) => const GraphScreen(),
 };
