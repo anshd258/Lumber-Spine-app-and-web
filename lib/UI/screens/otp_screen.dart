@@ -1,9 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:data_hub/Middleware/bloc/OTP/OTP_bloc.dart';
+import 'package:data_hub/Middleware/bloc/OTP/OTP_events.dart';
+import 'package:data_hub/Middleware/bloc/OTP/OTP_states.dart';
 import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -22,20 +26,20 @@ class _OTPScreenState extends State<OTPScreen> {
   var verNumber = '';
   TextEditingController pinCodeController = TextEditingController();
 
-  void verifyOTP() async {
-    if (await widget.myauth.verifyOTP(otp: pinCodeController.text) == true) {
-      const snackBar = SnackBar(
-        content: Text("OTP is verified"),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      Navigator.pushNamed(context, '/country_screen');
-    } else {
-      const snackBar = SnackBar(
-        content: Text("Invalid OTP"),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-  }
+  // void verifyOTP() async {
+  //   if (await widget.myauth.verifyOTP(otp: pinCodeController.text) == true) {
+  //     const snackBar = SnackBar(
+  //       content: Text("OTP is verified"),
+  //     );
+  //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //     Navigator.pushNamed(context, '/country_screen');
+  //   } else {
+  //     const snackBar = SnackBar(
+  //       content: Text("Invalid OTP"),
+  //     );
+  //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -137,11 +141,23 @@ class _OTPScreenState extends State<OTPScreen> {
               SizedBox(
                 height: 8.h,
               ),
-              BlueButton(
-                  text: 'Confirm',
-                  onTap: () {
-                    verifyOTP();
-                  })
+              BlocConsumer<OTPBloc, OTPState>(
+                listener: (context, state) {
+                  if (state is OTPVerifiedState) {
+                    Navigator.pushNamed(context, '/country_screen');
+                  }
+                },
+                builder: (context, state) {
+                  return BlueButton(
+                      text: 'Confirm',
+                      onTap: () {
+                        // verifyOTP();
+                        BlocProvider.of<OTPBloc>(context).add(
+                          OTPVerifyEvent(otp: pinCodeController.text, myAuth: widget.myauth)
+                        );
+                      });
+                },
+              )
             ],
           ),
         ),
