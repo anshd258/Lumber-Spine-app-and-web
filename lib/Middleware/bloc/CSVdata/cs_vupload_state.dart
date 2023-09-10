@@ -1,0 +1,9 @@
+part of 'cs_vupload_cubit.dart';
+
+@immutable
+abstract class CsVuploadState {}
+
+class CsVuploadInitial extends CsVuploadState {}
+class CsVuploadUploading extends CsVuploadState {}
+class CsVuploadDataRecieve extends CsVuploadState {}
+class CsVuploadError extends CsVuploadState {}

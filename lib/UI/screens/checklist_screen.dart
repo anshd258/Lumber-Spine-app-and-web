@@ -1,3 +1,4 @@
+import 'package:data_hub/Middleware/constants/util.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,26 +42,12 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: appBar2,
         body: Padding(
-          padding: EdgeInsets.all(15.sp),
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
           child: Column(
             children: [
-              Row(
-                children: [
-                  const MyBackButton(),
-                  SizedBox(
-                    width: 26.w,
-                  ),
-                  Text(
-                    'Analyze',
-                    style: GoogleFonts.roboto(
-                      color: blue,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
-              ),
               SizedBox(
                 height: 2.h,
               ),
@@ -76,110 +63,115 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
                 height: 2.h,
               ),
               Container(
-                height: 74.5.h,
+                height: 73.h,
                 width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.sp),
                   border: Border.all(color: black),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.all(15.sp),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Checklist',
-                            style: GoogleFonts.roboto(
-                              color: blue,
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Spacer(),
-                          Container(
-                            height: 4.h,
-                            width: 10.w,
-                            decoration: BoxDecoration(
-                              color: blue,
-                              borderRadius: BorderRadius.circular(12.sp),
-                            ),
-                            child: Icon(
-                              Icons.refresh,
-                              color: whiteText,
-                              size: 20.sp,
-                            ),
-                          )
-                        ],
-                      ),
-                      const HeadingRow(title: 'Posture'),
-                      ...checkBoxList1.map((item) {
-                        return Column(
+                child: Center(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
                           children: [
-                            Row(
-                              children: [
-                                Checkbox(
-                                  value: item.value,
-                                  onChanged: (value) => onAllClicked(item),
-                                ),
-                                Text(
-                                  item.title,
-                                  style: GoogleFonts.roboto(fontSize: 15.sp),
-                                ),
-                              ],
+                            Text(
+                              'Checklist',
+                              style: GoogleFonts.roboto(
+                                color: blue,
+                                fontSize: 17.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
+                            const Spacer(),
+                            Container(
+                              height: 4.h,
+                              width: 10.w,
+                              decoration: BoxDecoration(
+                                color: blue,
+                                borderRadius: BorderRadius.circular(12.sp),
+                              ),
+                              child: Icon(
+                                Icons.refresh,
+                                color: whiteText,
+                                size: 20.sp,
+                              ),
+                            )
                           ],
-                        );
-                      }),
-                      const HeadingRow(title: 'Weighted Posture'),
-                      ...checkBoxList2.map((item) {
-                        return Column(
-                          children: [
-                            Row(
-                              children: [
-                                Checkbox(
-                                  value: item.value,
-                                  onChanged: (value) => onAllClicked(item),
-                                ),
-                                Text(
-                                  item.title,
-                                  style: GoogleFonts.roboto(fontSize: 15.sp),
-                                ),
-                              ],
-                            ),
-                          ],
-                        );
-                      }),
-                      const HeadingRow(title: 'aL'),
-                      ...checkBoxList3.map((item) {
-                        return Column(
-                          children: [
-                            Row(
-                              children: [
-                                Checkbox(
-                                  value: item.value,
-                                  onChanged: (value) => onAllClicked(item),
-                                ),
-                                Text(
-                                  item.title,
-                                  style: GoogleFonts.roboto(fontSize: 15.sp),
-                                ),
-                              ],
-                            ),
-                          ],
-                        );
-                      }),
-                    ],
+                        ),
+                        const HeadingRow(title: 'Posture'),
+                        ...checkBoxList1.map((item) {
+                          return Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: item.value,
+                                    onChanged: (value) => onAllClicked(item),
+                                  ),
+                                  Text(
+                                    item.title,
+                                    style: GoogleFonts.roboto(fontSize: 15.sp),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        }),
+                        const HeadingRow(title: 'Weighted Posture'),
+                        ...checkBoxList2.map((item) {
+                          return Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: item.value,
+                                    onChanged: (value) => onAllClicked(item),
+                                  ),
+                                  Text(
+                                    item.title,
+                                    style: GoogleFonts.roboto(fontSize: 15.sp),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        }),
+                        const HeadingRow(title: 'aL'),
+                        ...checkBoxList3.map((item) {
+                          return Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: item.value,
+                                    onChanged: (value) => onAllClicked(item),
+                                  ),
+                                  Text(
+                                    item.title,
+                                    style: GoogleFonts.roboto(fontSize: 15.sp),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        }),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              const Spacer(),
-              BlueButton(
-                text: 'Next',
-                onTap: () {
-                  Navigator.pushNamed(context, '/R_factor_screen');
-                },
+              Padding(
+                padding: EdgeInsets.only(top: 1.h),
+                child: BlueButton(
+                  text: 'Next',
+                  onTap: () {
+                    Navigator.pushNamed(context, '/R_factor_screen');
+                  },
+                ),
               ),
             ],
           ),

@@ -13,8 +13,9 @@ class MyBackButton extends StatelessWidget {
         Navigator.pop(context);
       },
       child: Container(
-        height: 5.h,
-        width: 11.1.w,
+        height: 4.h,
+        width: 10.w,
+        margin: EdgeInsets.only(left: 2.w, bottom: 0.5.h, top: 0.5.h),
         decoration: BoxDecoration(
           border: Border.all(color: lighterGrey),
           borderRadius: BorderRadius.circular(12),
