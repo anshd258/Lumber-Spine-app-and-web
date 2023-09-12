@@ -1,8 +1,10 @@
-import 'package:data_hub/UI/widgets/appbar.dart';
-import 'package:data_hub/UI/widgets/blue_button.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import 'package:data_hub/UI/widgets/appbar.dart';
+import 'package:data_hub/UI/widgets/blue_button.dart';
 
 import '../../Middleware/constants/colors.dart';
 
@@ -11,8 +13,58 @@ class TdTmScreen extends StatelessWidget {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String text =
+  final String text =
       'for ex. Assume that the record of the acceleration time history is representative of the conditions to which the driver is subjected, and that the exposure lasts, on the average, a period of 30 min per workday.';
+
+  void showSelectDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Padding(
+            padding: EdgeInsets.all(16.sp),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/graph_screen');
+                  },
+                  child: const Options(
+                    text1: 'Static Compression',
+                    text2: 'SE',
+                  ),
+                ),
+                SizedBox(height: 3.h),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/R_factor_screen');
+                  },
+                  child: const Options(
+                    text1: 'Static Compression Dose',
+                    text2: 'SED',
+                  ),
+                ),
+                SizedBox(height: 3.h),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/R_factor_screen');
+                  },
+                  child: const Options(
+                    text1: '',
+                    text2: 'Both',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +228,8 @@ class TdTmScreen extends StatelessWidget {
                   child: BlueButton(
                       text: 'Proceed',
                       onTap: () {
-                        Navigator.pushNamed(context, '/R_factor_screen');
+                        // Navigator.pushNamed(context, '/R_factor_screen');
+                        showSelectDialog(context);
                       }),
                 )
               ],
@@ -198,6 +251,51 @@ class TdTmScreen extends StatelessWidget {
       focusedBorder: UnderlineInputBorder(
         borderSide: BorderSide(color: whiteText),
       ),
+    );
+  }
+}
+
+class Options extends StatelessWidget {
+  final String text1;
+  final String text2;
+  const Options({
+    Key? key,
+    required this.text1,
+    required this.text2,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.sp),
+      height: 6.h,
+      width: 50.w,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20.sp),
+        border: Border.all(color: Colors.transparent),
+      ),
+      child: text1 != ''
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  text1,
+                  style: GoogleFonts.roboto(fontStyle: FontStyle.italic),
+                ),
+                Text(
+                  text2,
+                  style: GoogleFonts.roboto(color: Colors.red),
+                ),
+              ],
+            )
+          : Center(
+              child: Text(
+                text2,
+                style: GoogleFonts.roboto(color: Colors.red),
+              ),
+            ),
     );
   }
 }
