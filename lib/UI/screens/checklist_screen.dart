@@ -1,11 +1,10 @@
-import 'package:data_hub/Middleware/constants/util.dart';
+import 'package:data_hub/UI/widgets/appbar.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Middleware/constants/colors.dart';
-import '../widgets/back_button.dart';
 
 class ChecklistScreen extends StatefulWidget {
   const ChecklistScreen({super.key});
@@ -43,7 +42,10 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: appBar2,
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: Appbar1(title: 'Analyze'),
+        ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 5.w),
           child: Column(
@@ -169,7 +171,7 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
                 child: BlueButton(
                   text: 'Next',
                   onTap: () {
-                    Navigator.pushNamed(context, '/R_factor_screen');
+                    Navigator.pushNamed(context, '/td_tm_screen');
                   },
                 ),
               ),

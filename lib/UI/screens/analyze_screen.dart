@@ -1,4 +1,4 @@
-import 'package:data_hub/UI/widgets/back_button.dart';
+import 'package:data_hub/UI/widgets/appbar.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -118,29 +118,14 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: Appbar1(title: 'Analyze'),
+        ),
         body: Padding(
-          padding: EdgeInsets.all(15.sp),
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
           child: Column(
             children: [
-              SizedBox(
-                height: 1.h,
-              ),
-              Row(
-                children: [
-                  const MyBackButton(),
-                  SizedBox(
-                    width: 23.w,
-                  ),
-                  Text(
-                    'Analyze',
-                    style: GoogleFonts.roboto(
-                      color: blue,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
-              ),
               SizedBox(
                 height: 4.h,
               ),

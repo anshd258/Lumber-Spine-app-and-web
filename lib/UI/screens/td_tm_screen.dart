@@ -6,10 +6,13 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Middleware/constants/colors.dart';
 
-class RFactorScreen extends StatelessWidget {
-  RFactorScreen({super.key});
+class TdTmScreen extends StatelessWidget {
+  TdTmScreen({super.key});
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  String text =
+      'for ex. Assume that the record of the acceleration time history is representative of the conditions to which the driver is subjected, and that the exposure lasts, on the average, a period of 30 min per workday.';
 
   @override
   Widget build(BuildContext context) {
@@ -120,53 +123,44 @@ class RFactorScreen extends StatelessWidget {
                               padding: EdgeInsets.all(12.sp),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const TextRow(variable: 'N', value: '100'),
-                                  TextFormField(
-                                    style: GoogleFonts.roboto(color: whiteText),
-                                    cursorColor: whiteText,
-                                    decoration: textFieldDecoration(
-                                        '(the number of exposure days per year)'),
+                                  const TextRow(variable: 'TD', value: '100'),
+                                  SizedBox(height: 1.h),
+                                  Text(
+                                    'is the duration of the daily exposure',
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 14.sp,
+                                      color: const Color.fromARGB(
+                                          188, 255, 255, 255),
+                                      fontStyle: FontStyle.italic,
+                                    ),
                                   ),
                                   SizedBox(height: 1.h),
-                                  const TextRow(variable: 'i', value: '3'),
+                                  TextRow2(variable: text, value: '30'),
                                   TextFormField(
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
-                                    decoration:
-                                        textFieldDecoration('(year counter)'),
+                                    decoration: textFieldDecoration('Enter TD'),
+                                  ),
+                                  SizedBox(height: 3.h),
+                                  const TextRow(variable: 'Tm', value: '100'),
+                                  Text(
+                                    'is the duration of the daily exposure',
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 14.sp,
+                                      color: const Color.fromARGB(
+                                          188, 255, 255, 255),
+                                      fontStyle: FontStyle.italic,
+                                    ),
                                   ),
                                   SizedBox(height: 1.h),
-                                  const TextRow(variable: 'n', value: '100'),
+                                  TextRow2(variable: text, value: '30'),
                                   TextFormField(
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
-                                    decoration: textFieldDecoration(
-                                        '(the number of years of exposure)'),
-                                  ),
-                                  SizedBox(height: 1.h),
-                                  const TextRow(variable: 'C', value: '100'),
-                                  TextFormField(
-                                    style: GoogleFonts.roboto(color: whiteText),
-                                    cursorColor: whiteText,
-                                    decoration: textFieldDecoration(
-                                        '(constant representing the static stress due to gravitational force)'),
-                                  ),
-                                  SizedBox(height: 1.h),
-                                  const TextRow(variable: 'Sui', value: '3'),
-                                  TextFormField(
-                                    style: GoogleFonts.roboto(color: whiteText),
-                                    cursorColor: whiteText,
-                                    decoration: textFieldDecoration(
-                                        '(the strength of the lumbar spine for a person of age (b+i) years)'),
-                                  ),
-                                  SizedBox(height: 1.h),
-                                  const TextRow(variable: 'b', value: '3'),
-                                  TextFormField(
-                                    style: GoogleFonts.roboto(color: whiteText),
-                                    cursorColor: whiteText,
-                                    decoration: textFieldDecoration(
-                                        '(age at which the exposure starts)'),
+                                    decoration: textFieldDecoration('Enter Tm'),
                                   ),
                                 ],
                               ),
@@ -182,7 +176,7 @@ class RFactorScreen extends StatelessWidget {
                   child: BlueButton(
                       text: 'Proceed',
                       onTap: () {
-                        Navigator.pushNamed(context, '/graph_screen');
+                        Navigator.pushNamed(context, '/R_factor_screen');
                       }),
                 )
               ],
@@ -229,11 +223,63 @@ class TextRow extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Text(
-          value,
-          style: GoogleFonts.roboto(
-            color: whiteText,
-            fontSize: 16.sp,
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.sp),
+            border: Border.all(color: Colors.white),
+          ),
+          child: Text(
+            value,
+            style: GoogleFonts.roboto(
+              color: whiteText,
+              fontSize: 16.sp,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class TextRow2 extends StatelessWidget {
+  final String variable;
+  final String value;
+  const TextRow2({
+    super.key,
+    required this.variable,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 60.w,
+          child: Text(
+            variable,
+            maxLines: 5,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.roboto(
+              color: const Color.fromARGB(188, 255, 255, 255),
+              fontSize: 13.sp,
+            ),
+          ),
+        ),
+        const Spacer(),
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.sp),
+            border: Border.all(color: Colors.white),
+          ),
+          child: Text(
+            value,
+            style: GoogleFonts.roboto(
+              color: whiteText,
+              fontSize: 16.sp,
+            ),
           ),
         )
       ],
