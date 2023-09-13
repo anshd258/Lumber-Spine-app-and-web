@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -20,45 +22,48 @@ class TdTmScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Dialog(
-          backgroundColor: Colors.transparent,
-          child: Padding(
-            padding: EdgeInsets.all(16.sp),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/graph_screen');
-                  },
-                  child: const Options(
-                    text1: 'Static Compression',
-                    text2: 'SE',
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+          child: Dialog(
+            backgroundColor: Colors.transparent,
+            child: Padding(
+              padding: EdgeInsets.all(16.sp),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/graph_screen');
+                    },
+                    child: const Options(
+                      text1: 'Static Compression',
+                      text2: 'SE',
+                    ),
                   ),
-                ),
-                SizedBox(height: 3.h),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/R_factor_screen');
-                  },
-                  child: const Options(
-                    text1: 'Static Compression Dose',
-                    text2: 'SED',
+                  SizedBox(height: 3.h),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/R_factor_screen');
+                    },
+                    child: const Options(
+                      text1: 'Static Compression Dose',
+                      text2: 'SED',
+                    ),
                   ),
-                ),
-                SizedBox(height: 3.h),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/R_factor_screen');
-                  },
-                  child: const Options(
-                    text1: '',
-                    text2: 'Both',
+                  SizedBox(height: 3.h),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/R_factor_screen');
+                    },
+                    child: const Options(
+                      text1: '',
+                      text2: 'Both',
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
