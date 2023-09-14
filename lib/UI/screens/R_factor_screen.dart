@@ -1,11 +1,13 @@
+import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
+import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
 import 'package:data_hub/Middleware/constants/util.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Middleware/constants/colors.dart';
-import '../widgets/back_button.dart';
 
 class RFactorScreen extends StatelessWidget {
   RFactorScreen({super.key});
@@ -174,13 +176,27 @@ class RFactorScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 12),
-                  child: BlueButton(
-                      text: 'Proceed',
-                      onTap: () {
-                        Navigator.pushNamed(context, '/graph_screen');
-                      }),
+                BlocConsumer<GetcsvCubit, GetcsvState>(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    if (state is GetcsvLoaded) {
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: BlueButton(
+                            text: 'Proceed',
+                            onTap: () {
+                              context
+                                  .read<CsVuploadCubit>()
+                                  .uploadFile(state.file, {"data": ""});
+                              Navigator.pushNamed(context, '/graph_screen');
+                            }),
+                      );
+                    } else {
+                      return Center();
+                    }
+                  },
                 )
               ],
             ),

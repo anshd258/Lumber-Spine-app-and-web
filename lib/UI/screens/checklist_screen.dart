@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Middleware/constants/colors.dart';
-import '../widgets/back_button.dart';
 
 class ChecklistScreen extends StatefulWidget {
   const ChecklistScreen({super.key});
@@ -169,6 +168,7 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
                 child: BlueButton(
                   text: 'Next',
                   onTap: () {
+                    
                     Navigator.pushNamed(context, '/R_factor_screen');
                   },
                 ),

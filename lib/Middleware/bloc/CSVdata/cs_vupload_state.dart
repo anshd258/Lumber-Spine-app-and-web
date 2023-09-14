@@ -4,6 +4,12 @@ part of 'cs_vupload_cubit.dart';
 abstract class CsVuploadState {}
 
 class CsVuploadInitial extends CsVuploadState {}
+
 class CsVuploadUploading extends CsVuploadState {}
-class CsVuploadDataRecieve extends CsVuploadState {}
+
+class CsVuploadDataRecieve extends CsVuploadState {
+  ResponseGraphModal data;
+  CsVuploadDataRecieve({required this.data});
+}
+
 class CsVuploadError extends CsVuploadState {}

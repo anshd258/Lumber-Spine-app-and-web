@@ -1,7 +1,8 @@
+import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
 import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -19,22 +20,6 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
       'the person subjected to the vibration is seated in an upright position and does not voluntarily rise from the seat during the exposure. Different postures can result in different responses in the spine.';
 
   String finalFilePath = '';
-
-  Future<void> _handleFileUpload() async {
-    FilePickerResult? result = await FilePicker.platform
-        .pickFiles(type: FileType.custom, allowedExtensions: ['csv']);
-
-    if (result != null) {
-      String? filePath = result.files.single.path;
-      if (filePath != null) {
-        setState(() {
-          finalFilePath = filePath;
-          print('::::::::::::::::::::');
-          print(finalFilePath);
-        });
-      }
-    }
-  }
 
   void showUploadDialog(BuildContext context) {
     showDialog(
@@ -86,7 +71,7 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        _handleFileUpload();
+                        context.read<GetcsvCubit>().getFile();
                       },
                       child: Container(
                         height: 3.5.h,
@@ -101,11 +86,31 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
                   ],
                 ),
                 SizedBox(height: 8.h),
-                BlueButton(
-                    text: 'Proceed',
-                    onTap: () {
-                      Navigator.pushNamed(context, '/checklist_screen');
-                    })
+                BlocBuilder<GetcsvCubit, GetcsvState>(
+                  builder: (context, state) {
+                    if (state is GetcsvLoading) {
+                      return Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      );
+                    } else if (state is GetcsvLoaded) {
+                      return BlueButton(
+                          text: 'Proceed',
+                          onTap: () {
+                            Navigator.pushNamed(context, '/checklist_screen');
+                          });
+                    } else if (state is GetcsvError) {
+                      return Center(
+                        child: Icon(
+                          Icons.error_outline_rounded,
+                          color: Colors.redAccent.shade400,
+                          size: 50,
+                        ),
+                      );
+                    } else {
+                      return Center();
+                    }
+                  },
+                )
               ],
             ),
           ),
