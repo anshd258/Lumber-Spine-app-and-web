@@ -1,6 +1,7 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/UI/Graphs/SplineGraph.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -32,7 +33,10 @@ class _GraphScreenState extends State<GraphScreen> {
                 );
               } else if (state is CsVuploadUploading) {
                 return Center(
-                  child: CircularProgressIndicator.adaptive(),
+                  child: LoadingAnimationWidget.newtonCradle(
+                    color: Colors.white,
+                    size: 200,
+                  ),
                 );
               } else if (state is CsVuploadDataRecieve) {
                 return SingleChildScrollView(

@@ -47,7 +47,7 @@ class CsVuploadCubit extends Cubit<CsVuploadState> {
         );
       }
     } catch (e) {
-      emit(CsVuploadError());
+      //emit(CsVuploadError());
     }
   }
 }
