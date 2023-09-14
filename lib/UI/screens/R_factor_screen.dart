@@ -1,6 +1,7 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
-import 'package:data_hub/Middleware/constants/util.dart';
+import 'package:data_hub/UI/widgets/appbar.dart';
+
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +20,10 @@ class RFactorScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: appBar2,
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: Appbar1(title: 'Analyze'),
+        ),
         body: Container(
           height: 800,
           padding: EdgeInsets.symmetric(horizontal: 15.sp),
@@ -91,6 +95,7 @@ class RFactorScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
+                                const Spacer(),
                                 Text(
                                   'Value',
                                   style: GoogleFonts.roboto(
