@@ -15,7 +15,7 @@ class RFactorScreen extends StatelessWidget {
   RFactorScreen({super.key});
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  final TextEditingController N = TextEditingController();
   final TextEditingController n = TextEditingController();
   final TextEditingController i = TextEditingController();
   final TextEditingController c = TextEditingController();
@@ -134,7 +134,7 @@ class RFactorScreen extends StatelessWidget {
                                 children: [
                                   const TextRow(variable: 'N', value: '100'),
                                   TextFormField(
-                                    controller: n,
+                                    controller: N,
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
                                     decoration: textFieldDecoration(
@@ -246,11 +246,11 @@ class RFactorScreen extends StatelessWidget {
                                   .uploadFile(value.file, {
                                 "tm": temp.tm!,
                                 "td": temp.td!,
-                                "N": ,
-                                "i": ,
-                                "n": ,
-                                "c": ,
-                                "b": 
+                                "N": N.text,
+                                "i": i.text,
+                                "n": n.text,
+                                "c": c.text,
+                                "b": b.text
                               });
                               Navigator.pushNamed(context, '/graph_screen');
                             }),

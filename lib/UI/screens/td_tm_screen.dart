@@ -252,7 +252,7 @@ class TdTmScreen extends StatelessWidget {
                   child: BlueButton(
                       text: 'Proceed',
                       onTap: () {
-                        context.read<DataCubitCubit>().getTdTm(td, tm);
+                        context.read<DataCubitCubit>().getTdTm(_td.text, _tm.text);
                         Navigator.pushNamed(context, '/R_factor_screen');
                         // showSelectDialog(context);
                       }),

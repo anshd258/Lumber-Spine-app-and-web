@@ -14,21 +14,11 @@ class CsVuploadCubit extends Cubit<CsVuploadState> {
   CsVuploadCubit() : super(CsVuploadInitial());
 
   void uploadFile(File csv, Map<String, String> data) async {
-   
     emit(CsVuploadUploading());
 
-   
-    var request = http.MultipartRequest(
-        'POST', Uri.parse(baseUrl + uploadPath));
-    request.fields.addAll({
-      'tm': '0.017252778',
-      'td': '8',
-      'N': '100',
-      'i': '3',
-      'n': '5',
-      'c': '0.25',
-      'b': '25'
-    });
+    var request =
+        http.MultipartRequest('POST', Uri.parse(baseUrl + uploadPath));
+    request.fields.addAll(data);
     request.files.add(await http.MultipartFile.fromPath('file', csv.path));
 
     http.StreamedResponse response = await request.send();
