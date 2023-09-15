@@ -15,6 +15,12 @@ class RFactorScreen extends StatelessWidget {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  final TextEditingController n = TextEditingController();
+  final TextEditingController i = TextEditingController();
+  final TextEditingController c = TextEditingController();
+  final TextEditingController sui = TextEditingController();
+  final TextEditingController b = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -127,50 +133,92 @@ class RFactorScreen extends StatelessWidget {
                                 children: [
                                   const TextRow(variable: 'N', value: '100'),
                                   TextFormField(
+                                    controller: n,
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
                                     decoration: textFieldDecoration(
                                         '(the number of exposure days per year)'),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'Can\'t be empty';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                   SizedBox(height: 1.h),
                                   const TextRow(variable: 'i', value: '3'),
                                   TextFormField(
+                                    controller: i,
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
                                     decoration:
                                         textFieldDecoration('(year counter)'),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'Can\'t be empty';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                   SizedBox(height: 1.h),
                                   const TextRow(variable: 'n', value: '100'),
                                   TextFormField(
+                                    controller: n,
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
                                     decoration: textFieldDecoration(
                                         '(the number of years of exposure)'),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'Can\'t be empty';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                   SizedBox(height: 1.h),
                                   const TextRow(variable: 'C', value: '100'),
                                   TextFormField(
+                                    controller: c,
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
                                     decoration: textFieldDecoration(
                                         '(constant representing the static stress due to gravitational force)'),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'Can\'t be empty';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                   SizedBox(height: 1.h),
                                   const TextRow(variable: 'Sui', value: '3'),
                                   TextFormField(
+                                    controller: sui,
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
                                     decoration: textFieldDecoration(
                                         '(the strength of the lumbar spine for a person of age (b+i) years)'),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'Can\'t be empty';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                   SizedBox(height: 1.h),
                                   const TextRow(variable: 'b', value: '3'),
                                   TextFormField(
+                                    controller: b,
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
                                     decoration: textFieldDecoration(
                                         '(age at which the exposure starts)'),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'Can\'t be empty';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                 ],
                               ),
@@ -195,7 +243,6 @@ class RFactorScreen extends StatelessWidget {
                               context
                                   .read<CsVuploadCubit>()
                                   .uploadFile(state.file, {
-                             
                                 "tm": "0.017252778",
                                 "td": "8",
                                 "N": "100",
