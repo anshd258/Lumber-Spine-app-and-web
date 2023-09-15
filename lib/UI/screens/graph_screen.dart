@@ -46,7 +46,7 @@ class _GraphScreenState extends State<GraphScreen> {
                     children: [
                       MyNeumorCont(
                         data: state.data.data!.rawPeakX!,
-                        xtitle: "Time",
+                        xtitle: "Time (s)",
                         ytitle: "Xraw 318",
                         gradientColor: Colors.blueAccent.shade400,
                         isShowingMainData: true,
@@ -59,7 +59,7 @@ class _GraphScreenState extends State<GraphScreen> {
                       ),
                       MyNeumorCont(
                         data: state.data.data!.rawPeakY!,
-                        xtitle: "Time",
+                        xtitle: "Time (s)",
                         ytitle: "Yraw 318",
                         gradientColor: Colors.greenAccent.shade400,
                         isShowingMainData: true,
@@ -72,7 +72,7 @@ class _GraphScreenState extends State<GraphScreen> {
                       ),
                       MyNeumorCont(
                         data: state.data.data!.rawPeakZ!,
-                        xtitle: "Time",
+                        xtitle: "Time (s)",
                         ytitle: "Zraw 318",
                         gradientColor: Colors.redAccent.shade400,
                         isShowingMainData: true,

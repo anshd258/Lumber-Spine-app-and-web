@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:ui';
 
+import 'package:data_hub/Middleware/bloc/Variabledatabloc/data_cubit_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -233,6 +235,7 @@ class TdTmScreen extends StatelessWidget {
                   child: BlueButton(
                       text: 'Proceed',
                       onTap: () {
+                        context.read<DataCubitCubit>().getTdTm(td, tm);
                         Navigator.pushNamed(context, '/R_factor_screen');
                         // showSelectDialog(context);
                       }),

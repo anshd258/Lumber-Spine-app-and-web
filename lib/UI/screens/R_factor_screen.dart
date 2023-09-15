@@ -1,5 +1,6 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
+import 'package:data_hub/Middleware/bloc/Variabledatabloc/data_cubit_cubit.dart';
 import 'package:data_hub/UI/widgets/appbar.dart';
 
 import 'package:data_hub/UI/widgets/blue_button.dart';
@@ -181,12 +182,12 @@ class RFactorScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                BlocConsumer<GetcsvCubit, GetcsvState>(
-                  listener: (context, state) {
-                    // TODO: implement listener
-                  },
-                  builder: (context, state) {
-                    if (state is GetcsvLoaded) {
+                Builder(
+                  builder: (context) {
+                    var state = context.watch<CsVuploadCubit>().state;
+                    var temp = context.watch<DataCubitCubit>().state;
+                    if (state is GetcsvLoaded && temp is DataCubitupdated) {
+                      var value = state as GetcsvLoaded;
                       return Padding(
                         padding: const EdgeInsets.only(top: 12),
                         child: BlueButton(
@@ -194,15 +195,14 @@ class RFactorScreen extends StatelessWidget {
                             onTap: () {
                               context
                                   .read<CsVuploadCubit>()
-                                  .uploadFile(state.file, {
-                             
-                                "tm": "0.017252778",
-                                "td": "8",
-                                "N": "100",
-                                "i": "3",
-                                "n": "5",
-                                "c": "0.25",
-                                "b": "25"
+                                  .uploadFile(value.file, {
+                                "tm": temp.tm!,
+                                "td": temp.td!,
+                                "N": ,
+                                "i": ,
+                                "n": ,
+                                "c": ,
+                                "b": 
                               });
                               Navigator.pushNamed(context, '/graph_screen');
                             }),

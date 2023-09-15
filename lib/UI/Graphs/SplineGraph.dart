@@ -81,6 +81,7 @@ class _LineChartexpState extends State<LineChartexp> {
             isVisible: true,
             title: AxisTitle(
               text: widget.xtitle,
+              textStyle: GoogleFonts.roboto(fontSize: 15),
             ),
             axisLine: const AxisLine(width: 0),
             majorTickLines: const MajorTickLines(width: 0),
