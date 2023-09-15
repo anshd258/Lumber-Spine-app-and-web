@@ -20,6 +20,9 @@ class TdTmScreen extends StatelessWidget {
   final String text =
       'for ex. Assume that the record of the acceleration time history is representative of the conditions to which the driver is subjected, and that the exposure lasts, on the average, a period of 30 min per workday.';
 
+  TextEditingController _td = TextEditingController();
+  TextEditingController _tm = TextEditingController();
+
   void showSelectDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -199,9 +202,16 @@ class TdTmScreen extends StatelessWidget {
                                   SizedBox(height: 1.h),
                                   TextRow2(variable: text, value: '30'),
                                   TextFormField(
+                                    controller: _td,
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
                                     decoration: textFieldDecoration('Enter TD'),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'Can\'t be empty';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                   SizedBox(height: 3.h),
                                   const TextRow(variable: 'Tm', value: '100'),
@@ -217,9 +227,16 @@ class TdTmScreen extends StatelessWidget {
                                   SizedBox(height: 1.h),
                                   TextRow2(variable: text, value: '30'),
                                   TextFormField(
+                                    controller: _tm,
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
                                     decoration: textFieldDecoration('Enter Tm'),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'Can\'t be empty';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                 ],
                               ),
