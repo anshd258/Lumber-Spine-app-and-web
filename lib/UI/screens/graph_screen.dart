@@ -1,4 +1,5 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
+import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/UI/Graphs/SplineGraph.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -22,7 +23,7 @@ class _GraphScreenState extends State<GraphScreen> {
           child: BlocConsumer<CsVuploadCubit, CsVuploadState>(
             builder: (context, state) {
               if (state is CsVuploadInitial) {
-                return Center();
+                return const Center();
               } else if (state is CsVuploadError) {
                 return Center(
                   child: Icon(
@@ -34,7 +35,7 @@ class _GraphScreenState extends State<GraphScreen> {
               } else if (state is CsVuploadUploading) {
                 return Center(
                   child: LoadingAnimationWidget.newtonCradle(
-                    color: Colors.white,
+                    color: blue,
                     size: 200,
                   ),
                 );
@@ -76,7 +77,7 @@ class _GraphScreenState extends State<GraphScreen> {
                   ),
                 );
               } else {
-                return Center();
+                return const Center();
               }
             },
             listener: (context, state) {},

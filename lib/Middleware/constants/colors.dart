@@ -11,3 +11,7 @@ Color black = Colors.black;
 Color yellow = const Color.fromARGB(255, 234, 193, 16);
 Color red = const Color.fromARGB(255, 255, 81, 47);
 Color transBlack = const Color.fromARGB(120, 0, 0, 0);
+Color greenGradient = const Color.fromARGB(255, 29, 171, 135);
+Color orangeGradient = const Color.fromARGB(255, 255, 103, 73);
+Color redGradient = const Color.fromARGB(255, 234, 36, 39);
+Color blueGradient = const Color.fromARGB(255, 21, 25, 64);
