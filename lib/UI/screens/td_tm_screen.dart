@@ -233,8 +233,8 @@ class TdTmScreen extends StatelessWidget {
                   child: BlueButton(
                       text: 'Proceed',
                       onTap: () {
-                        // Navigator.pushNamed(context, '/R_factor_screen');
-                        showSelectDialog(context);
+                        Navigator.pushNamed(context, '/R_factor_screen');
+                        // showSelectDialog(context);
                       }),
                 )
               ],

@@ -194,7 +194,16 @@ class RFactorScreen extends StatelessWidget {
                             onTap: () {
                               context
                                   .read<CsVuploadCubit>()
-                                  .uploadFile(state.file, {"data": ""});
+                                  .uploadFile(state.file, {
+                             
+                                "tm": "0.017252778",
+                                "td": "8",
+                                "N": "100",
+                                "i": "3",
+                                "n": "5",
+                                "c": "0.25",
+                                "b": "25"
+                              });
                               Navigator.pushNamed(context, '/graph_screen');
                             }),
                       );

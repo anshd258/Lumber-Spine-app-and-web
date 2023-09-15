@@ -1,6 +1,7 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/UI/Graphs/SplineGraph.dart';
+import 'package:data_hub/UI/widgets/result.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +20,7 @@ class _GraphScreenState extends State<GraphScreen> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: EdgeInsets.all(15.sp),
+          padding: EdgeInsets.all(0.sp),
           child: BlocConsumer<CsVuploadCubit, CsVuploadState>(
             builder: (context, state) {
               if (state is CsVuploadInitial) {
@@ -44,34 +45,48 @@ class _GraphScreenState extends State<GraphScreen> {
                   child: Column(
                     children: [
                       MyNeumorCont(
-                        data: state.data.rawPeakX!,
+                        data: state.data.data!.rawPeakX!,
                         xtitle: "Time",
                         ytitle: "Xraw 318",
                         gradientColor: Colors.blueAccent.shade400,
                         isShowingMainData: true,
-                        max: state.data.rawPosX!,
-                        min: state.data.rawNegX!,
-                        time: state.data.rawTimeX!,
+                        max: state.data.data!.rawPosX!,
+                        min: state.data.data!.rawNegX!,
+                        time: state.data.data!.rawTimeX!,
+                      ),
+                      SizedBox(
+                        height: 2.h,
                       ),
                       MyNeumorCont(
-                        data: state.data.rawPeakY!,
+                        data: state.data.data!.rawPeakY!,
                         xtitle: "Time",
                         ytitle: "Yraw 318",
                         gradientColor: Colors.greenAccent.shade400,
                         isShowingMainData: true,
-                        max: state.data.rawPosY!,
-                        min: state.data.rawNegY!,
-                        time: state.data.rawTimeY!,
+                        max: state.data.data!.rawPosY!,
+                        min: state.data.data!.rawNegY!,
+                        time: state.data.data!.rawTimeY!,
+                      ),
+                      SizedBox(
+                        height: 2.h,
                       ),
                       MyNeumorCont(
-                        data: state.data.rawPeakZ!,
+                        data: state.data.data!.rawPeakZ!,
                         xtitle: "Time",
                         ytitle: "Zraw 318",
                         gradientColor: Colors.redAccent.shade400,
                         isShowingMainData: true,
-                        max: state.data.rawPosZ!,
-                        min: state.data.rawNegZ!,
-                        time: state.data.rawTimeZ!,
+                        max: state.data.data!.rawPosZ!,
+                        min: state.data.data!.rawNegZ!,
+                        time: state.data.data!.rawTimeZ!,
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Result(
+                            sed: state.data.data!.sed!, r: state.data.data!.r!),
                       ),
                     ],
                   ),
@@ -110,41 +125,15 @@ class MyNeumorCont extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(5.w),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.sp),
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color.fromARGB(255, 240, 238, 238),
-            Color.fromARGB(255, 222, 221, 221),
-          ],
-        ),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 8.sp,
-            offset: Offset(3.sp, 3.sp),
-            color: Colors.grey[200]!,
-          ),
-          BoxShadow(
-            blurRadius: 8.sp,
-            offset: -Offset(3.sp, 3.sp),
-            color: Colors.grey[500]!,
-          ),
-        ],
-      ),
-      child: LineChartexp(
-        data: data,
-        xtitle: xtitle,
-        ytitle: ytitle,
-        gradientColor: gradientColor,
-        isShowingMainData: true,
-        max: max,
-        min: min,
-        time: time,
-      ),
+    return LineChartexp(
+      data: data,
+      xtitle: xtitle,
+      ytitle: ytitle,
+      gradientColor: gradientColor,
+      isShowingMainData: true,
+      max: max,
+      min: min,
+      time: time,
     );
   }
 }

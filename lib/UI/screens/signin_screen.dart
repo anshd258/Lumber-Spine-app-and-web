@@ -120,7 +120,7 @@ class SignInScreen extends StatelessWidget {
                 BlocListener<SignInBloc, SignInState>(
                   listener: (context, state) {
                     if (state is SignInSubmittedState) {
-                      Navigator.pushNamed(context, '/result');
+                      Navigator.pushNamed(context, '/home_screen');
                     }
                   },
                   child: BlocBuilder<SignInBloc, SignInState>(

@@ -10,7 +10,6 @@ import 'package:data_hub/UI/screens/registration_completed_screen.dart';
 import 'package:data_hub/UI/screens/sign_up.dart';
 import 'package:data_hub/UI/screens/splash_screen.dart';
 import 'package:data_hub/UI/screens/td_tm_screen.dart';
-import 'package:data_hub/UI/widgets/result.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -50,6 +49,4 @@ var routes = <String, WidgetBuilder>{
   '/R_factor_screen': (context) => RFactorScreen(),
 
   '/graph_screen': (context) => const GraphScreen(),
-
-  '/result': (context) => const Result(),
 };

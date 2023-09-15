@@ -1,4 +1,22 @@
 class ResponseGraphModal {
+  Data? data;
+
+  ResponseGraphModal({this.data});
+
+  ResponseGraphModal.fromJson(Map<String, dynamic> json) {
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
+  }
+}
+
+class Data {
   double? r;
   double? rawMaxNeg;
   double? rawMaxPos;
@@ -17,7 +35,7 @@ class ResponseGraphModal {
   double? se;
   double? sed;
 
-  ResponseGraphModal(
+  Data(
       {this.r,
       this.rawMaxNeg,
       this.rawMaxPos,
@@ -36,7 +54,7 @@ class ResponseGraphModal {
       this.se,
       this.sed});
 
-  ResponseGraphModal.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     r = json['r'];
     rawMaxNeg = json['raw_max_neg'];
     rawMaxPos = json['raw_max_pos'];

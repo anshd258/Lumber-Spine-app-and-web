@@ -84,32 +84,39 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: const Color.fromARGB(200, 243, 243, 243),
                   borderRadius: BorderRadius.circular(12.sp),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Options(
-                      name: 'Analyze',
-                      url: "assets/home_page/analyze.png",
-                      onTap: () {
-                        Navigator.pushNamed(context, '/analyze_screen');
-                      },
-                    ),
-                    Options(
-                      name: 'Sync',
-                      url: "assets/home_page/refresh.png",
-                      onTap: () {},
-                    ),
-                    Options(
-                      name: 'Share',
-                      url: "assets/home_page/share.png",
-                      onTap: () {},
-                    ),
-                    Options(
-                      name: 'More',
-                      url: "assets/home_page/more.png",
-                      onTap: () {},
-                    ),
-                  ],
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      SizedBox(width: 10.w),
+                      Options(
+                        name: 'Analyze',
+                        url: "assets/home_page/analyze.png",
+                        onTap: () {
+                          Navigator.pushNamed(context, '/analyze_screen');
+                        },
+                      ),
+                      SizedBox(width: 10.w),
+                      Options(
+                        name: 'Sync',
+                        url: "assets/home_page/refresh.png",
+                        onTap: () {},
+                      ),
+                      SizedBox(width: 10.w),
+                      Options(
+                        name: 'Share',
+                        url: "assets/home_page/share.png",
+                        onTap: () {},
+                      ),
+                      SizedBox(width: 10.w),
+                      Options(
+                        name: 'More',
+                        url: "assets/home_page/more.png",
+                        onTap: () {},
+                      ),
+                      SizedBox(width: 10.w),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
@@ -370,7 +377,7 @@ class Options extends StatelessWidget {
           ),
           Container(
             height: 4.h,
-            width: 12.w,
+            width: 10.w,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(url),

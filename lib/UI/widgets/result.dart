@@ -6,7 +6,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import './progress2.dart';
 
 class Result extends StatefulWidget {
-  const Result({Key? key});
+  final double r;
+  final double sed;
+  const Result({Key? key, required this.r, required this.sed});
 
   @override
   State<Result> createState() => _ResultState();
@@ -17,12 +19,14 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
   late Animation<double> _animation1;
   late AnimationController _animationController2;
   late Animation<double> _animation2;
-  final sed = 70.0;
-  final r = 70.0;
+  late final sed;
+  late final r;
 
   @override
   void initState() {
     super.initState();
+    sed = widget.sed;
+    r = widget.r;
     _animationController1 = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 3000));
 
@@ -50,141 +54,133 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Factor SeD',
-                style: GoogleFonts.roboto(
-                    fontSize: 22.sp, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'Adverse health effects',
-                style: GoogleFonts.roboto(
-                    fontSize: 17.sp, fontWeight: FontWeight.w300),
-              ),
-              SizedBox(
-                height: 3.h,
-              ),
-              Center(
-                child: CustomPaint(
-                  foregroundPainter: CircleProgress1(_animation1.value),
-                  child: SizedBox(
-                    width: 300,
-                    height: 300,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '${_animation1.value}',
-                            style: GoogleFonts.roboto(
-                                fontSize: 30.sp, fontWeight: FontWeight.w300),
-                          ),
-                          Text(
-                            'below',
-                            style: GoogleFonts.roboto(
-                                fontSize: 20.sp, fontWeight: FontWeight.w200),
-                          ),
-                        ],
-                      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Factor SeD',
+          style:
+              GoogleFonts.roboto(fontSize: 22.sp, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          'Adverse health effects',
+          style:
+              GoogleFonts.roboto(fontSize: 17.sp, fontWeight: FontWeight.w300),
+        ),
+        SizedBox(
+          height: 3.h,
+        ),
+        Center(
+          child: CustomPaint(
+            foregroundPainter: CircleProgress1(_animation1.value),
+            child: SizedBox(
+              width: 300,
+              height: 300,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${_animation1.value}',
+                      style: GoogleFonts.roboto(
+                          fontSize: 30.sp, fontWeight: FontWeight.w300),
                     ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 3.h,
-              ),
-              Container(
-                height: 4.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: greenGradient,
-                  borderRadius: BorderRadius.circular(10.sp),
-                ),
-                child: Center(
-                  child: Text(
-                    "Low probability of adverse health effect !",
-                    style: GoogleFonts.roboto(
-                      fontSize: 16.sp,
-                      color: whiteText,
-                      fontWeight: FontWeight.w500,
+                    Text(
+                      'below',
+                      style: GoogleFonts.roboto(
+                          fontSize: 20.sp, fontWeight: FontWeight.w200),
                     ),
-                  ),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 6.h,
-              ),
-              Text(
-                'Factor R',
-                style: GoogleFonts.roboto(
-                    fontSize: 22.sp, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'Adverse health effects',
-                style: GoogleFonts.roboto(
-                    fontSize: 17.sp, fontWeight: FontWeight.w300),
-              ),
-              SizedBox(
-                height: 3.h,
-              ),
-              Center(
-                child: CustomPaint(
-                  foregroundPainter: CircleProgress2(_animation2.value),
-                  child: SizedBox(
-                    width: 300,
-                    height: 300,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '${_animation2.value}',
-                            style: GoogleFonts.roboto(
-                                fontSize: 30.sp, fontWeight: FontWeight.w300),
-                          ),
-                          Text(
-                            'above',
-                            style: GoogleFonts.roboto(
-                                fontSize: 20.sp, fontWeight: FontWeight.w200),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 3.h,
-              ),
-              Container(
-                height: 4.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: yellow,
-                  borderRadius: BorderRadius.circular(10.sp),
-                ),
-                child: Center(
-                  child: Text(
-                    "High probability of adverse health effect !",
-                    style: GoogleFonts.roboto(
-                      fontSize: 16.sp,
-                      color: black,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      )),
+        SizedBox(
+          height: 3.h,
+        ),
+        Container(
+          height: 4.h,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: greenGradient,
+            borderRadius: BorderRadius.circular(10.sp),
+          ),
+          child: Center(
+            child: Text(
+              "Low probability of adverse health effect !",
+              style: GoogleFonts.roboto(
+                fontSize: 16.sp,
+                color: whiteText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 6.h,
+        ),
+        Text(
+          'Factor R',
+          style:
+              GoogleFonts.roboto(fontSize: 22.sp, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          'Adverse health effects',
+          style:
+              GoogleFonts.roboto(fontSize: 17.sp, fontWeight: FontWeight.w300),
+        ),
+        SizedBox(
+          height: 3.h,
+        ),
+        Center(
+          child: CustomPaint(
+            foregroundPainter: CircleProgress2(_animation2.value),
+            child: SizedBox(
+              width: 300,
+              height: 300,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${_animation2.value}',
+                      style: GoogleFonts.roboto(
+                          fontSize: 30.sp, fontWeight: FontWeight.w300),
+                    ),
+                    Text(
+                      'above',
+                      style: GoogleFonts.roboto(
+                          fontSize: 20.sp, fontWeight: FontWeight.w200),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 3.h,
+        ),
+        Container(
+          height: 4.h,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: yellow,
+            borderRadius: BorderRadius.circular(10.sp),
+          ),
+          child: Center(
+            child: Text(
+              "High probability of adverse health effect !",
+              style: GoogleFonts.roboto(
+                fontSize: 16.sp,
+                color: black,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

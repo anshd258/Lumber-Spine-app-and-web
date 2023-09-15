@@ -50,6 +50,7 @@ dependencies:
   flutter_neumorphic: ^3.2.0
   loading_animation_widget: ^1.2.0+4
   syncfusion_flutter_gauges: ^22.2.12
+  dio: ^5.3.2
 
 dev_dependencies:
   flutter_test:

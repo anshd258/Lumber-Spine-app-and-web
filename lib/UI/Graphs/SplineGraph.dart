@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 ///Core import
 import 'package:syncfusion_flutter_core/core.dart';
@@ -9,9 +10,6 @@ import 'package:syncfusion_flutter_core/theme.dart';
 
 ///Slider import
 import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-
-import 'package:flutter/material.dart';
 
 class LineChartexp extends StatefulWidget {
   LineChartexp(
@@ -64,12 +62,12 @@ class _LineChartexpState extends State<LineChartexp> {
     return Column(
       children: [
         SfCartesianChart(
+          title: ChartTitle(text: widget.ytitle),
           primaryYAxis: NumericAxis(
-            title: AxisTitle(
-              text: widget.ytitle,
-            ),
             maximum: widget.max,
+            isVisible: true,
             minimum: widget.min,
+            labelStyle: GoogleFonts.roboto(fontSize: 8),
             axisLine: const AxisLine(width: 0),
             majorTickLines: const MajorTickLines(width: 0),
           ),
@@ -77,6 +75,7 @@ class _LineChartexpState extends State<LineChartexp> {
             rangeController: ctr,
             minimum: double.parse(widget.time.first),
             maximum: double.parse(widget.time.last),
+            labelStyle: GoogleFonts.roboto(fontSize: 8),
             visibleMaximum: ctr.end,
             visibleMinimum: ctr.start,
             isVisible: true,
@@ -100,8 +99,8 @@ class _LineChartexpState extends State<LineChartexp> {
             SplineSeries<double, double>(
               color: widget.gradientColor,
               splineType: SplineType.monotonic,
-              xAxisName:  widget.xtitle,
-              yAxisName:  widget.ytitle,
+              xAxisName: widget.xtitle,
+              yAxisName: widget.ytitle,
               opacity: 0.8,
               enableTooltip: true,
               dataSource: widget.data,
@@ -113,17 +112,23 @@ class _LineChartexpState extends State<LineChartexp> {
         ),
         SfRangeSelectorTheme(
           data: SfRangeSelectorThemeData(
-              activeLabelStyle: TextStyle(fontSize: 10, color: Colors.black),
-              inactiveLabelStyle: TextStyle(fontSize: 10, color: Colors.black),
+              activeLabelStyle:
+                  const TextStyle(fontSize: 10, color: Colors.black),
+              inactiveLabelStyle:
+                  const TextStyle(fontSize: 10, color: Colors.black),
               activeTrackColor: const Color.fromRGBO(255, 125, 30, 1),
               inactiveRegionColor: Colors.white.withOpacity(0.75),
               thumbColor: Colors.white,
               thumbStrokeColor: const Color.fromRGBO(255, 125, 30, 1),
               thumbStrokeWidth: 2.0,
               overlayRadius: 1,
+              activeRegionColor: Colors.amber.withOpacity(0.4),
               overlayColor: Colors.transparent),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            height: 60,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+            ),
             child: SfRangeSelector(
               min: double.parse(widget.time.first),
               max: double.parse(widget.time.last),
