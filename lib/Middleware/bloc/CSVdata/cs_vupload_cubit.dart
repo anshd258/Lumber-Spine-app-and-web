@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:data_hub/Middleware/constants/ApiPaths.dart';
 import 'package:data_hub/Models/graphmodals.dart';
 import 'package:http_parser/http_parser.dart';
 
@@ -13,24 +14,11 @@ class CsVuploadCubit extends Cubit<CsVuploadState> {
   CsVuploadCubit() : super(CsVuploadInitial());
 
   void uploadFile(File csv, Map<String, String> data) async {
-    print(csv.path);
     emit(CsVuploadUploading());
 
-    // var request = http.MultipartRequest(
-    //   'POST',
-    //   Uri.parse("https://af4c-45-112-52-82.ngrok-free.app/upload"),
-    // );
-    var request = http.MultipartRequest(
-        'POST', Uri.parse('https://af4c-45-112-52-82.ngrok-free.app/upload'));
-    request.fields.addAll({
-      'tm': '0.017252778',
-      'td': '8',
-      'N': '100',
-      'i': '3',
-      'n': '5',
-      'c': '0.25',
-      'b': '25'
-    });
+    var request =
+        http.MultipartRequest('POST', Uri.parse(baseUrl + uploadPath));
+    request.fields.addAll(data);
     request.files.add(await http.MultipartFile.fromPath('file', csv.path));
 
     http.StreamedResponse response = await request.send();
