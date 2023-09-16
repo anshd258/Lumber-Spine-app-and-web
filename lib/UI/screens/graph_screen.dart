@@ -1,7 +1,7 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
+import 'package:data_hub/UI/Graphs/Spline3axis.dart';
 import 'package:data_hub/UI/Graphs/SplineGraph.dart';
-import 'package:data_hub/UI/widgets/appbar.dart';
 import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:data_hub/UI/widgets/result.dart';
 import 'package:flutter/material.dart';
@@ -97,6 +97,10 @@ class _GraphScreenState extends State<GraphScreen> {
                         min: state.data.data!.rawNegZ!,
                         time: state.data.data!.rawTimeZ!,
                       ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      ThreeAxisGraph(data: state.data),
                       SizedBox(
                         height: 2.h,
                       ),

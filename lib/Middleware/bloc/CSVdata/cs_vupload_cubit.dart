@@ -21,24 +21,23 @@ class CsVuploadCubit extends Cubit<CsVuploadState> {
     request.fields.addAll(data);
     request.files.add(await http.MultipartFile.fromPath('file', csv.path));
 
-    http.StreamedResponse response = await request.send();
+    try {
+      http.StreamedResponse response = await request.send();
 
-    if (response.statusCode == 200) {
-      var res = ResponseGraphModal.fromJson(
-          json.decode(await response.stream.bytesToString()));
-      print(res.data!.rawPeakX!.length);
-      print(res.data!.rawTimeX!.length);
-      print(res.data!.rawPeakY!.length);
-      print(res.data!.rawTimeY!.length);
-      print(res.data!.rawPeakZ!.length);
-      print(res.data!.rawTimeZ!.length);
-      emit(
-        CsVuploadDataRecieve(
-          data: res,
-        ),
-      );
-    } else {
-      print(response.reasonPhrase);
+      if (response.statusCode == 200) {
+        var res = ResponseGraphModal.fromJson(
+            json.decode(await response.stream.bytesToString()));
+
+        emit(
+          CsVuploadDataRecieve(
+            data: res,
+          ),
+        );
+      } else {
+        throw Exception(await response.stream.bytesToString());
+      }
+    } on Exception catch (e) {
+      emit(CsVuploadError());
     }
 
     // try {
