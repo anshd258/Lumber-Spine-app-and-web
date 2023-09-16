@@ -83,7 +83,7 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
                     Text(
                       '${_animation1.value}',
                       style: GoogleFonts.roboto(
-                          fontSize: 30.sp, fontWeight: FontWeight.w300),
+                          fontSize: 20.sp, fontWeight: FontWeight.w300),
                     ),
                     Text(
                       'below',
@@ -146,7 +146,7 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
                     Text(
                       '${_animation2.value}',
                       style: GoogleFonts.roboto(
-                          fontSize: 30.sp, fontWeight: FontWeight.w300),
+                          fontSize: 20.sp, fontWeight: FontWeight.w300),
                     ),
                     Text(
                       'above',

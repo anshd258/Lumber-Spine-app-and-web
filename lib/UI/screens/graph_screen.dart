@@ -61,6 +61,14 @@ class _GraphScreenState extends State<GraphScreen> {
                 return SingleChildScrollView(
                   child: Column(
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Result(
+                            sed: state.data.data!.sed!, r: state.data.data!.r!),
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
                       MyNeumorCont(
                         data: state.data.data!.rawPeakX!,
                         xtitle: "Time (s)",
@@ -96,14 +104,6 @@ class _GraphScreenState extends State<GraphScreen> {
                         max: state.data.data!.rawPosZ!,
                         min: state.data.data!.rawNegZ!,
                         time: state.data.data!.rawTimeZ!,
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Result(
-                            sed: state.data.data!.sed!, r: state.data.data!.r!),
                       ),
                     ],
                   ),
