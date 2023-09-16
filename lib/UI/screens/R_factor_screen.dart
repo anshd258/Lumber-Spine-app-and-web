@@ -230,33 +230,36 @@ class RFactorScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Builder(
-                  builder: (context) {
-                    var state = context.watch<CsVuploadCubit>().state;
-                    var temp = context.watch<DataCubitCubit>().state;
-                    if (state is GetcsvLoaded && temp is DataCubitupdated) {
-                      var value = state as GetcsvLoaded;
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 12),
-                        child: BlueButton(
-                            text: 'Proceed',
-                            onTap: () {
-                              context
-                                  .read<CsVuploadCubit>()
-                                  .uploadFile(value.file, {
-                                "tm": temp.tm!,
-                                "td": temp.td!,
-                                "N": N.text,
-                                "i": i.text,
-                                "n": n.text,
-                                "c": c.text,
-                                "b": b.text
-                              });
-                              Navigator.pushNamed(context, '/graph_screen');
-                            }),
+                BlocBuilder<GetcsvCubit, GetcsvState>(
+                  builder: (context, state) {
+                    if (state is GetcsvLoaded) {
+                      return Builder(
+                        builder: (context) {
+                          var temp = context.watch<DataCubitCubit>().state;
+
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: BlueButton(
+                                text: 'Proceed',
+                                onTap: () {
+                                  context
+                                      .read<CsVuploadCubit>()
+                                      .uploadFile(state.file, {
+                                    "tm": temp.tm!,
+                                    "td": temp.td!,
+                                    "N": N.text,
+                                    "i": i.text,
+                                    "n": n.text,
+                                    "c": c.text,
+                                    "b": b.text
+                                  });
+                                  Navigator.pushNamed(context, '/graph_screen');
+                                }),
+                          );
+                        },
                       );
                     } else {
-                      return const Center();
+                      return Center();
                     }
                   },
                 )

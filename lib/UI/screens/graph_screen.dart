@@ -1,8 +1,11 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/UI/Graphs/SplineGraph.dart';
+import 'package:data_hub/UI/widgets/appbar.dart';
+import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:data_hub/UI/widgets/result.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -19,6 +22,20 @@ class _GraphScreenState extends State<GraphScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          leading: const MyBackButton(),
+          elevation: 0,
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          title: Text(
+            "Graphs",
+            style: GoogleFonts.roboto(
+              color: blue,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
         body: Padding(
           padding: EdgeInsets.all(0.sp),
           child: BlocConsumer<CsVuploadCubit, CsVuploadState>(
