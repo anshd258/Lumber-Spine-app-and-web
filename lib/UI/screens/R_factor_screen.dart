@@ -256,7 +256,7 @@ class RFactorScreen extends StatelessWidget {
                             }),
                       );
                     } else {
-                      return Center();
+                      return const Center();
                     }
                   },
                 )

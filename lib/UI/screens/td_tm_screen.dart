@@ -26,19 +26,6 @@ class TdTmScreen extends StatelessWidget {
   TextEditingController td = TextEditingController();
   TextEditingController tm = TextEditingController();
 
-  void tdtmsubmit() async {
-    if (td.text.isNotEmpty && tm.text.isNotEmpty) {
-      var bod = {"td": td.text, "tm": tm.text};
-      var response = await http.post(
-        Uri.parse(''),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(bod),
-      );
-      print('||||||||||||||||||');
-      print(response);
-    }
-  }
-
   void showSelectDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -268,7 +255,7 @@ class TdTmScreen extends StatelessWidget {
                   child: BlueButton(
                       text: 'Proceed',
                       onTap: () {
-                        context.read<DataCubitCubit>().getTdTm(_td.text, _tm.text);
+                        context.read<DataCubitCubit>().getTdTm(td.text, tm.text);
                         Navigator.pushNamed(context, '/R_factor_screen');
                         // showSelectDialog(context);
                       }),
