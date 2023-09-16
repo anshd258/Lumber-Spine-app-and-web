@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ import 'package:data_hub/UI/widgets/blue_button.dart';
 
 import '../../Middleware/constants/colors.dart';
 
+import 'package:http/http.dart' as http;
+
 class TdTmScreen extends StatelessWidget {
   TdTmScreen({super.key});
 
@@ -18,8 +21,21 @@ class TdTmScreen extends StatelessWidget {
   final String text =
       'for ex. Assume that the record of the acceleration time history is representative of the conditions to which the driver is subjected, and that the exposure lasts, on the average, a period of 30 min per workday.';
 
-  TextEditingController _td = TextEditingController();
-  TextEditingController _tm = TextEditingController();
+  TextEditingController td = TextEditingController();
+  TextEditingController tm = TextEditingController();
+
+  void tdtmsubmit() async {
+    if (td.text.isNotEmpty && tm.text.isNotEmpty) {
+      var bod = {"td": td.text, "tm": tm.text};
+      var response = await http.post(
+        Uri.parse(''),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(bod),
+      );
+      print('||||||||||||||||||');
+      print(response);
+    }
+  }
 
   void showSelectDialog(BuildContext context) {
     showDialog(
@@ -200,7 +216,7 @@ class TdTmScreen extends StatelessWidget {
                                   SizedBox(height: 1.h),
                                   TextRow2(variable: text, value: '30'),
                                   TextFormField(
-                                    controller: _td,
+                                    controller: td,
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
                                     decoration: textFieldDecoration('Enter TD'),
@@ -225,7 +241,7 @@ class TdTmScreen extends StatelessWidget {
                                   SizedBox(height: 1.h),
                                   TextRow2(variable: text, value: '30'),
                                   TextFormField(
-                                    controller: _tm,
+                                    controller: tm,
                                     style: GoogleFonts.roboto(color: whiteText),
                                     cursorColor: whiteText,
                                     decoration: textFieldDecoration('Enter Tm'),
