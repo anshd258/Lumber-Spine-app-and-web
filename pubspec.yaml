@@ -51,6 +51,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   syncfusion_flutter_gauges: ^22.2.12
   dio: ^5.3.2
+  rive: ^0.11.4
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,7 @@ flutter:
     - assets/reg_complete/
     - assets/home_page/
     - assets/analyze/
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

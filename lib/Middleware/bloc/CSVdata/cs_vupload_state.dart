@@ -8,7 +8,7 @@ class CsVuploadInitial extends CsVuploadState {}
 class CsVuploadUploading extends CsVuploadState {}
 
 class CsVuploadDataRecieve extends CsVuploadState {
-  ResponseGraphModal data;
+  final ResponseGraphModal data;
   CsVuploadDataRecieve({required this.data});
 }
 

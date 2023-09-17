@@ -8,7 +8,7 @@ class GetcsvInitial extends GetcsvState {}
 class GetcsvLoading extends GetcsvState {}
 
 class GetcsvLoaded extends GetcsvState {
-  File file;
+  final File file;
   GetcsvLoaded({required this.file});
 }
 

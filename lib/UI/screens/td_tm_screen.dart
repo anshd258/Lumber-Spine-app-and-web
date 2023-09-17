@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 import 'dart:ui';
 
 import 'package:data_hub/Middleware/bloc/Variabledatabloc/data_cubit_cubit.dart';
@@ -13,8 +12,6 @@ import 'package:data_hub/UI/widgets/blue_button.dart';
 
 import '../../Middleware/constants/colors.dart';
 
-import 'package:http/http.dart' as http;
-
 class TdTmScreen extends StatelessWidget {
   TdTmScreen({super.key});
 
@@ -23,8 +20,8 @@ class TdTmScreen extends StatelessWidget {
   final String text =
       'for ex. Assume that the record of the acceleration time history is representative of the conditions to which the driver is subjected, and that the exposure lasts, on the average, a period of 30 min per workday.';
 
-  TextEditingController td = TextEditingController();
-  TextEditingController tm = TextEditingController();
+  final TextEditingController td = TextEditingController();
+  final TextEditingController tm = TextEditingController();
 
   void showSelectDialog(BuildContext context) {
     showDialog(
@@ -140,9 +137,8 @@ class TdTmScreen extends StatelessWidget {
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: yellow,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(12.sp),
-                                topRight: Radius.circular(12.sp),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12.sp),
                               ),
                             ),
                             child: Row(
@@ -174,14 +170,16 @@ class TdTmScreen extends StatelessWidget {
                               ],
                             ),
                           ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
                           Container(
-                            height: 59.h,
+                            height: 20.h,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: transBlack,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(12.sp),
-                                bottomRight: Radius.circular(12.sp),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12.sp),
                               ),
                             ),
                             child: Padding(
@@ -191,7 +189,11 @@ class TdTmScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const TextRow(variable: 'TD', value: '100'),
+                                  TextRow(
+                                    variable: 'TD',
+                                    cont: td,
+                                    dec: textFieldDecoration('Enter TD'),
+                                  ),
                                   SizedBox(height: 1.h),
                                   Text(
                                     'is the duration of the daily exposure',
@@ -204,20 +206,33 @@ class TdTmScreen extends StatelessWidget {
                                   ),
                                   SizedBox(height: 1.h),
                                   TextRow2(variable: text, value: '30'),
-                                  TextFormField(
-                                    controller: td,
-                                    style: GoogleFonts.roboto(color: whiteText),
-                                    cursorColor: whiteText,
-                                    decoration: textFieldDecoration('Enter TD'),
-                                    validator: (text) {
-                                      if (text == null || text.isEmpty) {
-                                        return 'Can\'t be empty';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  SizedBox(height: 3.h),
-                                  const TextRow(variable: 'Tm', value: '100'),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          Container(
+                            height: 20.h,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: transBlack,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12.sp),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(12.sp),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextRow(
+                                      variable: 'Tm',
+                                      cont: tm,
+                                      dec: textFieldDecoration('Enter Tm')),
                                   Text(
                                     'is the duration of the daily exposure',
                                     style: GoogleFonts.roboto(
@@ -229,18 +244,6 @@ class TdTmScreen extends StatelessWidget {
                                   ),
                                   SizedBox(height: 1.h),
                                   TextRow2(variable: text, value: '30'),
-                                  TextFormField(
-                                    controller: tm,
-                                    style: GoogleFonts.roboto(color: whiteText),
-                                    cursorColor: whiteText,
-                                    decoration: textFieldDecoration('Enter Tm'),
-                                    validator: (text) {
-                                      if (text == null || text.isEmpty) {
-                                        return 'Can\'t be empty';
-                                      }
-                                      return null;
-                                    },
-                                  ),
                                 ],
                               ),
                             ),
@@ -255,7 +258,9 @@ class TdTmScreen extends StatelessWidget {
                   child: BlueButton(
                       text: 'Proceed',
                       onTap: () {
-                        context.read<DataCubitCubit>().getTdTm(td.text, tm.text);
+                        context
+                            .read<DataCubitCubit>()
+                            .getTdTm(td.text, tm.text);
                         Navigator.pushNamed(context, '/R_factor_screen');
                         // showSelectDialog(context);
                       }),
@@ -273,10 +278,10 @@ class TdTmScreen extends StatelessWidget {
       hintText: hint,
       hintStyle: GoogleFonts.roboto(
           fontSize: 13.sp, color: const Color.fromARGB(170, 255, 255, 255)),
-      enabledBorder: UnderlineInputBorder(
+      enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: whiteText),
       ),
-      focusedBorder: UnderlineInputBorder(
+      focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: whiteText),
       ),
     );
@@ -330,11 +335,13 @@ class Options extends StatelessWidget {
 
 class TextRow extends StatelessWidget {
   final String variable;
-  final String value;
+  final TextEditingController cont;
+  final InputDecoration dec;
   const TextRow({
     super.key,
     required this.variable,
-    required this.value,
+    required this.cont,
+    required this.dec,
   });
 
   @override
@@ -349,20 +356,26 @@ class TextRow extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.sp),
-            border: Border.all(color: Colors.white),
-          ),
-          child: Text(
-            value,
-            style: GoogleFonts.roboto(
-              color: whiteText,
-              fontSize: 16.sp,
+        Padding(
+          padding: EdgeInsets.all(8.sp),
+          child: SizedBox(
+            width: 35.w,
+            height: 4.5.h,
+            child: TextFormField(
+              controller: cont,
+              style: GoogleFonts.roboto(color: whiteText),
+              cursorColor: whiteText,
+              decoration: dec,
+              // decoration: textFieldDecoration('Enter TD'),
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Can\'t be empty';
+                }
+                return null;
+              },
             ),
           ),
-        )
+        ),
       ],
     );
   }

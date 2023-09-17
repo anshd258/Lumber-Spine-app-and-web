@@ -43,11 +43,10 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
     _animationController2 = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 3000));
 
-    _animation2 =
-        Tween<double>(begin: 0, end: sed).animate(_animationController2)
-          ..addListener(() {
-            setState(() {});
-          });
+    _animation2 = Tween<double>(begin: 0, end: r).animate(_animationController2)
+      ..addListener(() {
+        setState(() {});
+      });
 
     _animationController2.forward();
   }
@@ -85,11 +84,6 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
                       style: GoogleFonts.roboto(
                           fontSize: 20.sp, fontWeight: FontWeight.w300),
                     ),
-                    Text(
-                      'below',
-                      style: GoogleFonts.roboto(
-                          fontSize: 20.sp, fontWeight: FontWeight.w200),
-                    ),
                   ],
                 ),
               ),
@@ -107,14 +101,23 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
             borderRadius: BorderRadius.circular(10.sp),
           ),
           child: Center(
-            child: Text(
-              "Low probability of adverse health effect !",
-              style: GoogleFonts.roboto(
-                fontSize: 16.sp,
-                color: whiteText,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            child: sed < 0.8
+                ? Text(
+                    "Low probability of adverse health effect !",
+                    style: GoogleFonts.roboto(
+                      fontSize: 16.sp,
+                      color: whiteText,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                : Text(
+                    "High probability of adverse health effect !",
+                    style: GoogleFonts.roboto(
+                      fontSize: 16.sp,
+                      color: whiteText,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
           ),
         ),
         SizedBox(
@@ -148,11 +151,6 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
                       style: GoogleFonts.roboto(
                           fontSize: 20.sp, fontWeight: FontWeight.w300),
                     ),
-                    Text(
-                      'above',
-                      style: GoogleFonts.roboto(
-                          fontSize: 20.sp, fontWeight: FontWeight.w200),
-                    ),
                   ],
                 ),
               ),
@@ -170,15 +168,23 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
             borderRadius: BorderRadius.circular(10.sp),
           ),
           child: Center(
-            child: Text(
-              "High probability of adverse health effect !",
-              style: GoogleFonts.roboto(
-                fontSize: 16.sp,
-                color: black,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
+              child: r > 1.2
+                  ? Text(
+                      "High probability of adverse health effect !",
+                      style: GoogleFonts.roboto(
+                        fontSize: 16.sp,
+                        color: black,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )
+                  : Text(
+                      "Low probability of adverse health effect !",
+                      style: GoogleFonts.roboto(
+                        fontSize: 16.sp,
+                        color: black,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )),
         ),
       ],
     );

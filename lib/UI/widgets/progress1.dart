@@ -14,6 +14,7 @@ class CircleProgress1 extends CustomPainter {
     Paint circle = Paint()
       ..strokeWidth = strokeCircle
       ..color = greenGradient
+      ..color = const Color.fromARGB(255, 235, 194, 243)
       ..style = PaintingStyle.stroke;
 
     Offset center = Offset(size.width / 2, size.height / 2);
@@ -22,13 +23,22 @@ class CircleProgress1 extends CustomPainter {
 
     Paint animationArc = Paint()
       ..strokeWidth = strokeCircle
-      ..color = orangeGradient
+      // ..color = orangeGradient
       ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
+      ..strokeCap = StrokeCap.round
+      ..shader = const LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Colors.purple,
+          Colors.red,
+        ],
+      ).createShader(Rect.fromCircle(center: center, radius: radius));
 
-    double angle = 2 * pi * (currentProgress / 100);
-    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), pi / 2,
-        angle, false, animationArc);
+    // double angle = 2 * pi * (currentProgress / 100);
+    double angle = 1;
+    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), pi, angle,
+        false, animationArc);
   }
 
   @override

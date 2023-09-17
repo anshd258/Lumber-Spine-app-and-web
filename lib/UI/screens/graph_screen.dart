@@ -1,14 +1,15 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
+import 'package:data_hub/UI/Graphs/Spline3axis.dart';
 import 'package:data_hub/UI/Graphs/SplineGraph.dart';
-import 'package:data_hub/UI/widgets/appbar.dart';
 import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:data_hub/UI/widgets/result.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+// import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rive/rive.dart';
 
 class GraphScreen extends StatefulWidget {
   const GraphScreen({super.key});
@@ -51,24 +52,18 @@ class _GraphScreenState extends State<GraphScreen> {
                   ),
                 );
               } else if (state is CsVuploadUploading) {
-                return Center(
-                  child: LoadingAnimationWidget.newtonCradle(
-                    color: blue,
-                    size: 200,
-                  ),
-                );
+                return const Expanded(
+                    child: RiveAnimation.asset('assets/loading.riv'));
+                // return Center(
+                //   child: LoadingAnimationWidget.newtonCradle(
+                //     color: blue,
+                //     size: 200,
+                //   ),
+                // );
               } else if (state is CsVuploadDataRecieve) {
                 return SingleChildScrollView(
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Result(
-                            sed: state.data.data!.sed!, r: state.data.data!.r!),
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
                       MyNeumorCont(
                         data: state.data.data!.rawPeakX!,
                         xtitle: "Time (s)",
@@ -104,6 +99,18 @@ class _GraphScreenState extends State<GraphScreen> {
                         max: state.data.data!.rawPosZ!,
                         min: state.data.data!.rawNegZ!,
                         time: state.data.data!.rawTimeZ!,
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      ThreeAxisGraph(data: state.data),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Result(
+                            sed: state.data.data!.sed!, r: state.data.data!.r!),
                       ),
                     ],
                   ),

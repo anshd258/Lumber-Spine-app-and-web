@@ -132,7 +132,12 @@ class RFactorScreen extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const TextRow(variable: 'N', value: '100'),
+                                  TextRow(
+                                    variable: 'N',
+                                    cont: N,
+                                    dec: textFieldDecoration(
+                                        '(the number of exposure days per year)'),
+                                  ),
                                   TextFormField(
                                     controller: N,
                                     style: GoogleFonts.roboto(color: whiteText),
@@ -147,7 +152,11 @@ class RFactorScreen extends StatelessWidget {
                                     },
                                   ),
                                   SizedBox(height: 1.h),
-                                  const TextRow(variable: 'i', value: '3'),
+                                  TextRow(
+                                    variable: 'i',
+                                    cont: i,
+                                    dec: textFieldDecoration('(year counter)'),
+                                  ),
                                   TextFormField(
                                     controller: i,
                                     style: GoogleFonts.roboto(color: whiteText),
@@ -162,7 +171,12 @@ class RFactorScreen extends StatelessWidget {
                                     },
                                   ),
                                   SizedBox(height: 1.h),
-                                  const TextRow(variable: 'n', value: '100'),
+                                  TextRow(
+                                    variable: 'n',
+                                    cont: n,
+                                    dec: textFieldDecoration(
+                                        '(the number of years of exposure)'),
+                                  ),
                                   TextFormField(
                                     controller: n,
                                     style: GoogleFonts.roboto(color: whiteText),
@@ -177,7 +191,12 @@ class RFactorScreen extends StatelessWidget {
                                     },
                                   ),
                                   SizedBox(height: 1.h),
-                                  const TextRow(variable: 'C', value: '100'),
+                                  TextRow(
+                                    variable: 'C',
+                                    cont: c,
+                                    dec: textFieldDecoration(
+                                        '(constant representing the static stress due to gravitational force)'),
+                                  ),
                                   TextFormField(
                                     controller: c,
                                     style: GoogleFonts.roboto(color: whiteText),
@@ -192,7 +211,12 @@ class RFactorScreen extends StatelessWidget {
                                     },
                                   ),
                                   SizedBox(height: 1.h),
-                                  const TextRow(variable: 'Sui', value: '3'),
+                                  TextRow(
+                                    variable: 'Sui',
+                                    cont: sui,
+                                    dec: textFieldDecoration(
+                                        '(the strength of the lumbar spine for a person of age (b+i) years)'),
+                                  ),
                                   TextFormField(
                                     controller: sui,
                                     style: GoogleFonts.roboto(color: whiteText),
@@ -207,7 +231,12 @@ class RFactorScreen extends StatelessWidget {
                                     },
                                   ),
                                   SizedBox(height: 1.h),
-                                  const TextRow(variable: 'b', value: '3'),
+                                  TextRow(
+                                    variable: 'b',
+                                    cont: b,
+                                    dec: textFieldDecoration(
+                                        '(age at which the exposure starts)'),
+                                  ),
                                   TextFormField(
                                     controller: b,
                                     style: GoogleFonts.roboto(color: whiteText),
@@ -288,11 +317,13 @@ class RFactorScreen extends StatelessWidget {
 
 class TextRow extends StatelessWidget {
   final String variable;
-  final String value;
+  final TextEditingController cont;
+  final InputDecoration dec;
   const TextRow({
     super.key,
     required this.variable,
-    required this.value,
+    required this.cont,
+    required this.dec,
   });
 
   @override
@@ -307,13 +338,26 @@ class TextRow extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Text(
-          value,
-          style: GoogleFonts.roboto(
-            color: whiteText,
-            fontSize: 16.sp,
+        Padding(
+          padding: EdgeInsets.all(8.sp),
+          child: SizedBox(
+            width: 35.w,
+            height: 4.5.h,
+            child: TextFormField(
+              controller: cont,
+              style: GoogleFonts.roboto(color: whiteText),
+              cursorColor: whiteText,
+              decoration: dec,
+              // decoration: textFieldDecoration('Enter TD'),
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Can\'t be empty';
+                }
+                return null;
+              },
+            ),
           ),
-        )
+        ),
       ],
     );
   }
