@@ -80,7 +80,7 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${_animation1.value}',
+                      '${widget.sed}',
                       style: GoogleFonts.roboto(
                           fontSize: 20.sp, fontWeight: FontWeight.w300),
                     ),
@@ -138,7 +138,7 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
         ),
         Center(
           child: CustomPaint(
-            foregroundPainter: CircleProgress2(_animation2.value),
+            foregroundPainter: CircleProgress2(widget.r),
             child: SizedBox(
               width: 300,
               height: 300,
