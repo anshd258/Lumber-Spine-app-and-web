@@ -84,6 +84,7 @@ flutter:
     - assets/reg_complete/
     - assets/home_page/
     - assets/analyze/
+    - assets/instructions/
     - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see

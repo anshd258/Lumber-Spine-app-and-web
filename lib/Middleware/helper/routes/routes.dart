@@ -6,6 +6,7 @@ import 'package:data_hub/UI/screens/analyze_screen.dart';
 import 'package:data_hub/UI/screens/checklist_screen.dart';
 import 'package:data_hub/UI/screens/graph_screen.dart';
 import 'package:data_hub/UI/screens/home_screen.dart';
+import 'package:data_hub/UI/screens/instructions_screen.dart';
 import 'package:data_hub/UI/screens/registration_completed_screen.dart';
 import 'package:data_hub/UI/screens/sign_up.dart';
 import 'package:data_hub/UI/screens/splash_screen.dart';
@@ -41,6 +42,8 @@ var routes = <String, WidgetBuilder>{
   '/home_screen': (context) => const HomeScreen(),
 
   '/analyze_screen': (context) => const AnalyzeScreen(),
+
+  '/instructions_screen': (context) => const Instructions(),
 
   '/checklist_screen': (context) => const ChecklistScreen(),
 

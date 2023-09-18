@@ -96,7 +96,7 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
                       return BlueButton(
                           text: 'Proceed',
                           onTap: () {
-                            Navigator.pushNamed(context, '/checklist_screen');
+                            Navigator.pushNamed(context, '/instructions_screen');
                           });
                     } else if (state is GetcsvError) {
                       return Center(

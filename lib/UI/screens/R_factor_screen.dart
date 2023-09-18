@@ -42,7 +42,7 @@ class RFactorScreen extends StatelessWidget {
                   height: 3.h,
                 ),
                 Container(
-                  height: 2.h,
+                  height: 3.h,
                   width: double.infinity,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
@@ -63,198 +63,119 @@ class RFactorScreen extends StatelessWidget {
                     key: formKey,
                     child: Padding(
                       padding: EdgeInsets.all(15.sp),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Enter R Factor',
-                            style: GoogleFonts.roboto(
-                              color: blue,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          Container(
-                            height: 5.2.h,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: yellow,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(12.sp),
-                                topRight: Radius.circular(12.sp),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Enter R Factor',
+                              style: GoogleFonts.roboto(
+                                color: blue,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  width: 5.w,
-                                ),
-                                Text(
-                                  'Variable',
-                                  style: GoogleFonts.roboto(
-                                    color: black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  'Value',
-                                  style: GoogleFonts.roboto(
-                                    color: black,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5.w,
-                                ),
-                              ],
+                            SizedBox(
+                              height: 2.h,
                             ),
-                          ),
-                          Container(
-                            height: 59.h,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: transBlack,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(12.sp),
-                                bottomRight: Radius.circular(12.sp),
+                            Container(
+                              height: 5.2.h,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: yellow,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(12.sp),
+                                  topRight: Radius.circular(12.sp),
+                                ),
                               ),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(12.sp),
-                              child: Column(
+                              child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  TextRow(
-                                    variable: 'N',
-                                    cont: N,
-                                    dec: textFieldDecoration(
-                                        '(the number of exposure days per year)'),
+                                  SizedBox(
+                                    width: 5.w,
                                   ),
-                                  TextFormField(
-                                    controller: N,
-                                    style: GoogleFonts.roboto(color: whiteText),
-                                    cursorColor: whiteText,
-                                    decoration: textFieldDecoration(
-                                        '(the number of exposure days per year)'),
-                                    validator: (text) {
-                                      if (text == null || text.isEmpty) {
-                                        return 'Can\'t be empty';
-                                      }
-                                      return null;
-                                    },
+                                  Text(
+                                    'Variable',
+                                    style: GoogleFonts.roboto(
+                                      color: black,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                  SizedBox(height: 1.h),
-                                  TextRow(
-                                    variable: 'i',
-                                    cont: i,
-                                    dec: textFieldDecoration('(year counter)'),
+                                  const Spacer(),
+                                  Text(
+                                    'Value',
+                                    style: GoogleFonts.roboto(
+                                      color: black,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                  TextFormField(
-                                    controller: i,
-                                    style: GoogleFonts.roboto(color: whiteText),
-                                    cursorColor: whiteText,
-                                    decoration:
-                                        textFieldDecoration('(year counter)'),
-                                    validator: (text) {
-                                      if (text == null || text.isEmpty) {
-                                        return 'Can\'t be empty';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  SizedBox(height: 1.h),
-                                  TextRow(
-                                    variable: 'n',
-                                    cont: n,
-                                    dec: textFieldDecoration(
-                                        '(the number of years of exposure)'),
-                                  ),
-                                  TextFormField(
-                                    controller: n,
-                                    style: GoogleFonts.roboto(color: whiteText),
-                                    cursorColor: whiteText,
-                                    decoration: textFieldDecoration(
-                                        '(the number of years of exposure)'),
-                                    validator: (text) {
-                                      if (text == null || text.isEmpty) {
-                                        return 'Can\'t be empty';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  SizedBox(height: 1.h),
-                                  TextRow(
-                                    variable: 'C',
-                                    cont: c,
-                                    dec: textFieldDecoration(
-                                        '(constant representing the static stress due to gravitational force)'),
-                                  ),
-                                  TextFormField(
-                                    controller: c,
-                                    style: GoogleFonts.roboto(color: whiteText),
-                                    cursorColor: whiteText,
-                                    decoration: textFieldDecoration(
-                                        '(constant representing the static stress due to gravitational force)'),
-                                    validator: (text) {
-                                      if (text == null || text.isEmpty) {
-                                        return 'Can\'t be empty';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  SizedBox(height: 1.h),
-                                  TextRow(
-                                    variable: 'Sui',
-                                    cont: sui,
-                                    dec: textFieldDecoration(
-                                        '(the strength of the lumbar spine for a person of age (b+i) years)'),
-                                  ),
-                                  TextFormField(
-                                    controller: sui,
-                                    style: GoogleFonts.roboto(color: whiteText),
-                                    cursorColor: whiteText,
-                                    decoration: textFieldDecoration(
-                                        '(the strength of the lumbar spine for a person of age (b+i) years)'),
-                                    validator: (text) {
-                                      if (text == null || text.isEmpty) {
-                                        return 'Can\'t be empty';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  SizedBox(height: 1.h),
-                                  TextRow(
-                                    variable: 'b',
-                                    cont: b,
-                                    dec: textFieldDecoration(
-                                        '(age at which the exposure starts)'),
-                                  ),
-                                  TextFormField(
-                                    controller: b,
-                                    style: GoogleFonts.roboto(color: whiteText),
-                                    cursorColor: whiteText,
-                                    decoration: textFieldDecoration(
-                                        '(age at which the exposure starts)'),
-                                    validator: (text) {
-                                      if (text == null || text.isEmpty) {
-                                        return 'Can\'t be empty';
-                                      }
-                                      return null;
-                                    },
+                                  SizedBox(
+                                    width: 5.w,
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            MyCard(
+                              cont: N,
+                              variable: 'N',
+                              dec: textFieldDecoration('Enter N'),
+                              title: '(the number of exposure days per year)',
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            MyCard(
+                              cont: i,
+                              variable: 'i',
+                              dec: textFieldDecoration('Enter i'),
+                              title: '(year counter)',
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            MyCard(
+                              cont: n,
+                              variable: 'n',
+                              dec: textFieldDecoration('Enter n'),
+                              title: '(the number of years of exposure)',
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            MyCard(
+                              cont: c,
+                              variable: 'c',
+                              dec: textFieldDecoration('Enter c'),
+                              title:
+                                  '(constant representing the static stress due to gravitational force)',
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            MyCard(
+                              cont: b,
+                              variable: 'b',
+                              dec: textFieldDecoration('Enter b'),
+                              title: '(age at which the exposure starts)',
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            MyCard(
+                              cont: sui,
+                              variable: 'sui',
+                              dec: textFieldDecoration('Enter sui'),
+                              title:
+                                  '(the strength of the lumbar spine for a person of age (b+i) years)',
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -288,7 +209,7 @@ class RFactorScreen extends StatelessWidget {
                         },
                       );
                     } else {
-                      return Center();
+                      return const Center();
                     }
                   },
                 )
@@ -305,10 +226,10 @@ class RFactorScreen extends StatelessWidget {
       hintText: hint,
       hintStyle: GoogleFonts.roboto(
           fontSize: 13.sp, color: const Color.fromARGB(170, 255, 255, 255)),
-      enabledBorder: UnderlineInputBorder(
+      enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: whiteText),
       ),
-      focusedBorder: UnderlineInputBorder(
+      focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: whiteText),
       ),
     );
@@ -341,14 +262,13 @@ class TextRow extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(8.sp),
           child: SizedBox(
-            width: 35.w,
+            width: 25.w,
             height: 4.5.h,
             child: TextFormField(
               controller: cont,
               style: GoogleFonts.roboto(color: whiteText),
               cursorColor: whiteText,
               decoration: dec,
-              // decoration: textFieldDecoration('Enter TD'),
               validator: (text) {
                 if (text == null || text.isEmpty) {
                   return 'Can\'t be empty';
@@ -359,6 +279,49 @@ class TextRow extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class MyCard extends StatelessWidget {
+  final String variable;
+  final TextEditingController cont;
+  final InputDecoration dec;
+  final String title;
+  const MyCard({
+    super.key,
+    required this.cont,
+    required this.dec,
+    required this.variable,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 11.h,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: transBlack,
+        borderRadius: BorderRadius.all(
+          Radius.circular(12.sp),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(12.sp),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextRow(variable: variable, cont: cont, dec: dec),
+            Text(
+              title,
+              style: GoogleFonts.roboto(color: whiteText, fontSize: 11),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
