@@ -117,7 +117,7 @@ class Instructions extends StatelessWidget {
               BlueButton(
                   text: 'Next',
                   onTap: () {
-                    Navigator.pushNamed(context, '/checklist_screen');
+                    Navigator.pushNamed(context, '/td_tm_screen');
                   })
             ],
           ),
