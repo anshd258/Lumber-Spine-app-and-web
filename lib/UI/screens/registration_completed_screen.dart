@@ -100,7 +100,7 @@ class RegistrationCompletedScreen extends StatelessWidget {
                   child: BlueButton(
                       text: 'Get Started',
                       onTap: () {
-                        Navigator.pushNamed(context, '/home_screen');
+                        Navigator.pushNamed(context, '/analyze_screen');
                       }),
                 ),
               )

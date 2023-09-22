@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         name: 'Analyze',
                         url: "assets/home_page/analyze.png",
                         onTap: () {
-                          Navigator.pushNamed(context, '/analyze_screen');
+                          Navigator.pushNamed(context, '/history_screen');
                         },
                       ),
                       SizedBox(width: 10.w),

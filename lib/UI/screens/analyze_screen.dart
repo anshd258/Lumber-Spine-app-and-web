@@ -1,6 +1,7 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
 import 'package:data_hub/UI/widgets/appbar.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
+import 'package:data_hub/UI/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -96,7 +97,8 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
                       return BlueButton(
                           text: 'Proceed',
                           onTap: () {
-                            Navigator.pushNamed(context, '/instructions_screen');
+                            Navigator.pushNamed(
+                                context, '/instructions_screen');
                           });
                     } else if (state is GetcsvError) {
                       return Center(
@@ -137,25 +139,54 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
               MyCard(
                 title: 'Lumber Spline Measurement',
                 desc: desc,
+                onTap: () {},
+              ),
+              InkWell(
                 onTap: () {
                   showUploadDialog(context);
                 },
-              ),
-              MyCard(
-                title: 'Calculated parameters in HBV module',
-                desc: desc,
-                onTap: () {
-                  showUploadDialog(context);
-                },
-              ),
-              Text(
-                '+ More Coming Soon',
-                style: GoogleFonts.roboto(
-                  color: blue,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
+                child: Container(
+                  padding: EdgeInsets.all(18.sp),
+                  height: 35.h,
+                  width: 200.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: whiteText,
+                    border: Border.all(color: blue, width: 10.sp),
+                  ),
+                  child: Container(
+                    height: 25.h,
+                    width: 180.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: blue,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Start Test',
+                        style: GoogleFonts.roboto(
+                          color: whiteText,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22.sp,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              )
+              ),
+              SizedBox(
+                height: 3.h,
+              ),
+              BlueButton(
+                  text: 'History',
+                  onTap: () {
+                    Navigator.pushNamed(context, '/history_screen');
+                  }),
+              const Spacer(),
+              const BottomNavBar(),
+              SizedBox(
+                height: 1.h,
+              ),
             ],
           ),
         ),
@@ -247,32 +278,27 @@ class MyCard extends StatelessWidget {
               ),
             ],
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              GestureDetector(
-                onTap: () => onTap(),
-                child: Container(
-                  margin: EdgeInsets.all(12.sp),
-                  height: 3.5.h,
-                  width: 22.w,
-                  decoration: BoxDecoration(
-                    color: red,
-                    borderRadius: BorderRadius.circular(10.sp),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'START TEST',
-                      style: GoogleFonts.roboto(
-                        color: whiteText,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+          child: Padding(
+            padding: EdgeInsets.all(10.sp),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Sed: Daily Equivalent Static Compression Dose (Mpa)',
+                  style: GoogleFonts.roboto(
+                    color: Colors.white,
+                    fontSize: 14.sp,
                   ),
                 ),
-              ),
-            ],
+                Text(
+                  'R: Risk Factor',
+                  style: GoogleFonts.roboto(
+                    color: Colors.white,
+                    fontSize: 14.sp,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         SizedBox(
