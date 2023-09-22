@@ -11,16 +11,31 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../Middleware/constants/colors.dart';
 
-class RFactorScreen extends StatelessWidget {
+class RFactorScreen extends StatefulWidget {
   RFactorScreen({super.key});
 
+  @override
+  State<RFactorScreen> createState() => _RFactorScreenState();
+}
+
+class _RFactorScreenState extends State<RFactorScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   final TextEditingController N = TextEditingController();
+
   final TextEditingController n = TextEditingController();
+
   final TextEditingController i = TextEditingController();
-  final TextEditingController c = TextEditingController();
-  final TextEditingController sui = TextEditingController();
+
   final TextEditingController b = TextEditingController();
+
+  bool nInfo = false;
+
+  bool NInfo = false;
+
+  bool iInfo = false;
+
+  bool bInfo = false;
 
   @override
   Widget build(BuildContext context) {
@@ -121,58 +136,146 @@ class RFactorScreen extends StatelessWidget {
                             SizedBox(
                               height: 1.h,
                             ),
-                            MyCard(
-                              cont: N,
-                              variable: 'N',
-                              dec: textFieldDecoration('Enter N'),
-                              title: '(the number of exposure days per year)',
+                            Container(
+                              height: NInfo ? 18.h : 10.h,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: blue,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12.sp),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(12.sp),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextRow(
+                                      variable: 'N',
+                                      cont: N,
+                                      dec: textFieldDecoration('Enter N'),
+                                      onTap: () {
+                                        setState(() {
+                                          NInfo = !NInfo;
+                                        });
+                                      },
+                                    ),
+                                    NInfo
+                                        ? const TextRow2(value: '30')
+                                        : const Text('')
+                                  ],
+                                ),
+                              ),
                             ),
                             SizedBox(
                               height: 1.h,
                             ),
-                            MyCard(
-                              cont: i,
-                              variable: 'i',
-                              dec: textFieldDecoration('Enter i'),
-                              title: '(year counter)',
+                            Container(
+                              height: iInfo ? 18.h : 10.h,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: blue,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12.sp),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(12.sp),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextRow(
+                                      variable: 'i',
+                                      cont: i,
+                                      dec: textFieldDecoration('Enter i'),
+                                      onTap: () {
+                                        setState(() {
+                                          iInfo = !iInfo;
+                                        });
+                                      },
+                                    ),
+                                    iInfo
+                                        ? const TextRow2(value: '30')
+                                        : const Text('')
+                                  ],
+                                ),
+                              ),
                             ),
                             SizedBox(
                               height: 1.h,
                             ),
-                            MyCard(
-                              cont: n,
-                              variable: 'n',
-                              dec: textFieldDecoration('Enter n'),
-                              title: '(the number of years of exposure)',
+                            Container(
+                              height: nInfo ? 18.h : 10.h,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: blue,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12.sp),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(12.sp),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextRow(
+                                      variable: 'n',
+                                      cont: n,
+                                      dec: textFieldDecoration('Enter n'),
+                                      onTap: () {
+                                        setState(() {
+                                          nInfo = !nInfo;
+                                        });
+                                      },
+                                    ),
+                                    nInfo
+                                        ? const TextRow2(value: '30')
+                                        : const Text('')
+                                  ],
+                                ),
+                              ),
                             ),
                             SizedBox(
                               height: 1.h,
                             ),
-                            MyCard(
-                              cont: c,
-                              variable: 'c',
-                              dec: textFieldDecoration('Enter c'),
-                              title:
-                                  '(constant representing the static stress due to gravitational force)',
-                            ),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            MyCard(
-                              cont: b,
-                              variable: 'b',
-                              dec: textFieldDecoration('Enter b'),
-                              title: '(age at which the exposure starts)',
-                            ),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            MyCard(
-                              cont: sui,
-                              variable: 'sui',
-                              dec: textFieldDecoration('Enter sui'),
-                              title:
-                                  '(the strength of the lumbar spine for a person of age (b+i) years)',
+                            Container(
+                              height: bInfo ? 18.h : 10.h,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: blue,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12.sp),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(12.sp),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextRow(
+                                      variable: 'b',
+                                      cont: b,
+                                      dec: textFieldDecoration('Enter b'),
+                                      onTap: () {
+                                        setState(() {
+                                          bInfo = !bInfo;
+                                        });
+                                      },
+                                    ),
+                                    bInfo
+                                        ? const TextRow2(value: '30')
+                                        : const Text('')
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -200,7 +303,7 @@ class RFactorScreen extends StatelessWidget {
                                     "N": N.text,
                                     "i": i.text,
                                     "n": n.text,
-                                    "c": c.text,
+                                    "c": 0.25.toString(),
                                     "b": b.text
                                   });
                                   Navigator.pushNamed(context, '/graph_screen');
@@ -240,11 +343,13 @@ class TextRow extends StatelessWidget {
   final String variable;
   final TextEditingController cont;
   final InputDecoration dec;
-  const TextRow({
+  Function()? onTap;
+  TextRow({
     super.key,
     required this.variable,
     required this.cont,
     required this.dec,
+    required this.onTap,
   });
 
   @override
@@ -278,6 +383,19 @@ class TextRow extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(width: 3.w),
+        InkWell(
+          onTap: onTap,
+          child: Container(
+            height: 3.h,
+            width: 5.w,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: whiteText),
+            ),
+            child: Icon(Icons.question_mark, color: whiteText, size: 17.sp),
+          ),
+        ),
       ],
     );
   }
@@ -299,10 +417,10 @@ class MyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 11.h,
+      height: 8.h,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: transBlack,
+        color: blue,
         borderRadius: BorderRadius.all(
           Radius.circular(12.sp),
         ),
@@ -314,13 +432,61 @@ class MyCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextRow(variable: variable, cont: cont, dec: dec),
-            Text(
-              title,
-              style: GoogleFonts.roboto(color: whiteText, fontSize: 11),
-            )
+            TextRow(variable: variable, cont: cont, dec: dec, onTap: () {}),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class TextRow2 extends StatelessWidget {
+  // final String variable;
+  final String value;
+  const TextRow2({
+    super.key,
+    // required this.variable,
+    required this.value,
+  });
+
+  final String infoText =
+      'for ex. Assume that the record of the acceleration time history is representative of the conditions to which the driver is subjected, and that the exposure lasts, on the average, a period of 30 min per workday.';
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: 15.sp),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 60.w,
+            child: Text(
+              // variable,
+              infoText,
+              maxLines: 5,
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.roboto(
+                color: const Color.fromARGB(188, 255, 255, 255),
+                fontSize: 13.sp,
+              ),
+            ),
+          ),
+          const Spacer(),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.sp),
+              border: Border.all(color: Colors.white),
+            ),
+            child: Text(
+              value,
+              style: GoogleFonts.roboto(
+                color: whiteText,
+                fontSize: 16.sp,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

@@ -12,16 +12,26 @@ import 'package:data_hub/UI/widgets/blue_button.dart';
 
 import '../../Middleware/constants/colors.dart';
 
-class TdTmScreen extends StatelessWidget {
+class TdTmScreen extends StatefulWidget {
   TdTmScreen({super.key});
 
+  @override
+  State<TdTmScreen> createState() => _TdTmScreenState();
+}
+
+class _TdTmScreenState extends State<TdTmScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final String text =
       'for ex. Assume that the record of the acceleration time history is representative of the conditions to which the driver is subjected, and that the exposure lasts, on the average, a period of 30 min per workday.';
 
   final TextEditingController td = TextEditingController();
+
   final TextEditingController tm = TextEditingController();
+
+  bool show1 = false;
+
+  bool show2 = false;
 
   void showSelectDialog(BuildContext context) {
     showDialog(
@@ -122,7 +132,7 @@ class TdTmScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Enter R Factor',
+                            'Enter Time Parameters',
                             style: GoogleFonts.roboto(
                               color: blue,
                               fontSize: 16.sp,
@@ -174,10 +184,10 @@ class TdTmScreen extends StatelessWidget {
                             height: 2.h,
                           ),
                           Container(
-                            height: 20.h,
+                            height: show1 ? 18.h : 9.5.h,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: transBlack,
+                              color: blue,
                               borderRadius: BorderRadius.all(
                                 Radius.circular(12.sp),
                               ),
@@ -193,19 +203,15 @@ class TdTmScreen extends StatelessWidget {
                                     variable: 'TD',
                                     cont: td,
                                     dec: textFieldDecoration('Enter TD'),
+                                    onTap: () {
+                                      setState(() {
+                                        show1 = !show1;
+                                      });
+                                    },
                                   ),
-                                  SizedBox(height: 1.h),
-                                  Text(
-                                    'is the duration of the daily exposure',
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 14.sp,
-                                      color: const Color.fromARGB(
-                                          188, 255, 255, 255),
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                  ),
-                                  SizedBox(height: 1.h),
-                                  TextRow2(variable: text, value: '30'),
+                                  show1
+                                      ? TextRow2(variable: text, value: '30')
+                                      : const Text("")
                                 ],
                               ),
                             ),
@@ -214,10 +220,10 @@ class TdTmScreen extends StatelessWidget {
                             height: 2.h,
                           ),
                           Container(
-                            height: 20.h,
+                            height: show2 ? 18.h : 9.5.h,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: transBlack,
+                              color: blue,
                               borderRadius: BorderRadius.all(
                                 Radius.circular(12.sp),
                               ),
@@ -230,20 +236,18 @@ class TdTmScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   TextRow(
-                                      variable: 'Tm',
-                                      cont: tm,
-                                      dec: textFieldDecoration('Enter Tm')),
-                                  Text(
-                                    'is the duration of the daily exposure',
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 14.sp,
-                                      color: const Color.fromARGB(
-                                          188, 255, 255, 255),
-                                      fontStyle: FontStyle.italic,
-                                    ),
+                                    variable: 'Tm',
+                                    cont: tm,
+                                    dec: textFieldDecoration('Enter Tm'),
+                                    onTap: () {
+                                      setState(() {
+                                        show2 = !show2;
+                                      });
+                                    },
                                   ),
-                                  SizedBox(height: 1.h),
-                                  TextRow2(variable: text, value: '30'),
+                                  show2
+                                      ? TextRow2(variable: text, value: '30')
+                                      : const Text('')
                                 ],
                               ),
                             ),
@@ -337,11 +341,14 @@ class TextRow extends StatelessWidget {
   final String variable;
   final TextEditingController cont;
   final InputDecoration dec;
-  const TextRow({
+  Function()? onTap;
+
+  TextRow({
     super.key,
     required this.variable,
     required this.cont,
     required this.dec,
+    required this.onTap,
   });
 
   @override
@@ -376,6 +383,19 @@ class TextRow extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(width: 3.w),
+        InkWell(
+          onTap: onTap,
+          child: Container(
+            height: 3.h,
+            width: 5.w,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: whiteText),
+            ),
+            child: Icon(Icons.question_mark, color: whiteText, size: 17.sp),
+          ),
+        ),
       ],
     );
   }
@@ -392,36 +412,39 @@ class TextRow2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 60.w,
-          child: Text(
-            variable,
-            maxLines: 5,
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.roboto(
-              color: const Color.fromARGB(188, 255, 255, 255),
-              fontSize: 13.sp,
+    return Padding(
+      padding: EdgeInsets.only(top: 15.sp),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 60.w,
+            child: Text(
+              variable,
+              maxLines: 5,
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.roboto(
+                color: const Color.fromARGB(188, 255, 255, 255),
+                fontSize: 13.sp,
+              ),
             ),
           ),
-        ),
-        const Spacer(),
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.sp),
-            border: Border.all(color: Colors.white),
-          ),
-          child: Text(
-            value,
-            style: GoogleFonts.roboto(
-              color: whiteText,
-              fontSize: 16.sp,
+          const Spacer(),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.sp),
+              border: Border.all(color: Colors.white),
             ),
-          ),
-        )
-      ],
+            child: Text(
+              value,
+              style: GoogleFonts.roboto(
+                color: whiteText,
+                fontSize: 16.sp,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
