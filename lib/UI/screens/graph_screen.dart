@@ -3,6 +3,7 @@ import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/UI/Graphs/Spline3axis.dart';
 import 'package:data_hub/UI/Graphs/SplineGraph.dart';
 import 'package:data_hub/UI/widgets/back_button.dart';
+import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:data_hub/UI/widgets/result.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -112,6 +113,10 @@ class _GraphScreenState extends State<GraphScreen> {
                         child: Result(
                             sed: state.data.data!.sed!, r: state.data.data!.r!),
                       ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      BlueButton(text: 'Generate Report', onTap: () {})
                     ],
                   ),
                 );
