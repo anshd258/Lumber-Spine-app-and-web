@@ -1,9 +1,7 @@
-import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
 import 'package:data_hub/UI/widgets/appbar.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:data_hub/UI/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -22,105 +20,6 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
 
   String finalFilePath = '';
 
-  void showUploadDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: Padding(
-            padding: EdgeInsets.all(16.sp),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      "Start Test",
-                      style: GoogleFonts.roboto(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.sp,
-                      ),
-                    ),
-                    const Spacer(),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.close_rounded,
-                        size: 20.sp,
-                        color: red,
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(height: 3.h),
-                Text(
-                  "File Upload",
-                  style: GoogleFonts.roboto(
-                      fontSize: 16.sp, fontWeight: FontWeight.w500),
-                ),
-                SizedBox(height: 3.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "CSV",
-                      style: GoogleFonts.roboto(fontSize: 16.sp),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        context.read<GetcsvCubit>().getFile();
-                      },
-                      child: Container(
-                        height: 3.5.h,
-                        width: 10.w,
-                        decoration: BoxDecoration(
-                          color: yellow,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(Icons.add, size: 18.sp, color: black),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8.h),
-                BlocBuilder<GetcsvCubit, GetcsvState>(
-                  builder: (context, state) {
-                    if (state is GetcsvLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      );
-                    } else if (state is GetcsvLoaded) {
-                      return BlueButton(
-                          text: 'Proceed',
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, '/instructions_screen');
-                          });
-                    } else if (state is GetcsvError) {
-                      return Center(
-                        child: Icon(
-                          Icons.error_outline_rounded,
-                          color: Colors.redAccent.shade400,
-                          size: 50,
-                        ),
-                      );
-                    } else {
-                      return const Center();
-                    }
-                  },
-                )
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -129,65 +28,66 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: Appbar1(title: 'Analyze'),
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.w),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 4.h,
-              ),
-              MyCard(
-                title: 'Lumber Spline Measurement',
-                desc: desc,
-                onTap: () {},
-              ),
-              InkWell(
-                onTap: () {
-                  showUploadDialog(context);
-                },
-                child: Container(
-                  padding: EdgeInsets.all(18.sp),
-                  height: 35.h,
-                  width: 200.w,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: whiteText,
-                    border: Border.all(color: blue, width: 10.sp),
-                  ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 4.h,
+                ),
+                MyCard(
+                  title: 'Lumber Spline Measurement',
+                  desc: desc,
+                  onTap: () {},
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/instructions_screen');
+                  },
                   child: Container(
-                    height: 25.h,
-                    width: 180.w,
+                    padding: EdgeInsets.all(18.sp),
+                    height: 35.h,
+                    width: 200.w,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: blue,
+                      color: whiteText,
+                      border: Border.all(color: blue, width: 10.sp),
                     ),
-                    child: Center(
-                      child: Text(
-                        'Start Test',
-                        style: GoogleFonts.roboto(
-                          color: whiteText,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22.sp,
+                    child: Container(
+                      height: 25.h,
+                      width: 180.w,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: blue,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Start Test',
+                          style: GoogleFonts.roboto(
+                            color: whiteText,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22.sp,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 3.h,
-              ),
-              BlueButton(
-                  text: 'History',
-                  onTap: () {
-                    Navigator.pushNamed(context, '/history_screen');
-                  }),
-              const Spacer(),
-              const BottomNavBar(),
-              SizedBox(
-                height: 1.h,
-              ),
-            ],
+                SizedBox(
+                  height: 3.h,
+                ),
+                BlueButton(
+                    text: 'History',
+                    onTap: () {
+                      Navigator.pushNamed(context, '/history_screen');
+                    }),
+                SizedBox(
+                  height: 6.h,
+                ),
+                const BottomNavBar(),
+              ],
+            ),
           ),
         ),
       ),

@@ -44,9 +44,7 @@ class BottomNavBar extends StatelessWidget {
             ],
           ),
           GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/analyze_screen');
-            },
+            onTap: () {},
             child: CircleAvatar(
               backgroundColor: const Color.fromARGB(255, 241, 90, 64),
               child: Icon(
