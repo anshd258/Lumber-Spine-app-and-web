@@ -131,7 +131,7 @@ class Instructions extends StatelessWidget {
                 width: double.infinity,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                  image: AssetImage('assets/analyze/halfCompBar.png'),
+                  image: AssetImage('assets/instructions/startBar.png'),
                 )),
               ),
               SizedBox(
@@ -146,91 +146,119 @@ class Instructions extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(15.sp),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Instructions',
-                        style: GoogleFonts.roboto(
-                          color: blue,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      const HeadingRow(
-                          title: 'Save Data in .csv Format !', no: '1'),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      const HeadingRow(
-                          title: 'Replace HEader of .csv with below', no: '2'),
-                      Container(
-                        height: 15.h,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/instructions/csveg.png'),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Instructions',
+                          style: GoogleFonts.roboto(
+                            color: blue,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(width: 12.w),
-                          Text(
-                            'Required Units',
-                            style: GoogleFonts.roboto(
-                                color: blue,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.sp),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        const HeadingRow(
+                            title: 'Save Data in .csv Format !', no: '1'),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        const HeadingRow(
+                            title: 'Replace Header Row of .csv file', no: '2'),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 12.w,
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  'as instructed below',
+                                  style: GoogleFonts.roboto(
+                                    color: blue,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                                Text(
+                                  '*USE UPPERCASE TEXT ONLY',
+                                  style: GoogleFonts.roboto(
+                                    color: red,
+                                    fontSize: 13.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Container(
+                          height: 15.h,
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image:
+                                  AssetImage('assets/instructions/csveg.png'),
+                            ),
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 0.5.h),
-                      Row(
-                        children: [
-                          const dataNeeded(title1: 'TIME (seconds)'),
-                          SizedBox(width: 2.w),
-                          const dataNeeded(title1: 'X, Y, Z (m/s2)'),
-                        ],
-                      ),
-                      SizedBox(height: 3.h),
-                      const HeadingRow(title: 'Time Parameters', no: '3'),
-                      const dataNeeded(
-                        title1: 'Td (duration of the daily exposure)',
-                      ),
-                      const dataNeeded(
-                        title1: 'Tm (period over which accelareration dose',
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(width: 17.w),
-                          Text(
-                            '(Dk) is measured',
-                            style: GoogleFonts.roboto(
-                                color: blue,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 3.h),
-                      const HeadingRow(title: 'R Factor Parameters', no: '4'),
-                      const dataNeeded(
-                        title1: 'N (the number of exposure days per year)',
-                      ),
-                      const dataNeeded(
-                        title1: 'i (year counter)',
-                      ),
-                      const dataNeeded(
-                        title1: 'n (the number of years of exposure)',
-                      ),
-                      const dataNeeded(
-                        title1: 'b (the age at which the exposure starts)',
-                      ),
-                    ],
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(width: 12.w),
+                            Text(
+                              'Required Units',
+                              style: GoogleFonts.roboto(
+                                  color: blue,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.sp),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 0.5.h),
+                        Row(
+                          children: [
+                            const dataNeeded(title1: 'TIME (seconds)'),
+                            SizedBox(width: 2.w),
+                            const dataNeeded(title1: 'X, Y, Z (m/s2)'),
+                          ],
+                        ),
+                        SizedBox(height: 2.h),
+                        const HeadingRow(title: 'Time Parameters', no: '3'),
+                        const dataNeeded(
+                          title1: 'Td (duration of the daily exposure)',
+                        ),
+                        const dataNeeded(
+                          title1: 'Tm (period over which accelareration dose',
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(width: 17.w),
+                            Text(
+                              '(Dk) is measured)',
+                              style: GoogleFonts.roboto(
+                                  color: blue,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 2.h),
+                        const HeadingRow(title: 'R Factor Parameters', no: '4'),
+                        const dataNeeded(
+                          title1: 'N (the number of exposure days per year)',
+                        ),
+                        const dataNeeded(
+                          title1: 'i (year counter)',
+                        ),
+                        const dataNeeded(
+                          title1: 'n (the number of years of exposure)',
+                        ),
+                        const dataNeeded(
+                          title1: 'b (the age at which the exposure starts)',
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -238,10 +266,10 @@ class Instructions extends StatelessWidget {
                 height: 0.5.h,
               ),
               BlueButton(
-                  text: 'Next',
+                  text: 'Proceed',
                   onTap: () {
                     showUploadDialog(context);
-                  })
+                  }),
             ],
           ),
         ),
@@ -315,16 +343,6 @@ class HeadingRow extends StatelessWidget {
               style: GoogleFonts.roboto(
                   color: blue, fontWeight: FontWeight.bold, fontSize: 16.sp),
             ),
-            // child: Container(
-            //   height: 2.h,
-            //   width: 5.w,
-            //   decoration: const BoxDecoration(
-            //     image: DecorationImage(
-            //       image: AssetImage('assets/analyze/checklistIc.png'),
-            //       fit: BoxFit.contain,
-            //     ),
-            //   ),
-            // ),
           ),
         ),
         SizedBox(

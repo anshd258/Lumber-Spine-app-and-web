@@ -66,7 +66,7 @@ class BottomNavBar extends StatelessWidget {
                 height: 0.8.h,
               ),
               Text(
-                'Profile',
+                'Help',
                 style: GoogleFonts.roboto(
                   color: darkerGrey,
                   fontSize: 14.sp,

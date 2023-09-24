@@ -41,19 +41,14 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
                   desc: desc,
                   onTap: () {},
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/instructions_screen');
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(18.sp),
-                    height: 35.h,
-                    width: 200.w,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: whiteText,
-                      border: Border.all(color: blue, width: 10.sp),
-                    ),
+                SizedBox(
+                  height: 4.h,
+                ),
+                GradientCircularRing(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/instructions_screen');
+                    },
                     child: Container(
                       height: 25.h,
                       width: 180.w,
@@ -75,7 +70,7 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 3.h,
+                  height: 6.h,
                 ),
                 BlueButton(
                     text: 'History',
@@ -83,7 +78,7 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
                       Navigator.pushNamed(context, '/history_screen');
                     }),
                 SizedBox(
-                  height: 6.h,
+                  height: 7.h,
                 ),
                 const BottomNavBar(),
               ],
@@ -206,5 +201,44 @@ class MyCard extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class GradientCircularRing extends StatelessWidget {
+  final Widget child;
+
+  const GradientCircularRing({
+    super.key,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      size: Size(200, 200), // Adjust the size as needed
+      painter: GradientCircularRingPainter(),
+      child: child,
+    );
+  }
+}
+
+class GradientCircularRingPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = 48.sp;
+    final paint = Paint()
+      ..shader = LinearGradient(
+        colors: [blue, yellow], // Adjust gradient colors as needed
+      ).createShader(Rect.fromCircle(center: center, radius: radius))
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 10; // Adjust the width of the ring as needed
+
+    canvas.drawCircle(center, radius, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }

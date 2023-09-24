@@ -110,7 +110,7 @@ class _TdTmScreenState extends State<TdTmScreen> {
                   width: double.infinity,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
-                    image: AssetImage('assets/analyze/completedBar.png'),
+                    image: AssetImage('assets/analyze/halfBar.png'),
                   )),
                 ),
                 SizedBox(
@@ -132,7 +132,7 @@ class _TdTmScreenState extends State<TdTmScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Enter Time Parameters',
+                            'Time Parameters',
                             style: GoogleFonts.roboto(
                               color: blue,
                               fontSize: 16.sp,
@@ -167,7 +167,7 @@ class _TdTmScreenState extends State<TdTmScreen> {
                                 ),
                                 const Spacer(),
                                 Text(
-                                  'Value',
+                                  'Enter Value',
                                   style: GoogleFonts.roboto(
                                     color: black,
                                     fontSize: 16.sp,
@@ -184,7 +184,7 @@ class _TdTmScreenState extends State<TdTmScreen> {
                             height: 2.h,
                           ),
                           Container(
-                            height: show1 ? 18.h : 9.5.h,
+                            height: show1 ? 18.3.h : 9.5.h,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: blue,
@@ -220,7 +220,7 @@ class _TdTmScreenState extends State<TdTmScreen> {
                             height: 2.h,
                           ),
                           Container(
-                            height: show2 ? 18.h : 9.5.h,
+                            height: show2 ? 18.3.h : 9.5.h,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: blue,
@@ -414,35 +414,44 @@ class TextRow2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 15.sp),
-      child: Row(
+      child: Column(
         children: [
-          SizedBox(
-            width: 60.w,
-            child: Text(
-              variable,
-              maxLines: 5,
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.roboto(
-                color: const Color.fromARGB(188, 255, 255, 255),
-                fontSize: 13.sp,
+          Row(
+            children: [
+              SizedBox(
+                width: 60.w,
+                child: Text(
+                  variable,
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.roboto(
+                    color: const Color.fromARGB(188, 255, 255, 255),
+                    fontSize: 13.sp,
+                  ),
+                ),
               ),
-            ),
+              const Spacer(),
+              Container(
+                padding:
+                    EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.sp),
+                  border: Border.all(color: Colors.white),
+                ),
+                child: Text(
+                  value,
+                  style: GoogleFonts.roboto(
+                    color: whiteText,
+                    fontSize: 16.sp,
+                  ),
+                ),
+              )
+            ],
           ),
-          const Spacer(),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.sp),
-              border: Border.all(color: Colors.white),
-            ),
-            child: Text(
-              value,
-              style: GoogleFonts.roboto(
-                color: whiteText,
-                fontSize: 16.sp,
-              ),
-            ),
-          )
+          Divider(
+            thickness: 1.5,
+            color: greenGradient,
+          ),
         ],
       ),
     );

@@ -1,7 +1,6 @@
 import 'package:data_hub/Middleware/bloc/sign_in/sign_in_bloc.dart';
 import 'package:data_hub/Middleware/bloc/sign_up/sign_up_bloc.dart';
 import 'package:data_hub/UI/screens/R_factor_screen.dart';
-import 'package:data_hub/UI/screens/about_screen.dart';
 import 'package:data_hub/UI/screens/analyze_screen.dart';
 import 'package:data_hub/UI/screens/graph_screen.dart';
 import 'package:data_hub/UI/screens/history_screen.dart';
@@ -33,8 +32,6 @@ var routes = <String, WidgetBuilder>{
   // '/otp_screen': (context) => OTPScreen(),
 
   '/country_screen': (context) => const CountryScreen(),
-
-  '/about_screen': (context) => AboutScreen(),
 
   '/registration_completed_screen': (context) =>
       const RegistrationCompletedScreen(),

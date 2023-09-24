@@ -84,7 +84,7 @@ class _RFactorScreenState extends State<RFactorScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Enter R Factor',
+                              'R Factor Parameters',
                               style: GoogleFonts.roboto(
                                 color: blue,
                                 fontSize: 16.sp,
@@ -120,7 +120,7 @@ class _RFactorScreenState extends State<RFactorScreen> {
                                   ),
                                   const Spacer(),
                                   Text(
-                                    'Value',
+                                    'Enter Value',
                                     style: GoogleFonts.roboto(
                                       color: black,
                                       fontSize: 16.sp,
@@ -137,7 +137,7 @@ class _RFactorScreenState extends State<RFactorScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: NInfo ? 18.h : 10.h,
+                              height: NInfo ? 18.3.h : 10.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: blue,
@@ -173,7 +173,7 @@ class _RFactorScreenState extends State<RFactorScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: iInfo ? 18.h : 10.h,
+                              height: iInfo ? 18.3.h : 10.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: blue,
@@ -209,7 +209,7 @@ class _RFactorScreenState extends State<RFactorScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: nInfo ? 18.h : 10.h,
+                              height: nInfo ? 18.3.h : 10.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: blue,
@@ -245,7 +245,7 @@ class _RFactorScreenState extends State<RFactorScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: bInfo ? 18.h : 10.h,
+                              height: bInfo ? 18.3.h : 10.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: blue,
@@ -456,36 +456,45 @@ class TextRow2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 15.sp),
-      child: Row(
+      child: Column(
         children: [
-          SizedBox(
-            width: 60.w,
-            child: Text(
-              // variable,
-              infoText,
-              maxLines: 5,
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.roboto(
-                color: const Color.fromARGB(188, 255, 255, 255),
-                fontSize: 13.sp,
+          Row(
+            children: [
+              SizedBox(
+                width: 60.w,
+                child: Text(
+                  // variable,
+                  infoText,
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.roboto(
+                    color: const Color.fromARGB(188, 255, 255, 255),
+                    fontSize: 13.sp,
+                  ),
+                ),
               ),
-            ),
+              const Spacer(),
+              Container(
+                padding:
+                    EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.sp),
+                  border: Border.all(color: Colors.white),
+                ),
+                child: Text(
+                  value,
+                  style: GoogleFonts.roboto(
+                    color: whiteText,
+                    fontSize: 16.sp,
+                  ),
+                ),
+              )
+            ],
           ),
-          const Spacer(),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.sp),
-              border: Border.all(color: Colors.white),
-            ),
-            child: Text(
-              value,
-              style: GoogleFonts.roboto(
-                color: whiteText,
-                fontSize: 16.sp,
-              ),
-            ),
-          )
+          Divider(
+            thickness: 2,
+            color: greenGradient,
+          ),
         ],
       ),
     );

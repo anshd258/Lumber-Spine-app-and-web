@@ -61,7 +61,7 @@ class RegistrationCompletedScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Name',
+                    'Siby !',
                     style: GoogleFonts.roboto(
                       color: blue,
                       fontSize: 18.sp,
