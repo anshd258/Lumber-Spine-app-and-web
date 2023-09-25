@@ -57,10 +57,15 @@ class BottomNavBar extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FaIcon(
-                Icons.person_outline,
-                size: 20.sp,
-                color: darkerGrey,
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/profile_screen');
+                },
+                child: FaIcon(
+                  Icons.person_outline,
+                  size: 20.sp,
+                  color: darkerGrey,
+                ),
               ),
               SizedBox(
                 height: 0.8.h,
