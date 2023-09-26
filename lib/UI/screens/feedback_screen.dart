@@ -1,15 +1,25 @@
+import 'dart:convert';
+
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/UI/widgets/appbar.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class FeedbackScreen extends StatelessWidget {
+class FeedbackScreen extends StatefulWidget {
   const FeedbackScreen({super.key});
 
   @override
+  State<FeedbackScreen> createState() => _FeedbackScreenState();
+}
+
+class _FeedbackScreenState extends State<FeedbackScreen> {
+  @override
   Widget build(BuildContext context) {
+    TextEditingController ctr = TextEditingController();
+
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
@@ -68,8 +78,10 @@ class FeedbackScreen extends StatelessWidget {
                     Container(
                       width: 80.w,
                       height: 8.h,
+                      padding: EdgeInsets.all(7.sp),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
                         gradient: LinearGradient(
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
@@ -80,16 +92,18 @@ class FeedbackScreen extends StatelessWidget {
                         ),
                       ),
                       child: Container(
-                        width: 78.w,
-                        height: 7.h,
-                        color: whiteText,
-                        child: Padding(
-                          padding: EdgeInsets.all(10.sp),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: 'we have a solution',
-                              hintStyle: GoogleFonts.roboto(color: darkerGrey),
-                            ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: TextField(
+                          controller: ctr,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide.none),
+                            hintText: 'we have a solution',
+                            hintStyle: GoogleFonts.roboto(color: darkerGrey),
                           ),
                         ),
                       ),
@@ -99,7 +113,32 @@ class FeedbackScreen extends StatelessWidget {
                     ),
                     SizedBox(
                       width: 20.w,
-                      child: BlueButton(text: 'Send', onTap: () {}),
+                      child: BlueButton(
+                          text: 'Send',
+                          onTap: () async {
+                            await http
+                                .post(
+                                    Uri.parse(
+                                        "https://api.emailjs.com/api/v1.0/email/send"),
+                                    headers: {
+                                      'Content-Type': 'application/json',
+                                    },
+                                    body: json.encode({
+                                      'accessToken': '19cmI_x2zOfbpO_qdonwj',
+                                      'service_id': 'service_h96l2r6',
+                                      'template_id': 'template_vi7yg1t',
+                                      'user_id': 'KHTOTaPcLZLaIWFDm',
+                                      'template_params': {
+                                        'user_name': 'anshdeep',
+                                        'user_email': 'useremail@gmail.com',
+                                        'user_message': ctr.text
+                                      }
+                                    }))
+                                .then((value) {
+                              print(value.body);
+                              ctr.clear();
+                            });
+                          }),
                     )
                   ],
                 ),

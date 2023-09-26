@@ -73,7 +73,6 @@ class _HistoryState extends State<History> {
                 value: '-15.99 aw',
               ),
               const Spacer(),
-              const BottomNavBar(),
               SizedBox(height: 2.h),
             ],
           ),

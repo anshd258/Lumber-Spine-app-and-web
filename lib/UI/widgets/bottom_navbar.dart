@@ -54,31 +54,31 @@ class BottomNavBar extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, '/profile_screen');
-                },
-                child: FaIcon(
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/profile_screen');
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FaIcon(
                   Icons.person_outline,
                   size: 20.sp,
                   color: darkerGrey,
                 ),
-              ),
-              SizedBox(
-                height: 0.8.h,
-              ),
-              Text(
-                'Help',
-                style: GoogleFonts.roboto(
-                  color: darkerGrey,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
+                SizedBox(
+                  height: 0.8.h,
                 ),
-              )
-            ],
+                Text(
+                  'Help',
+                  style: GoogleFonts.roboto(
+                    color: darkerGrey,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                )
+              ],
+            ),
           ),
         ],
       ),
