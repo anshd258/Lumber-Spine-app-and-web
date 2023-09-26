@@ -1,6 +1,7 @@
 import 'package:data_hub/Middleware/bloc/sign_in/sign_in_bloc.dart';
 import 'package:data_hub/Middleware/bloc/sign_up/sign_up_bloc.dart';
 import 'package:data_hub/UI/screens/R_factor_screen.dart';
+import 'package:data_hub/UI/screens/feedback_screen.dart';
 import 'package:data_hub/UI/screens/home_screen.dart';
 import 'package:data_hub/UI/screens/graph_screen.dart';
 import 'package:data_hub/UI/screens/history_screen.dart';
@@ -41,6 +42,8 @@ var routes = <String, WidgetBuilder>{
   '/history_screen': (context) => const History(),
 
   '/profile_screen': (context) => const ProfileScreen(),
+
+  '/feedback_screen': (context) => const FeedbackScreen(),
 
   '/instructions_screen': (context) => const Instructions(),
 
