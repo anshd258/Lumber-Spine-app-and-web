@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
+import 'package:data_hub/Middleware/services/report_service.dart';
 import 'package:data_hub/UI/Graphs/Spline3axis.dart';
 import 'package:data_hub/UI/Graphs/SplineGraph.dart';
 import 'package:data_hub/UI/widgets/back_button.dart';
@@ -18,6 +19,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rive/rive.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
 
 class GraphScreen extends StatefulWidget {
   const GraphScreen({super.key});
@@ -31,12 +33,12 @@ class _GraphScreenState extends State<GraphScreen> {
   Uint8List? bytes1;
 
   GlobalKey? key1;
+  GlobalKey? key2;
+  GlobalKey? key3;
+  GlobalKey? key4;
 
-  // @override
-  // void initState() async {
-  //   super.didChangeDependencies();
-  //   _loadImage();
-  // }
+  final PdfReportService service = PdfReportService();
+  int number = 0;
 
   Future<void> _loadImage() async {
     final appStorage = await getApplicationDocumentsDirectory();
@@ -108,71 +110,71 @@ class _GraphScreenState extends State<GraphScreen> {
                       SizedBox(
                         height: 2.h,
                       ),
-                      WidgetToImage(builder: (key) {
-                        this.key1 = key;
-                        return MyNeumorCont(
-                          data: state.data.data!.rawPeakY!,
-                          xtitle: "Time (s)",
-                          ytitle: "Yraw 318",
-                          gradientColor: Colors.greenAccent.shade400,
-                          isShowingMainData: true,
-                          max: state.data.data!.rawPosY!,
-                          min: state.data.data!.rawNegY!,
-                          time: state.data.data!.rawTimeY!,
-                        );
-                      }),
+                      WidgetToImage(
+                        builder: (key) {
+                          key1 = key;
+                          return MyNeumorCont(
+                            data: state.data.data!.rawPeakY!,
+                            xtitle: "Time (s)",
+                            ytitle: "Yraw 318",
+                            gradientColor: Colors.greenAccent.shade400,
+                            isShowingMainData: true,
+                            max: state.data.data!.rawPosY!,
+                            min: state.data.data!.rawNegY!,
+                            time: state.data.data!.rawTimeY!,
+                          );
+                        },
+                      ),
                       // if (bytes != null) Image.memory(bytes!),
                       // Text('Image'),
                       // buildImage(bytes1),
                       // SizedBox(
                       //   height: 2.h,
                       // ),
-                      MyNeumorCont(
-                        data: state.data.data!.rawPeakZ!,
-                        xtitle: "Time (s)",
-                        ytitle: "Zraw 318",
-                        gradientColor: Colors.redAccent.shade400,
-                        isShowingMainData: true,
-                        max: state.data.data!.rawPosZ!,
-                        min: state.data.data!.rawNegZ!,
-                        time: state.data.data!.rawTimeZ!,
+                      WidgetToImage(
+                        builder: (key) {
+                          key2 = key;
+                          return MyNeumorCont(
+                            data: state.data.data!.rawPeakZ!,
+                            xtitle: "Time (s)",
+                            ytitle: "Zraw 318",
+                            gradientColor: Colors.redAccent.shade400,
+                            isShowingMainData: true,
+                            max: state.data.data!.rawPosZ!,
+                            min: state.data.data!.rawNegZ!,
+                            time: state.data.data!.rawTimeZ!,
+                          );
+                        },
                       ),
                       SizedBox(
                         height: 2.h,
                       ),
-                      ThreeAxisGraph(data: state.data),
+                      WidgetToImage(
+                        builder: (key) {
+                          key3 = key;
+                          return ThreeAxisGraph(data: state.data);
+                        },
+                      ),
                       SizedBox(
                         height: 2.h,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Result(
-                            sed: state.data.data!.sed!, r: state.data.data!.r!),
+                        child: WidgetToImage(
+                          builder: (key) {
+                            key4 = key;
+                            return Result(
+                              sed: state.data.data!.sed!,
+                              r: state.data.data!.r!,
+                            );
+                          },
+                        ),
                       ),
                       SizedBox(
                         height: 3.h,
                       ),
                       BlueButton(
                         text: 'Generate Report',
-                        // onTap: () async {
-                        //   final controller = ScreenshotController();
-                        //   final bytes = await controller.captureFromWidget(
-                        //     MyNeumorCont(
-                        //       data: state.data.data!.rawPeakY!,
-                        //       xtitle: "Time (s)",
-                        //       ytitle: "Yraw 318",
-                        //       gradientColor: Colors.greenAccent.shade400,
-                        //       isShowingMainData: true,
-                        //       max: state.data.data!.rawPosY!,
-                        //       min: state.data.data!.rawNegY!,
-                        //       time: state.data.data!.rawTimeY!,
-                        //     ),
-                        //   );
-                        //   setState(() {
-                        //     this.bytes = bytes;
-                        //   });
-                        //   saveImage(bytes);
-                        // },
                         onTap: () async {
                           final bytes1 = await Utils.capture(key1);
 
@@ -180,6 +182,10 @@ class _GraphScreenState extends State<GraphScreen> {
                             this.bytes1 = bytes1;
                           });
                           saveImage(bytes1);
+
+                          final data = await service.createReport();
+                          service.savePdfFile("report_$number", data);
+                          number++;
                         },
                       )
                     ],
