@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class PdfReportService {
@@ -9,8 +10,16 @@ class PdfReportService {
       pw.Page(
         build: (pw.Context context) {
           return pw.Column(children: [
-           
-            pw.Text('Hey'),
+            pw.Container(
+              child: pw.Column(
+                mainAxisAlignment: pw.MainAxisAlignment.center,
+                crossAxisAlignment: pw.CrossAxisAlignment.center,
+                children: [
+                  pw.Text('Lumber Spline Health'),
+                  pw.Text('Report'),
+                ],
+              )
+            ),
             pw.Image(
               pw.RawImage(bytes: images[1], width: 200, height: 200),
             )
