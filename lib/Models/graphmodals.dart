@@ -34,6 +34,12 @@ class Data {
   List<String>? rawTimeZ;
   double? se;
   double? sed;
+  String? dx;
+  String? dy;
+  String? dz;
+  String? dxd;
+  String? dyd;
+  String? dzd;
 
   Data(
       {this.r,
@@ -52,7 +58,13 @@ class Data {
       this.rawTimeY,
       this.rawTimeZ,
       this.se,
-      this.sed});
+      this.sed,
+      this.dx,
+      this.dy,
+      this.dz,
+      this.dxd,
+      this.dyd,
+      this.dzd});
 
   Data.fromJson(Map<String, dynamic> json) {
     r = json['r'];
@@ -72,6 +84,12 @@ class Data {
     rawTimeZ = json['raw_time_z'].cast<String>();
     se = json['se'];
     sed = json['sed'];
+    dx = json["dx"];
+    dy = json["dy"];
+    dz = json["dx"];
+    dxd = json["dxd"];
+    dyd = json["dyd"];
+    dzd = json["dzd"];
   }
 
   Map<String, dynamic> toJson() {
