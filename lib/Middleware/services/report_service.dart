@@ -1,21 +1,20 @@
 import 'dart:io';
 import 'dart:typed_data';
-
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'package:open_document/open_document.dart';
-import 'package:path_provider/path_provider.dart';
-
 class PdfReportService {
-  Future<Uint8List> createReport() {
+  Future<Uint8List> createReport(List<Uint8List> images) {
     final pdf = pw.Document();
     pdf.addPage(
       pw.Page(
         build: (pw.Context context) {
-          return pw.Center(
-            child: pw.Text('Hey'),
-          );
+          return pw.Column(children: [
+           
+            pw.Text('Hey'),
+            pw.Image(
+              pw.RawImage(bytes: images[1], width: 200, height: 200),
+            )
+          ]);
         },
       ),
     );
@@ -23,10 +22,9 @@ class PdfReportService {
   }
 
   Future<void> savePdfFile(String fileName, Uint8List byteList) async {
-    final output = await getTemporaryDirectory();
-    var filePath = "${output.path}/$fileName.pdf";
+    final output = "/storage/emulated/0/Download";
+    var filePath = "${output}/$fileName.pdf";
     final file = File(filePath);
     await file.writeAsBytes(byteList);
-    await OpenDocument.openDocument(filePath: filePath);
   }
 }

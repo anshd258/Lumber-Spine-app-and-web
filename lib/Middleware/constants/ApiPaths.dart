@@ -1,3 +1,3 @@
 const baseUrl =
-    "https://3644-2409-40d0-a-882b-e166-4ae7-ac3d-b47b.ngrok-free.app";
+    "https://8ce6-2406-b400-60-436f-e186-cb91-66f-af54.ngrok-free.app";
 const uploadPath = "/upload";

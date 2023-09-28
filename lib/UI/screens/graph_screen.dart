@@ -17,9 +17,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rive/rive.dart';
-import 'package:screenshot/screenshot.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
 
 class GraphScreen extends StatefulWidget {
   const GraphScreen({super.key});
@@ -29,9 +27,9 @@ class GraphScreen extends StatefulWidget {
 }
 
 class _GraphScreenState extends State<GraphScreen> {
-  Uint8List? bytes;
-  Uint8List? bytes1;
 
+
+  GlobalKey? key0;
   GlobalKey? key1;
   GlobalKey? key2;
   GlobalKey? key3;
@@ -40,27 +38,17 @@ class _GraphScreenState extends State<GraphScreen> {
   final PdfReportService service = PdfReportService();
   int number = 0;
 
-  Future<void> _loadImage() async {
-    final appStorage = await getApplicationDocumentsDirectory();
-    final file = File('${appStorage.path}/image.png');
-    if (file.existsSync()) {
-      final bytes = await file.readAsBytes();
-      setState(() {
-        this.bytes = bytes;
-      });
-    }
-  }
+  // Future<File> saveImage(Uint8List bytes, String name) async {
+  //   final directory = await getExternalStorageDirectory();
+  //   final filePath = '${directory!.path}/Download/${name}.png';
 
-  Future saveImage(Uint8List bytes) async {
-    final directory = await getExternalStorageDirectory();
-    final filePath = '${directory!.path}/Download/data_hub_image.png';
+  //   final file = File(filePath);
+  //   await file.create(recursive: true);
+  //   await file.writeAsBytes(bytes);
 
-    final file = File(filePath);
-    await file.create(recursive: true);
-    await file.writeAsBytes(bytes);
-
-    print('Image saved to Downloads directory: $filePath');
-  }
+  //   print('Image saved to Downloads directory: $filePath');
+  //   return file;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +95,22 @@ class _GraphScreenState extends State<GraphScreen> {
                 return SingleChildScrollView(
                   child: Column(
                     children: [
+                      WidgetToImage(
+                        builder: (key) {
+                          key0 = key;
+                          return MyNeumorCont(
+                            data: state.data.data!.rawPeakX!,
+                            xtitle: "Time (s)",
+                            ytitle: "Xraw 318",
+                            gradientColor:
+                                const Color.fromARGB(255, 0, 146, 230),
+                            isShowingMainData: true,
+                            max: state.data.data!.rawPosX!,
+                            min: state.data.data!.rawNegX!,
+                            time: state.data.data!.rawTimeX!,
+                          );
+                        },
+                      ),
                       SizedBox(
                         height: 2.h,
                       ),
@@ -176,14 +180,16 @@ class _GraphScreenState extends State<GraphScreen> {
                       BlueButton(
                         text: 'Generate Report',
                         onTap: () async {
+                          final bytes0 = await Utils.capture(key0);
                           final bytes1 = await Utils.capture(key1);
+                          final bytes2 = await Utils.capture(key2);
+                          final bytes3 = await Utils.capture(key3);
+                          final bytes4 = await Utils.capture(key4);
 
-                          setState(() {
-                            this.bytes1 = bytes1;
-                          });
-                          saveImage(bytes1);
-
-                          final data = await service.createReport();
+                        
+                         
+                          final data = await service.createReport(
+                              [bytes0, bytes1, bytes2, bytes3, bytes4]);
                           service.savePdfFile("report_$number", data);
                           number++;
                         },

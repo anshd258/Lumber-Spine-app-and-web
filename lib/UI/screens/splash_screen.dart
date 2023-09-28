@@ -1,5 +1,6 @@
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,6 +18,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _navigatetohome() async {
+    await Permission.storage.request().then((value) => print(value.name));
+    await Permission.manageExternalStorage
+        .request()
+        .then((value) => print(value.name));
     await Future.delayed(const Duration(seconds: 3), () {});
     Navigator.pushNamed(context, '/signin_screen');
   }
