@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/UI/Graphs/Spline3axis.dart';
@@ -5,12 +8,16 @@ import 'package:data_hub/UI/Graphs/SplineGraph.dart';
 import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:data_hub/UI/widgets/result.dart';
+import 'package:data_hub/UI/widgets/utils.dart';
+import 'package:data_hub/UI/widgets/widget_to_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rive/rive.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:path_provider/path_provider.dart';
 
 class GraphScreen extends StatefulWidget {
   const GraphScreen({super.key});
@@ -20,6 +27,39 @@ class GraphScreen extends StatefulWidget {
 }
 
 class _GraphScreenState extends State<GraphScreen> {
+  Uint8List? bytes;
+  Uint8List? bytes1;
+
+  GlobalKey? key1;
+
+  // @override
+  // void initState() async {
+  //   super.didChangeDependencies();
+  //   _loadImage();
+  // }
+
+  Future<void> _loadImage() async {
+    final appStorage = await getApplicationDocumentsDirectory();
+    final file = File('${appStorage.path}/image.png');
+    if (file.existsSync()) {
+      final bytes = await file.readAsBytes();
+      setState(() {
+        this.bytes = bytes;
+      });
+    }
+  }
+
+  Future saveImage(Uint8List bytes) async {
+    final directory = await getExternalStorageDirectory();
+    final filePath = '${directory!.path}/Download/data_hub_image.png';
+
+    final file = File(filePath);
+    await file.create(recursive: true);
+    await file.writeAsBytes(bytes);
+
+    print('Image saved to Downloads directory: $filePath');
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -65,32 +105,28 @@ class _GraphScreenState extends State<GraphScreen> {
                 return SingleChildScrollView(
                   child: Column(
                     children: [
-                      MyNeumorCont(
-                        data: state.data.data!.rawPeakX!,
-                        xtitle: "Time (s)",
-                        ytitle: "Xraw 318",
-                        gradientColor: Colors.blueAccent.shade400,
-                        isShowingMainData: true,
-                        max: state.data.data!.rawPosX!,
-                        min: state.data.data!.rawNegX!,
-                        time: state.data.data!.rawTimeX!,
-                      ),
                       SizedBox(
                         height: 2.h,
                       ),
-                      MyNeumorCont(
-                        data: state.data.data!.rawPeakY!,
-                        xtitle: "Time (s)",
-                        ytitle: "Yraw 318",
-                        gradientColor: Colors.greenAccent.shade400,
-                        isShowingMainData: true,
-                        max: state.data.data!.rawPosY!,
-                        min: state.data.data!.rawNegY!,
-                        time: state.data.data!.rawTimeY!,
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
+                      WidgetToImage(builder: (key) {
+                        this.key1 = key;
+                        return MyNeumorCont(
+                          data: state.data.data!.rawPeakY!,
+                          xtitle: "Time (s)",
+                          ytitle: "Yraw 318",
+                          gradientColor: Colors.greenAccent.shade400,
+                          isShowingMainData: true,
+                          max: state.data.data!.rawPosY!,
+                          min: state.data.data!.rawNegY!,
+                          time: state.data.data!.rawTimeY!,
+                        );
+                      }),
+                      // if (bytes != null) Image.memory(bytes!),
+                      // Text('Image'),
+                      // buildImage(bytes1),
+                      // SizedBox(
+                      //   height: 2.h,
+                      // ),
                       MyNeumorCont(
                         data: state.data.data!.rawPeakZ!,
                         xtitle: "Time (s)",
@@ -116,7 +152,36 @@ class _GraphScreenState extends State<GraphScreen> {
                       SizedBox(
                         height: 3.h,
                       ),
-                      BlueButton(text: 'Generate Report', onTap: () {})
+                      BlueButton(
+                        text: 'Generate Report',
+                        // onTap: () async {
+                        //   final controller = ScreenshotController();
+                        //   final bytes = await controller.captureFromWidget(
+                        //     MyNeumorCont(
+                        //       data: state.data.data!.rawPeakY!,
+                        //       xtitle: "Time (s)",
+                        //       ytitle: "Yraw 318",
+                        //       gradientColor: Colors.greenAccent.shade400,
+                        //       isShowingMainData: true,
+                        //       max: state.data.data!.rawPosY!,
+                        //       min: state.data.data!.rawNegY!,
+                        //       time: state.data.data!.rawTimeY!,
+                        //     ),
+                        //   );
+                        //   setState(() {
+                        //     this.bytes = bytes;
+                        //   });
+                        //   saveImage(bytes);
+                        // },
+                        onTap: () async {
+                          final bytes1 = await Utils.capture(key1);
+
+                          setState(() {
+                            this.bytes1 = bytes1;
+                          });
+                          saveImage(bytes1);
+                        },
+                      )
                     ],
                   ),
                 );
@@ -129,6 +194,10 @@ class _GraphScreenState extends State<GraphScreen> {
         ),
       ),
     );
+  }
+
+  Widget buildImage(Uint8List? bytes) {
+    return bytes != null ? Image.memory(bytes) : Container();
   }
 }
 

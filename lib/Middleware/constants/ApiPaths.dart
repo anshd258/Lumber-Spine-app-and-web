@@ -1,2 +1,2 @@
-const baseUrl = "https://d65f-45-112-52-82.ngrok-free.app/";
+const baseUrl = "https://201d-183-82-154-55.ngrok-free.app";
 const uploadPath = "/upload";
