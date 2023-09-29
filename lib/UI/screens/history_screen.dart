@@ -1,7 +1,5 @@
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/UI/widgets/appbar.dart';
-import 'package:data_hub/UI/widgets/back_button.dart';
-import 'package:data_hub/UI/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';

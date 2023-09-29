@@ -341,9 +341,9 @@ class TextRow extends StatelessWidget {
   final String variable;
   final TextEditingController cont;
   final InputDecoration dec;
-  Function()? onTap;
+  final Function()? onTap;
 
-  TextRow({
+  const TextRow({
     super.key,
     required this.variable,
     required this.cont,

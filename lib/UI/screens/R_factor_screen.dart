@@ -12,7 +12,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../Middleware/constants/colors.dart';
 
 class RFactorScreen extends StatefulWidget {
-  RFactorScreen({super.key});
+  const RFactorScreen({super.key});
 
   @override
   State<RFactorScreen> createState() => _RFactorScreenState();
@@ -343,8 +343,8 @@ class TextRow extends StatelessWidget {
   final String variable;
   final TextEditingController cont;
   final InputDecoration dec;
-  Function()? onTap;
-  TextRow({
+  final Function()? onTap;
+  const TextRow({
     super.key,
     required this.variable,
     required this.cont,

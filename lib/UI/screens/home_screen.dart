@@ -1,4 +1,3 @@
-
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:data_hub/UI/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/services/report_service.dart';
@@ -17,7 +15,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rive/rive.dart';
-import 'package:path_provider/path_provider.dart';
 
 class GraphScreen extends StatefulWidget {
   const GraphScreen({super.key});
@@ -27,13 +24,17 @@ class GraphScreen extends StatefulWidget {
 }
 
 class _GraphScreenState extends State<GraphScreen> {
-
-
   GlobalKey? key0;
   GlobalKey? key1;
   GlobalKey? key2;
   GlobalKey? key3;
   GlobalKey? key4;
+
+  Image? image0;
+  Image? image1;
+  Image? image2;
+  Image? image3;
+  Image? image4;
 
   final PdfReportService service = PdfReportService();
   int number = 0;
@@ -180,18 +181,30 @@ class _GraphScreenState extends State<GraphScreen> {
                       BlueButton(
                         text: 'Generate Report',
                         onTap: () async {
-                          final bytes0 = await Utils.capture(key0);
-                          final bytes1 = await Utils.capture(key1);
-                          final bytes2 = await Utils.capture(key2);
-                          final bytes3 = await Utils.capture(key3);
-                          final bytes4 = await Utils.capture(key4);
+                          try {
+                            final bytes0 = await Utils.capture(key0);
+                            final bytes1 = await Utils.capture(key1);
+                            final bytes2 = await Utils.capture(key2);
+                            final bytes3 = await Utils.capture(key3);
+                            final bytes4 = await Utils.capture(key4);
 
-                        
-                         
-                          final data = await service.createReport(
-                              [bytes0, bytes1, bytes2, bytes3, bytes4]);
-                          service.savePdfFile("report_$number", data);
-                          number++;
+                            final data = await service.createReport(
+                              [bytes0, bytes1, bytes2, bytes3, bytes4],
+                              state.data.data!.dx!,
+                              state.data.data!.dxd!,
+                              state.data.data!.dy!,
+                              state.data.data!.dyd!,
+                              state.data.data!.dz!,
+                              state.data.data!.dzd!,
+                              state.data.data!.se!,
+                              state.data.data!.sed!,
+                              state.data.data!.r!,
+                            );
+                            service.savePdfFile("report_$number", data);
+                            number++;
+                          } catch (e) {
+                            print("Error capturing images: $e");
+                          }
                         },
                       )
                     ],

@@ -34,12 +34,12 @@ class Data {
   List<String>? rawTimeZ;
   double? se;
   double? sed;
-  String? dx;
-  String? dy;
-  String? dz;
-  String? dxd;
-  String? dyd;
-  String? dzd;
+  double? dx;
+  double? dy;
+  double? dz;
+  double? dxd;
+  double? dyd;
+  double? dzd;
 
   Data(
       {this.r,
