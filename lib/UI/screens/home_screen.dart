@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Text(
-                      'Siby',
+                      'Gagan',
                       style: GoogleFonts.roboto(
                         fontSize: 18.sp,
                         color: blue,

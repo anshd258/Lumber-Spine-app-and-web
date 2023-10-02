@@ -178,34 +178,45 @@ class _GraphScreenState extends State<GraphScreen> {
                       SizedBox(
                         height: 3.h,
                       ),
-                      BlueButton(
-                        text: 'Generate Report',
-                        onTap: () async {
-                          try {
-                            final bytes0 = await Utils.capture(key0);
-                            final bytes1 = await Utils.capture(key1);
-                            final bytes2 = await Utils.capture(key2);
-                            final bytes3 = await Utils.capture(key3);
-                            final bytes4 = await Utils.capture(key4);
+                      SizedBox(
+                        width: 95.w,
+                        child: BlueButton(
+                          text: 'Generate Report',
+                          onTap: () async {
+                            try {
+                              final bytes0 = await Utils.capture(key0);
+                              final bytes1 = await Utils.capture(key1);
+                              final bytes2 = await Utils.capture(key2);
+                              final bytes3 = await Utils.capture(key3);
+                              final bytes4 = await Utils.capture(key4);
 
-                            final data = await service.createReport(
-                              [bytes0, bytes1, bytes2, bytes3, bytes4],
-                              state.data.data!.dx!,
-                              state.data.data!.dxd!,
-                              state.data.data!.dy!,
-                              state.data.data!.dyd!,
-                              state.data.data!.dz!,
-                              state.data.data!.dzd!,
-                              state.data.data!.se!,
-                              state.data.data!.sed!,
-                              state.data.data!.r!,
-                            );
-                            service.savePdfFile("report_$number", data);
-                            number++;
-                          } catch (e) {
-                            print("Error capturing images: $e");
-                          }
-                        },
+                              final data = await service.createReport(
+                                [bytes0, bytes1, bytes2, bytes3, bytes4],
+                                state.data.data!.dx!,
+                                state.data.data!.dxd!,
+                                state.data.data!.dy!,
+                                state.data.data!.dyd!,
+                                state.data.data!.dz!,
+                                state.data.data!.dzd!,
+                                state.data.data!.se!,
+                                state.data.data!.sed!,
+                                state.data.data!.r!,
+                              );
+                              service
+                                  .savePdfFile("report_$number", data)
+                                  .then((value) {
+                                const snackBar = SnackBar(
+                                  content: Text('Report has been saved to device'),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              });
+                              number++;
+                            } catch (e) {
+                              print("Error capturing images: $e");
+                            }
+                          },
+                        ),
                       )
                     ],
                   ),

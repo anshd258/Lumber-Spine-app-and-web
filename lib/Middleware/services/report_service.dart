@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
 
@@ -182,6 +183,7 @@ class PdfReportService {
                 pw.Row(
                   children: [
                     pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text(
                           'Peaks: ',
@@ -330,79 +332,138 @@ class PdfReportService {
                           ],
                         ),
                         pw.SizedBox(
-                          width: 10,
+                          height: 15,
                         ),
-                        pw.Column(
+                        pw.Row(
                           children: [
+                            pw.Column(
+                              children: [
+                                pw.Container(
+                                  padding: const pw.EdgeInsets.all(5),
+                                  height: 60,
+                                  width: 120,
+                                  decoration: pw.BoxDecoration(
+                                    color: PdfColor.fromHex('#EAC110'),
+                                    borderRadius: pw.BorderRadius.circular(10),
+                                  ),
+                                  child: pw.Column(
+                                    crossAxisAlignment:
+                                        pw.CrossAxisAlignment.start,
+                                    children: [
+                                      pw.Text('Acceleartion Dose (DX)',
+                                          style:
+                                              const pw.TextStyle(fontSize: 8)),
+                                      pw.Text(dx.toString(),
+                                          style: pw.TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: pw.FontWeight.bold)),
+                                      pw.Divider(),
+                                      pw.Text('Average Dose (DXD)',
+                                          style:
+                                              const pw.TextStyle(fontSize: 8)),
+                                      pw.Text(dxd.toString(),
+                                          style: pw.TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: pw.FontWeight.bold)),
+                                    ],
+                                  ),
+                                ),
+                                pw.SizedBox(
+                                  height: 5,
+                                ),
+                                pw.Container(
+                                  padding: const pw.EdgeInsets.all(5),
+                                  height: 60,
+                                  width: 120,
+                                  decoration: pw.BoxDecoration(
+                                    color: PdfColor.fromHex('#FE8358'),
+                                    borderRadius: pw.BorderRadius.circular(10),
+                                  ),
+                                  child: pw.Column(
+                                    crossAxisAlignment:
+                                        pw.CrossAxisAlignment.start,
+                                    children: [
+                                      pw.Text('Acceleartion Dose (DY)',
+                                          style:
+                                              const pw.TextStyle(fontSize: 8)),
+                                      pw.Text(dy.toString(),
+                                          style: pw.TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: pw.FontWeight.bold)),
+                                      pw.Divider(),
+                                      pw.Text('Average Dose (DYD)',
+                                          style:
+                                              const pw.TextStyle(fontSize: 8)),
+                                      pw.Text(dyd.toString(),
+                                          style: pw.TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: pw.FontWeight.bold)),
+                                    ],
+                                  ),
+                                ),
+                                pw.SizedBox(
+                                  height: 5,
+                                ),
+                                pw.Container(
+                                  padding: const pw.EdgeInsets.all(5),
+                                  height: 60,
+                                  width: 120,
+                                  decoration: pw.BoxDecoration(
+                                    color: PdfColor.fromHex('#65C688'),
+                                    borderRadius: pw.BorderRadius.circular(10),
+                                  ),
+                                  child: pw.Column(
+                                    crossAxisAlignment:
+                                        pw.CrossAxisAlignment.start,
+                                    children: [
+                                      pw.Text('Acceleartion Dose (DZ)',
+                                          style:
+                                              const pw.TextStyle(fontSize: 8)),
+                                      pw.Text(dz.toString(),
+                                          style: pw.TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: pw.FontWeight.bold)),
+                                      pw.Divider(),
+                                      pw.Text('Average Dose (DZD)',
+                                          style:
+                                              const pw.TextStyle(fontSize: 8)),
+                                      pw.Text(dzd.toString(),
+                                          style: pw.TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: pw.FontWeight.bold)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            pw.SizedBox(width: 10),
                             pw.Container(
-                              color: PdfColor.fromHex('#EAC110'),
-                              height: 140,
-                              width: 160,
-                              child: pw.Column(
-                                children: [
-                                  pw.Text('Acceleartion Dose (DX)',
-                                      style: const pw.TextStyle(fontSize: 8)),
-                                  pw.Text(dx.toString(),
-                                      style: pw.TextStyle(
-                                          fontSize: 8,
-                                          fontWeight: pw.FontWeight.bold)),
-                                  pw.Divider(),
-                                  pw.Text('Average Dose (DXD)',
-                                      style: const pw.TextStyle(fontSize: 8)),
-                                  pw.Text(dxd.toString(),
-                                      style: pw.TextStyle(
-                                          fontSize: 8,
-                                          fontWeight: pw.FontWeight.bold)),
-                                ],
+                              padding: const pw.EdgeInsets.all(5),
+                              height: 190,
+                              width: 120,
+                              decoration: pw.BoxDecoration(
+                                color: PdfColor.fromHex('#5696F9'),
+                                borderRadius: pw.BorderRadius.circular(10),
                               ),
-                            ),
-                            pw.SizedBox(
-                              width: 10,
-                            ),
-                            pw.Container(
-                              color: PdfColor.fromHex('#FE8358'),
-                              height: 140,
-                              width: 160,
                               child: pw.Column(
+                                crossAxisAlignment: pw.CrossAxisAlignment.start,
                                 children: [
-                                  pw.Text('Acceleartion Dose (DY)',
+                                  pw.Text('Compressive Stress (SE)',
                                       style: const pw.TextStyle(fontSize: 8)),
-                                  pw.Text(dy.toString(),
+                                  pw.Text(se.toString(),
                                       style: pw.TextStyle(
                                           fontSize: 8,
                                           fontWeight: pw.FontWeight.bold)),
                                   pw.Divider(),
-                                  pw.Text('Average Dose (DYD)',
+                                  pw.Text('Equivalent Static',
                                       style: const pw.TextStyle(fontSize: 8)),
-                                  pw.Text(dyd.toString(),
-                                      style: pw.TextStyle(
-                                          fontSize: 8,
-                                          fontWeight: pw.FontWeight.bold)),
-                                ],
-                              ),
-                            ),
-                            pw.SizedBox(
-                              width: 10,
-                            ),
-                            pw.Container(
-                              color: PdfColor.fromHex('#65C688'),
-                              height: 140,
-                              width: 160,
-                              child: pw.Column(
-                                children: [
-                                  pw.Text('Acceleartion Dose (DZ)',
+                                  pw.Text('compression Dose (SED)',
                                       style: const pw.TextStyle(fontSize: 8)),
-                                  pw.Text(dz.toString(),
+                                  pw.Text(se.toString(),
                                       style: pw.TextStyle(
                                           fontSize: 8,
                                           fontWeight: pw.FontWeight.bold)),
                                   pw.Divider(),
-                                  pw.Text('Average Dose (DZD)',
-                                      style: const pw.TextStyle(fontSize: 8)),
-                                  pw.Text(dzd.toString(),
-                                      style: pw.TextStyle(
-                                          fontSize: 8,
-                                          fontWeight: pw.FontWeight.bold)),
                                 ],
                               ),
                             ),
@@ -410,9 +471,12 @@ class PdfReportService {
                         ),
                       ],
                     ),
+                    pw.SizedBox(
+                      width: 20,
+                    ),
                     pw.Container(
-                      height: 190,
-                      width: 90,
+                      height: 250,
+                      width: 120,
                       child: pw.Image(
                         pw.MemoryImage(images[4]),
                         fit: pw.BoxFit.fill,
