@@ -61,12 +61,16 @@ class _LineChartexpState extends State<LineChartexp> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SfCartesianChart(
+        SfCartesianChart(backgroundColor: Colors.black,
           title: ChartTitle(text: widget.ytitle),
           primaryYAxis: NumericAxis(
             maximum: widget.max,
             isVisible: true,
             minimum: widget.min,
+            title: AxisTitle(
+              text: "Acceleration (m/s\u00B2)",
+              textStyle: GoogleFonts.roboto(fontSize: 10),
+            ),
             labelStyle: GoogleFonts.roboto(fontSize: 8),
             axisLine: const AxisLine(width: 0),
             majorTickLines: const MajorTickLines(width: 0),
