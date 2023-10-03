@@ -49,7 +49,15 @@ class _ThreeAxisGraphState extends State<ThreeAxisGraph> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SfCartesianChart(
+        SfCartesianChart(backgroundColor: Colors.black,
+          legend: Legend(
+              overflowMode: LegendItemOverflowMode.scroll,
+              isVisible: true,
+              itemPadding: 7,
+              textStyle: GoogleFonts.lato(fontSize: 10),
+              padding: 1,
+              iconWidth: 10,
+              iconHeight: 10),
           title: ChartTitle(text: "all Graph"),
           primaryYAxis: NumericAxis(
             maximum: widget.data.data!.rawMaxPos!,
@@ -86,6 +94,7 @@ class _ThreeAxisGraphState extends State<ThreeAxisGraph> {
           ),
           series: <SplineSeries>[
             SplineSeries<double, double>(
+              legendItemText: "X",
               color: Colors.blueAccent.shade400.withOpacity(0.8),
               splineType: SplineType.monotonic,
               opacity: 0.8,
@@ -96,6 +105,7 @@ class _ThreeAxisGraphState extends State<ThreeAxisGraph> {
               yValueMapper: (double datum, index) => datum,
             ),
             SplineSeries<double, double>(
+              legendItemText: "Y",
               color: Colors.greenAccent.shade400.withOpacity(0.5),
               splineType: SplineType.monotonic,
               opacity: 0.8,
@@ -106,6 +116,7 @@ class _ThreeAxisGraphState extends State<ThreeAxisGraph> {
               yValueMapper: (double datum, index) => datum,
             ),
             SplineSeries<double, double>(
+              legendItemText: "Z",
               color: Colors.redAccent.shade400.withOpacity(0.8),
               splineType: SplineType.monotonic,
               opacity: 0.8,
