@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: Padding(
-            padding: EdgeInsets.all(12.sp),
+            padding: EdgeInsets.all(10.sp),
             child: Row(
               children: [
                 Column(
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Text(
-                      'Siby',
+                      'Balwinder',
                       style: GoogleFonts.roboto(
                         fontSize: 18.sp,
                         color: blue,

@@ -1,6 +1,7 @@
 import 'package:data_hub/Models/graphmodals.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 ///Core import
 import 'package:syncfusion_flutter_core/core.dart';
@@ -49,19 +50,28 @@ class _ThreeAxisGraphState extends State<ThreeAxisGraph> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SfCartesianChart(backgroundColor: Colors.black,
+        SfCartesianChart(
+          margin: EdgeInsets.all(1.w),
+          plotAreaBackgroundColor: Colors.black,
           legend: Legend(
+              position: LegendPosition.top,
+              alignment: ChartAlignment.center,
               overflowMode: LegendItemOverflowMode.scroll,
+              isResponsive: true,
               isVisible: true,
-              itemPadding: 7,
+              itemPadding: 3,
               textStyle: GoogleFonts.lato(fontSize: 10),
               padding: 1,
               iconWidth: 10,
               iconHeight: 10),
-          title: ChartTitle(text: "all Graph"),
+          title: ChartTitle(text: "All Graph"),
           primaryYAxis: NumericAxis(
             maximum: widget.data.data!.rawMaxPos!,
             isVisible: true,
+            title: AxisTitle(
+              text: "Acceleration (m/s\u00B2)",
+              textStyle: GoogleFonts.roboto(fontSize: 10),
+            ),
             minimum: widget.data.data!.rawMaxNeg!,
             labelStyle: GoogleFonts.roboto(fontSize: 8),
             axisLine: const AxisLine(width: 0),
