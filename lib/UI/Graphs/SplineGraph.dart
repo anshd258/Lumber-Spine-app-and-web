@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 ///Core import
 import 'package:syncfusion_flutter_core/core.dart';
@@ -61,7 +62,9 @@ class _LineChartexpState extends State<LineChartexp> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SfCartesianChart(backgroundColor: Colors.black,
+        SfCartesianChart(
+          margin: EdgeInsets.all(1.w),
+          plotAreaBackgroundColor: Colors.black,
           title: ChartTitle(text: widget.ytitle),
           primaryYAxis: NumericAxis(
             maximum: widget.max,

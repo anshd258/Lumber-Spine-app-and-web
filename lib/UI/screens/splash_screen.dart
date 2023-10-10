@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:data_hub/Middleware/constants/colors.dart';
+import 'package:data_hub/Middleware/helper/device.dart';
+import 'package:data_hub/UI/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -22,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Permission.manageExternalStorage
         .request()
         .then((value) => print(value.name));
+
     await Future.delayed(const Duration(seconds: 3), () {});
     Navigator.pushNamed(context, '/signin_screen');
   }

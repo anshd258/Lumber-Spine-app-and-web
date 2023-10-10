@@ -1,3 +1,4 @@
+import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:data_hub/UI/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
@@ -15,100 +16,272 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final String desc =
-      'the person subjected to the vibration is seated in an upright position and does not voluntarily rise from the seat during the exposure. Different postures can result in different responses in the spine.';
+      'The calculation of the lumbar spine response assumes that the person subjected to the vibration is seated in an upright position and does not voluntarily rise from the seat during the exposure.';
 
   String finalFilePath = '';
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight),
-          child: Padding(
-            padding: EdgeInsets.all(12.sp),
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Hello !',
-                      style: GoogleFonts.roboto(
-                        fontSize: 16.sp,
-                        color: blue,
-                        fontWeight: FontWeight.w600,
+        appBar: deviceType == 'phone'
+            ? PreferredSize(
+                preferredSize: Size.fromHeight(kToolbarHeight),
+                child: Padding(
+                  padding: EdgeInsets.all(10.sp),
+                  child: Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Hello !',
+                            style: GoogleFonts.roboto(
+                              fontSize: 16.sp,
+                              color: blue,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            'Balwinder',
+                            style: GoogleFonts.roboto(
+                              fontSize: 18.sp,
+                              color: blue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
                       ),
-                    ),
-                    Text(
-                      'Gagan',
-                      style: GoogleFonts.roboto(
-                        fontSize: 18.sp,
-                        color: blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ],
+                      const Spacer(),
+                      const Image(
+                          image: AssetImage('assets/analyze/profile.png'))
+                    ],
+                  ),
                 ),
-                const Spacer(),
-                const Image(image: AssetImage('assets/analyze/profile.png'))
-              ],
-            ),
-          ),
-        ),
+              )
+            : PreferredSize(
+                preferredSize: Size.fromHeight(kToolbarHeight),
+                child: Container(
+                  padding: EdgeInsets.all(8.sp),
+                  height: 9.h,
+                  margin: EdgeInsets.fromLTRB(10.w, 0, 10.w, 0),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 28, 34, 48),
+                    borderRadius: BorderRadius.circular(12.sp),
+                  ),
+                  child: Row(
+                    children: [
+                      const Image(
+                        image: AssetImage('assets/analyze/profile.png'),
+                      ),
+                      SizedBox(
+                        width: 1.w,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Hello !',
+                            style: GoogleFonts.roboto(
+                              fontSize: 13.sp,
+                              color: whiteText,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            'Balwinder',
+                            style: GoogleFonts.roboto(
+                              fontSize: 12.sp,
+                              color: whiteText,
+                            ),
+                          )
+                        ],
+                      ),
+                      const Spacer(),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {},
+                            child: Container(
+                              padding: EdgeInsets.all(6.sp),
+                              height: 3.5.h,
+                              width: 5.w,
+                              decoration: BoxDecoration(
+                                color: blue,
+                                borderRadius: BorderRadius.circular(10.sp),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Home',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12.sp,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 1.w,
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: Container(
+                              padding: EdgeInsets.all(6.sp),
+                              height: 3.5.h,
+                              width: 5.w,
+                              decoration: BoxDecoration(
+                                color: blue,
+                                borderRadius: BorderRadius.circular(10.sp),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'History',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12.sp,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 1.w,
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: Container(
+                              padding: EdgeInsets.all(6.sp),
+                              height: 3.5.h,
+                              width: 7.w,
+                              decoration: BoxDecoration(
+                                color: blue,
+                                borderRadius: BorderRadius.circular(10.sp),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Feedback',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12.sp,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.w),
             child: Column(
               children: [
-                SizedBox(
-                  height: 4.h,
-                ),
+                deviceType == 'phone'
+                    ? SizedBox(
+                        height: 4.h,
+                      )
+                    : SizedBox(
+                        height: 7.h,
+                      ),
                 MyCard(
-                  title: 'Lumber Spline Measurement',
+                  title: 'Vibration Analysis',
                   desc: desc,
                   onTap: () {},
                 ),
-                SizedBox(
-                  height: 4.h,
-                ),
-                GradientCircularRing(
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/instructions_screen');
-                    },
-                    child: Container(
-                      height: 25.h,
-                      width: 180.w,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: blue,
+                deviceType == 'phone'
+                    ? SizedBox(
+                        height: 4.h,
+                      )
+                    : SizedBox(
+                        height: 1.h,
                       ),
-                      child: Center(
-                        child: Text(
-                          'Start Test',
-                          style: GoogleFonts.roboto(
-                            color: whiteText,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22.sp,
+                deviceType == 'phone'
+                    ? GradientCircularRing(
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, '/instructions_screen');
+                          },
+                          child: Container(
+                            height: 25.h,
+                            width: 180.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: blue,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Start Test',
+                                style: GoogleFonts.roboto(
+                                  color: whiteText,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 22.sp,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
+                      )
+                    : Stack(
+                        children: [
+                          Container(
+                            height: 33.h,
+                            width: 60.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: whiteText,
+                              border: Border.all(color: yellow, width: 7.sp),
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, '/instructions_screen');
+                              },
+                              child: Container(
+                                margin: EdgeInsets.all(11.sp),
+                                height: 5.h,
+                                width: 5.w,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: blue,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Start Test',
+                                    style: GoogleFonts.roboto(
+                                      color: whiteText,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17.sp,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                ),
                 SizedBox(
                   height: 10.h,
                 ),
-                BlueButton(
-                    text: 'History',
-                    onTap: () {
-                      Navigator.pushNamed(context, '/history_screen');
-                    }),
+                deviceType == 'phone'
+                    ? BlueButton(
+                        text: 'History',
+                        onTap: () {
+                          Navigator.pushNamed(context, '/history_screen');
+                        })
+                    : Container(),
                 SizedBox(
                   height: 5.h,
                 ),
-                const BottomNavBar(),
+                deviceType == 'phone' ? const BottomNavBar() : Container(),
               ],
             ),
           ),
@@ -131,12 +304,13 @@ class MyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return Column(
       children: [
         Container(
           padding: EdgeInsets.all(16.sp),
-          height: 16.h,
-          width: double.infinity,
+          height: deviceType == 'phone' ? 16.h : 27.h,
+          width: deviceType == 'phone' ? double.infinity : 60.w,
           decoration: BoxDecoration(
             color: blue,
             borderRadius: BorderRadius.only(
@@ -183,8 +357,8 @@ class MyCard extends StatelessWidget {
           ),
         ),
         Container(
-          height: 6.h,
-          width: double.infinity,
+          height: deviceType == 'phone' ? 9.h : 20.h,
+          width: deviceType == 'phone' ? double.infinity : 60.w,
           decoration: BoxDecoration(
             color: yellow,
             borderRadius: BorderRadius.only(
@@ -206,6 +380,20 @@ class MyCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  'Aw',
+                  style: GoogleFonts.roboto(
+                    color: Colors.white,
+                    fontSize: 14.sp,
+                  ),
+                ),
+                Text(
+                  'VDV : Daily Equivalent Static Compression Dose (Mpa)  ',
+                  style: GoogleFonts.roboto(
+                    color: Colors.white,
+                    fontSize: 14.sp,
+                  ),
+                ),
                 Text(
                   'Sed: Daily Equivalent Static Compression Dose (Mpa)',
                   style: GoogleFonts.roboto(
@@ -243,7 +431,7 @@ class GradientCircularRing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      size: Size(200, 200), // Adjust the size as needed
+      size: Size(200, 200),
       painter: GradientCircularRingPainter(),
       child: child,
     );
