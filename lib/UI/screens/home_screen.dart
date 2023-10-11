@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(
-                                    context, '/instructions_screen');
+                                    context, '/instructions_web_screen');
                               },
                               child: Container(
                                 margin: EdgeInsets.all(11.sp),

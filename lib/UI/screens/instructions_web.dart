@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
-
+import 'dart:html';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/UI/widgets/appbar.dart';
@@ -11,14 +11,15 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
 
-class Instructions extends StatelessWidget {
-  const Instructions({super.key});
+class InstructionsWeb extends StatelessWidget {
+  const InstructionsWeb({super.key});
 
-  void showUploadDialog(BuildContext context) {
+  void showUploadDialogWeb(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         String deviceType = MyDevice.getDeviceType(context);
+        print('***************dialog box called');
         return Dialog(
           child: SizedBox(
             width: deviceType == 'phone' ? double.infinity : 40.w,
@@ -68,9 +69,27 @@ class Instructions extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print(
-                              '::::::::::::::::GGesture detector of android file');
-                          context.read<GetcsvCubit>().getFile();
+                          print('************ onTap called');
+                          final input = InputElement()
+                            ..type = 'file'
+                            ..accept = '.csv';
+                          input.onChange.listen((event) {
+                            final files = input.files;
+                            if (files!.isNotEmpty) {
+                              final file = files[0];
+                              final reader = FileReader();
+                              reader.onLoad.listen((e) {
+                                final result = reader.result;
+                                if (result is List<int>) {
+                                  context
+                                      .read<GetcsvCubit>()
+                                      .getWebFile(result);
+                                }
+                              });
+                              reader.readAsArrayBuffer(file);
+                            }
+                          });
+                          input.click();
                         },
                         child: Container(
                           height: deviceType == "phone" ? 3.5.h : 7.h,
@@ -91,7 +110,7 @@ class Instructions extends StatelessWidget {
                         return const Center(
                           child: CircularProgressIndicator.adaptive(),
                         );
-                      } else if (state is GetcsvLoaded) {
+                      } else if (state is GetcsvLoadedWeb) {
                         return BlueButton(
                             text: 'Proceed',
                             onTap: () {
@@ -292,7 +311,7 @@ class Instructions extends StatelessWidget {
                 child: BlueButton(
                   text: 'Proceed',
                   onTap: () {
-                    showUploadDialog(context);
+                    showUploadDialogWeb(context);
                   },
                 ),
               ),

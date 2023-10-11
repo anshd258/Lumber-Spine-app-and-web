@@ -12,4 +12,14 @@ class GetcsvLoaded extends GetcsvState {
   GetcsvLoaded({required this.file});
 }
 
-class GetcsvError extends GetcsvState {}
+class GetcsvLoadedWeb extends GetcsvState {
+  final List<List<dynamic>> fileData;
+  GetcsvLoadedWeb({required this.fileData});
+}
+
+class GetcsvError extends GetcsvState {
+  final String message;
+  GetcsvError({required this.message});
+}
+
+// class GetcsvError extends GetcsvState {}

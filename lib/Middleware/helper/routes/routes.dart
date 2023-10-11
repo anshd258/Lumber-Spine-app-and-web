@@ -6,6 +6,7 @@ import 'package:data_hub/UI/screens/home_screen.dart';
 import 'package:data_hub/UI/screens/graph_screen.dart';
 import 'package:data_hub/UI/screens/history_screen.dart';
 import 'package:data_hub/UI/screens/instructions_screen.dart';
+import 'package:data_hub/UI/screens/instructions_web.dart';
 import 'package:data_hub/UI/screens/profile_screen.dart';
 import 'package:data_hub/UI/screens/registration_completed_screen.dart';
 import 'package:data_hub/UI/screens/sign_up.dart';
@@ -46,6 +47,8 @@ var routes = <String, WidgetBuilder>{
   '/feedback_screen': (context) => const FeedbackScreen(),
 
   '/instructions_screen': (context) => const Instructions(),
+
+  '/instructions_web_screen': (context) => const InstructionsWeb(),
 
   '/td_tm_screen': (context) => TdTmScreen(),
 

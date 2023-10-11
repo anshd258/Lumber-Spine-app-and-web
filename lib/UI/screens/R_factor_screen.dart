@@ -295,18 +295,18 @@ class _RFactorScreenState extends State<RFactorScreen> {
                             child: BlueButton(
                                 text: 'Proceed',
                                 onTap: () {
-                                  context
-                                      .read<CsVuploadCubit>()
-                                      .uploadFile(state.file, {
-                                    "tm": temp.tm!,
-                                    "td": temp.td!,
-                                    "N": N.text,
-                                    "i": i.text,
-                                    "n": n.text,
-                                    "c": 0.25.toString(),
-                                    "b": b.text
-                                  });
-                                  Navigator.pushNamed(context, '/graph_screen');
+                                  // context
+                                  //     .read<CsVuploadCubit>()
+                                  //     .uploadFile(state.file, {
+                                  //   "tm": temp.tm!,
+                                  //   "td": temp.td!,
+                                  //   "N": N.text,
+                                  //   "i": i.text,
+                                  //   "n": n.text,
+                                  //   "c": 0.25.toString(),
+                                  //   "b": b.text
+                                  // });
+                                  // Navigator.pushNamed(context, '/graph_screen');
                                 }),
                           );
                         },
