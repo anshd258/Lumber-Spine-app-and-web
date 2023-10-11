@@ -1,9 +1,11 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
 import 'package:data_hub/Middleware/bloc/Variabledatabloc/data_cubit_cubit.dart';
+import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/UI/widgets/appbar.dart';
 
 import 'package:data_hub/UI/widgets/blue_button.dart';
+import 'package:data_hub/UI/widgets/web_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,20 +41,34 @@ class _RFactorScreenState extends State<RFactorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight),
-          child: Appbar1(title: 'Analyze'),
-        ),
+        appBar: deviceType == 'phone'
+            ? const PreferredSize(
+                preferredSize: Size.fromHeight(kToolbarHeight),
+                child: Appbar1(title: 'Analyze'),
+              )
+            : const WebAppbar(),
         body: Container(
           height: 800,
+          margin: EdgeInsets.only(top: deviceType == 'phone' ? 0 : 2.h),
           padding: EdgeInsets.symmetric(horizontal: 15.sp),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                deviceType == 'desktop'
+                    ? Text(
+                        'R Factor Parameters',
+                        style: GoogleFonts.roboto(
+                          color: blue,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      )
+                    : Container(),
                 SizedBox(
                   height: 3.h,
                 ),
@@ -68,8 +84,8 @@ class _RFactorScreenState extends State<RFactorScreen> {
                   height: 2.h,
                 ),
                 Container(
-                  height: 72.5.h,
-                  width: double.infinity,
+                  height: deviceType == "phone" ? 72.5.h : 68.h,
+                  width: deviceType == "phone" ? double.infinity : 95.sp,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.sp),
                     border: Border.all(color: black),
@@ -83,61 +99,60 @@ class _RFactorScreenState extends State<RFactorScreen> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'R Factor Parameters',
-                              style: GoogleFonts.roboto(
-                                color: blue,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
                             SizedBox(
                               height: 2.h,
                             ),
-                            Container(
-                              height: 5.2.h,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: yellow,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(12.sp),
-                                  topRight: Radius.circular(12.sp),
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SizedBox(
-                                    width: 5.w,
-                                  ),
-                                  Text(
-                                    'Variable',
-                                    style: GoogleFonts.roboto(
-                                      color: black,
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w500,
+                            deviceType == 'phone'
+                                ? Container(
+                                    height: 5.2.h,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: yellow,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(12.sp),
+                                      ),
                                     ),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    'Enter Value',
-                                    style: GoogleFonts.roboto(
-                                      color: black,
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w500,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        Text(
+                                          'Variable',
+                                          style: GoogleFonts.roboto(
+                                            color: black,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          'Enter Value',
+                                          style: GoogleFonts.roboto(
+                                            color: black,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 5.w,
-                                  ),
-                                ],
-                              ),
-                            ),
+                                  )
+                                : const SizedBox(),
                             SizedBox(
-                              height: 1.h,
+                              height: deviceType == 'phone' ? 1.h : 0,
                             ),
                             Container(
-                              height: NInfo ? 18.3.h : 10.h,
+                              height: deviceType == "phone"
+                                  ? NInfo
+                                      ? 18.3.h
+                                      : 10.h
+                                  : NInfo
+                                      ? 23.h
+                                      : 14.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: blue,
@@ -155,7 +170,7 @@ class _RFactorScreenState extends State<RFactorScreen> {
                                     TextRow(
                                       variable: 'N',
                                       cont: N,
-                                      dec: textFieldDecoration('Enter N'),
+                                      dec: textFieldDecoration('100'),
                                       onTap: () {
                                         setState(() {
                                           NInfo = !NInfo;
@@ -173,7 +188,13 @@ class _RFactorScreenState extends State<RFactorScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: iInfo ? 18.3.h : 10.h,
+                              height: deviceType == "phone"
+                                  ? iInfo
+                                      ? 18.3.h
+                                      : 10.h
+                                  : iInfo
+                                      ? 23.h
+                                      : 14.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: blue,
@@ -191,7 +212,7 @@ class _RFactorScreenState extends State<RFactorScreen> {
                                     TextRow(
                                       variable: 'i',
                                       cont: i,
-                                      dec: textFieldDecoration('Enter i'),
+                                      dec: textFieldDecoration('100'),
                                       onTap: () {
                                         setState(() {
                                           iInfo = !iInfo;
@@ -209,7 +230,13 @@ class _RFactorScreenState extends State<RFactorScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: nInfo ? 18.3.h : 10.h,
+                              height: deviceType == "phone"
+                                  ? nInfo
+                                      ? 18.3.h
+                                      : 10.h
+                                  : nInfo
+                                      ? 23.h
+                                      : 14.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: blue,
@@ -227,7 +254,7 @@ class _RFactorScreenState extends State<RFactorScreen> {
                                     TextRow(
                                       variable: 'n',
                                       cont: n,
-                                      dec: textFieldDecoration('Enter n'),
+                                      dec: textFieldDecoration('100'),
                                       onTap: () {
                                         setState(() {
                                           nInfo = !nInfo;
@@ -245,7 +272,13 @@ class _RFactorScreenState extends State<RFactorScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: bInfo ? 18.3.h : 10.h,
+                              height: deviceType == "phone"
+                                  ? bInfo
+                                      ? 18.3.h
+                                      : 10.h
+                                  : bInfo
+                                      ? 23.h
+                                      : 14.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: blue,
@@ -263,7 +296,7 @@ class _RFactorScreenState extends State<RFactorScreen> {
                                     TextRow(
                                       variable: 'b',
                                       cont: b,
-                                      dec: textFieldDecoration('Enter b'),
+                                      dec: textFieldDecoration('100'),
                                       onTap: () {
                                         setState(() {
                                           bInfo = !bInfo;
@@ -289,24 +322,23 @@ class _RFactorScreenState extends State<RFactorScreen> {
                       return Builder(
                         builder: (context) {
                           var temp = context.watch<DataCubitCubit>().state;
-
                           return Padding(
                             padding: const EdgeInsets.only(top: 12),
                             child: BlueButton(
                                 text: 'Proceed',
                                 onTap: () {
-                                  // context
-                                  //     .read<CsVuploadCubit>()
-                                  //     .uploadFile(state.file, {
-                                  //   "tm": temp.tm!,
-                                  //   "td": temp.td!,
-                                  //   "N": N.text,
-                                  //   "i": i.text,
-                                  //   "n": n.text,
-                                  //   "c": 0.25.toString(),
-                                  //   "b": b.text
-                                  // });
-                                  // Navigator.pushNamed(context, '/graph_screen');
+                                  context
+                                      .read<CsVuploadCubit>()
+                                      .uploadFile(state.file, {
+                                    "tm": temp.tm!,
+                                    "td": temp.td!,
+                                    "N": N.text,
+                                    "i": i.text,
+                                    "n": n.text,
+                                    "c": 0.25.toString(),
+                                    "b": b.text
+                                  });
+                                  Navigator.pushNamed(context, '/graph_screen');
                                 }),
                           );
                         },
@@ -354,21 +386,22 @@ class TextRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return Row(
       children: [
         Text(
           variable,
           style: GoogleFonts.roboto(
             color: whiteText,
-            fontSize: 16.sp,
+            fontSize: deviceType == "phone" ? 16.sp : 14.sp,
           ),
         ),
         const Spacer(),
         Padding(
           padding: EdgeInsets.all(8.sp),
           child: SizedBox(
-            width: 25.w,
-            height: 4.5.h,
+            width: deviceType == "phone" ? 25.w : 15.w,
+            height: deviceType == "phone" ? 4.5.h : 5.h,
             child: TextFormField(
               controller: cont,
               style: GoogleFonts.roboto(color: whiteText),
@@ -387,7 +420,7 @@ class TextRow extends StatelessWidget {
         InkWell(
           onTap: onTap,
           child: Container(
-            height: 3.h,
+            height: deviceType == "phone" ? 3.h : 5.h,
             width: 5.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -454,6 +487,7 @@ class TextRow2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return Padding(
       padding: EdgeInsets.only(top: 15.sp),
       child: Column(
@@ -461,7 +495,7 @@ class TextRow2 extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: 60.w,
+                width: deviceType == "phone" ? 60.w : 58.w,
                 child: Text(
                   // variable,
                   infoText,
@@ -473,22 +507,22 @@ class TextRow2 extends StatelessWidget {
                   ),
                 ),
               ),
-              const Spacer(),
-              Container(
-                padding:
-                    EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.sp),
-                  border: Border.all(color: Colors.white),
-                ),
-                child: Text(
-                  value,
-                  style: GoogleFonts.roboto(
-                    color: whiteText,
-                    fontSize: 16.sp,
-                  ),
-                ),
-              )
+              // const Spacer(),
+              // Container(
+              //   padding:
+              //       EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(12.sp),
+              //     border: Border.all(color: Colors.white),
+              //   ),
+              //   child: Text(
+              //     value,
+              //     style: GoogleFonts.roboto(
+              //       color: whiteText,
+              //       fontSize: 16.sp,
+              //     ),
+              //   ),
+              // )
             ],
           ),
           Divider(

@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
-
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/UI/widgets/appbar.dart';
@@ -68,8 +66,6 @@ class Instructions extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print(
-                              '::::::::::::::::GGesture detector of android file');
                           context.read<GetcsvCubit>().getFile();
                         },
                         child: Container(

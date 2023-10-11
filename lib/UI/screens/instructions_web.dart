@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:html';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';

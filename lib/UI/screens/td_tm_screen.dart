@@ -2,6 +2,8 @@
 import 'dart:ui';
 
 import 'package:data_hub/Middleware/bloc/Variabledatabloc/data_cubit_cubit.dart';
+import 'package:data_hub/Middleware/helper/device.dart';
+import 'package:data_hub/UI/widgets/web_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -88,20 +90,34 @@ class _TdTmScreenState extends State<TdTmScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight),
-          child: Appbar1(title: 'Analyze'),
-        ),
+        appBar: deviceType == 'phone'
+            ? const PreferredSize(
+                preferredSize: Size.fromHeight(kToolbarHeight),
+                child: Appbar1(title: 'Analyze'),
+              )
+            : const WebAppbar(),
         body: Container(
           height: 800,
+          margin: EdgeInsets.only(top: deviceType == 'phone' ? 0 : 2.h),
           padding: EdgeInsets.symmetric(horizontal: 15.sp),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                deviceType == 'desktop'
+                    ? Text(
+                        'Time Parameters',
+                        style: GoogleFonts.roboto(
+                          color: blue,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      )
+                    : Container(),
                 SizedBox(
                   height: 3.h,
                 ),
@@ -117,8 +133,8 @@ class _TdTmScreenState extends State<TdTmScreen> {
                   height: 2.h,
                 ),
                 Container(
-                  height: 72.5.h,
-                  width: double.infinity,
+                  height: deviceType == "phone" ? 72.5.h : 68.h,
+                  width: deviceType == "phone" ? double.infinity : 95.sp,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.sp),
                     border: Border.all(color: black),
@@ -131,14 +147,6 @@ class _TdTmScreenState extends State<TdTmScreen> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Time Parameters',
-                            style: GoogleFonts.roboto(
-                              color: blue,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
                           SizedBox(
                             height: 2.h,
                           ),
@@ -161,7 +169,8 @@ class _TdTmScreenState extends State<TdTmScreen> {
                                   'Variable',
                                   style: GoogleFonts.roboto(
                                     color: black,
-                                    fontSize: 16.sp,
+                                    fontSize:
+                                        deviceType == "phone" ? 16.sp : 14.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -170,7 +179,8 @@ class _TdTmScreenState extends State<TdTmScreen> {
                                   'Enter Value',
                                   style: GoogleFonts.roboto(
                                     color: black,
-                                    fontSize: 16.sp,
+                                    fontSize:
+                                        deviceType == "phone" ? 16.sp : 14.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -184,7 +194,13 @@ class _TdTmScreenState extends State<TdTmScreen> {
                             height: 2.h,
                           ),
                           Container(
-                            height: show1 ? 18.3.h : 9.5.h,
+                            height: deviceType == "phone"
+                                ? show1
+                                    ? 18.3.h
+                                    : 9.5.h
+                                : show1
+                                    ? 23.h
+                                    : 14.h,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: blue,
@@ -202,7 +218,7 @@ class _TdTmScreenState extends State<TdTmScreen> {
                                   TextRow(
                                     variable: 'TD',
                                     cont: td,
-                                    dec: textFieldDecoration('Enter TD'),
+                                    dec: textFieldDecoration('100'),
                                     onTap: () {
                                       setState(() {
                                         show1 = !show1;
@@ -220,7 +236,13 @@ class _TdTmScreenState extends State<TdTmScreen> {
                             height: 2.h,
                           ),
                           Container(
-                            height: show2 ? 18.3.h : 9.5.h,
+                            height: deviceType == "phone"
+                                ? show2
+                                    ? 18.3.h
+                                    : 9.5.h
+                                : show2
+                                    ? 23.h
+                                    : 14.h,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: blue,
@@ -238,7 +260,7 @@ class _TdTmScreenState extends State<TdTmScreen> {
                                   TextRow(
                                     variable: 'Tm',
                                     cont: tm,
-                                    dec: textFieldDecoration('Enter Tm'),
+                                    dec: textFieldDecoration('100'),
                                     onTap: () {
                                       setState(() {
                                         show2 = !show2;
@@ -259,15 +281,18 @@ class _TdTmScreenState extends State<TdTmScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 12),
-                  child: BlueButton(
-                      text: 'Proceed',
-                      onTap: () {
-                        context
-                            .read<DataCubitCubit>()
-                            .getTdTm(td.text, tm.text);
-                        Navigator.pushNamed(context, '/R_factor_screen');
-                        // showSelectDialog(context);
-                      }),
+                  child: SizedBox(
+                    width: deviceType == "desktop" ? 60.sp : double.infinity,
+                    child: BlueButton(
+                        text: 'Proceed',
+                        onTap: () {
+                          context
+                              .read<DataCubitCubit>()
+                              .getTdTm(td.text, tm.text);
+                          Navigator.pushNamed(context, '/R_factor_screen');
+                          // showSelectDialog(context);
+                        }),
+                  ),
                 )
               ],
             ),
@@ -353,21 +378,22 @@ class TextRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return Row(
       children: [
         Text(
           variable,
           style: GoogleFonts.roboto(
             color: whiteText,
-            fontSize: 16.sp,
+            fontSize: deviceType == "phone" ? 16.sp : 14.sp,
           ),
         ),
         const Spacer(),
         Padding(
           padding: EdgeInsets.all(8.sp),
           child: SizedBox(
-            width: 35.w,
-            height: 4.5.h,
+            width: deviceType == "phone" ? 35.w : 15.w,
+            height: deviceType == "phone" ? 4.5.h : 5.h,
             child: TextFormField(
               controller: cont,
               style: GoogleFonts.roboto(color: whiteText),
@@ -387,7 +413,7 @@ class TextRow extends StatelessWidget {
         InkWell(
           onTap: onTap,
           child: Container(
-            height: 3.h,
+            height: deviceType == "phone" ? 3.h : 5.h,
             width: 5.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -412,6 +438,7 @@ class TextRow2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return Padding(
       padding: EdgeInsets.only(top: 15.sp),
       child: Column(
@@ -419,7 +446,7 @@ class TextRow2 extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: 60.w,
+                width: deviceType == "phone" ? 60.w : 58.w,
                 child: Text(
                   variable,
                   maxLines: 5,
@@ -430,22 +457,22 @@ class TextRow2 extends StatelessWidget {
                   ),
                 ),
               ),
-              const Spacer(),
-              Container(
-                padding:
-                    EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.sp),
-                  border: Border.all(color: Colors.white),
-                ),
-                child: Text(
-                  value,
-                  style: GoogleFonts.roboto(
-                    color: whiteText,
-                    fontSize: 16.sp,
-                  ),
-                ),
-              )
+              // const Spacer(),
+              // Container(
+              //   padding:
+              //       EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(12.sp),
+              //     border: Border.all(color: Colors.white),
+              //   ),
+              //   child: Text(
+              //     value,
+              //     style: GoogleFonts.roboto(
+              //       color: whiteText,
+              //       fontSize: 16.sp,
+              //     ),
+              //   ),
+              // )
             ],
           ),
           Divider(
