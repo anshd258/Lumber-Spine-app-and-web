@@ -1,6 +1,8 @@
 import 'package:data_hub/Middleware/constants/colors.dart';
+import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/UI/widgets/appbar.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
+import 'package:data_hub/UI/widgets/web_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -14,6 +16,7 @@ class Instructions extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        String deviceType = MyDevice.getDeviceType(context);
         return Dialog(
           child: Padding(
             padding: EdgeInsets.all(16.sp),
@@ -58,13 +61,13 @@ class Instructions extends StatelessWidget {
                       "CSV",
                       style: GoogleFonts.roboto(fontSize: 16.sp),
                     ),
-                    InkWell(
+                    GestureDetector(
                       onTap: () {
                         context.read<GetcsvCubit>().getFile();
                       },
                       child: Container(
-                        height: 3.5.h,
-                        width: 10.w,
+                        height: deviceType == "phone" ? 3.5.h : 7.h,
+                        width: deviceType == "phone" ? 10.w : 20.w,
                         decoration: BoxDecoration(
                           color: yellow,
                           shape: BoxShape.circle,
@@ -110,19 +113,33 @@ class Instructions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: Appbar1(title: 'Help Guide'),
-      ),
+      appBar: deviceType == 'phone'
+          ? const PreferredSize(
+              preferredSize: Size.fromHeight(kToolbarHeight),
+              child: Appbar1(title: 'Instructions'),
+            )
+          : const WebAppbar(),
       body: Container(
         height: 800,
+        margin: EdgeInsets.only(top: deviceType == 'phone' ? 0 : 2.h),
         padding: EdgeInsets.symmetric(horizontal: 15.sp),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              deviceType == 'desktop'
+                  ? Text(
+                      'Instructions',
+                      style: GoogleFonts.roboto(
+                        color: blue,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    )
+                  : Container(),
               SizedBox(
                 height: 2.h,
               ),
@@ -138,8 +155,8 @@ class Instructions extends StatelessWidget {
                 height: 2.h,
               ),
               Container(
-                height: 75.h,
-                width: double.infinity,
+                height: deviceType == "phone" ? 75.h : 70.h,
+                width: deviceType == "phone" ? double.infinity : 95.sp,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.sp),
                   border: Border.all(color: black),
@@ -150,17 +167,6 @@ class Instructions extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Instructions',
-                          style: GoogleFonts.roboto(
-                            color: blue,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 3.h,
-                        ),
                         const HeadingRow(
                             title: 'Save Data in .csv Format !', no: '1'),
                         SizedBox(
@@ -174,44 +180,52 @@ class Instructions extends StatelessWidget {
                               width: 12.w,
                             ),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'as instructed below',
                                   style: GoogleFonts.roboto(
                                     color: blue,
-                                    fontSize: 16.sp,
+                                    fontSize:
+                                        deviceType == 'phone' ? 16.sp : 14.sp,
                                   ),
                                 ),
                                 Text(
                                   '*USE UPPERCASE TEXT ONLY',
                                   style: GoogleFonts.roboto(
                                     color: red,
-                                    fontSize: 13.sp,
+                                    fontSize:
+                                        deviceType == 'phone' ? 13.sp : 12.sp,
                                   ),
                                 ),
                               ],
                             ),
                           ],
                         ),
-                        Container(
-                          height: 15.h,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image:
-                                  AssetImage('assets/instructions/csveg.png'),
-                            ),
-                          ),
-                        ),
+                        deviceType == 'phone'
+                            ? Container(
+                                height: 15.h,
+                                width: double.infinity,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/instructions/csveg.png'),
+                                  ),
+                                ),
+                              )
+                            : SizedBox(
+                                height: 3.h,
+                              ),
                         Row(
                           children: [
                             SizedBox(width: 12.w),
                             Text(
                               'Required Units',
                               style: GoogleFonts.roboto(
-                                  color: blue,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.sp),
+                                color: blue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: deviceType == 'phone' ? 16.sp : 14.sp,
+                              ),
                             ),
                           ],
                         ),
@@ -265,11 +279,15 @@ class Instructions extends StatelessWidget {
               SizedBox(
                 height: 0.5.h,
               ),
-              BlueButton(
+              SizedBox(
+                width: deviceType == "desktop" ? 60.sp : double.infinity,
+                child: BlueButton(
                   text: 'Proceed',
                   onTap: () {
                     showUploadDialog(context);
-                  }),
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -305,7 +323,7 @@ class dataNeeded extends StatelessWidget {
             Text(
               title1,
               style: GoogleFonts.roboto(
-                  color: blue, fontSize: 12, fontWeight: FontWeight.w500),
+                  color: blue, fontSize: 12.sp, fontWeight: FontWeight.w500),
             ),
           ],
         ),
@@ -328,6 +346,7 @@ class HeadingRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return Row(
       children: [
         Container(
@@ -341,7 +360,9 @@ class HeadingRow extends StatelessWidget {
             child: Text(
               no,
               style: GoogleFonts.roboto(
-                  color: blue, fontWeight: FontWeight.bold, fontSize: 16.sp),
+                  color: blue,
+                  fontWeight: FontWeight.bold,
+                  fontSize: deviceType == 'phone' ? 16.sp : 14.sp),
             ),
           ),
         ),
@@ -352,7 +373,7 @@ class HeadingRow extends StatelessWidget {
           title,
           style: GoogleFonts.roboto(
             color: blue,
-            fontSize: 16.sp,
+            fontSize: deviceType == 'phone' ? 16.sp : 14.sp,
             fontWeight: FontWeight.bold,
           ),
         ),
