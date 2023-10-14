@@ -25,7 +25,7 @@ class _WebAppbarState extends State<WebAppbar> {
         height: 9.h,
         margin: EdgeInsets.fromLTRB(10.w, 0, 10.w, 0),
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 28, 34, 48),
+          color: const Color.fromARGB(255, 28, 34, 48),
           borderRadius: BorderRadius.circular(12.sp),
         ),
         child: Row(
@@ -60,7 +60,9 @@ class _WebAppbarState extends State<WebAppbar> {
             Row(
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/analyze_screen');
+                  },
                   child: Container(
                     padding: EdgeInsets.all(6.sp),
                     height: 3.5.h,
@@ -85,7 +87,9 @@ class _WebAppbarState extends State<WebAppbar> {
                   width: 1.w,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/history_screen');
+                  },
                   child: Container(
                     padding: EdgeInsets.all(6.sp),
                     height: 3.5.h,
@@ -110,7 +114,9 @@ class _WebAppbarState extends State<WebAppbar> {
                   width: 1.w,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/feedback_screen');
+                  },
                   child: Container(
                     padding: EdgeInsets.all(6.sp),
                     height: 3.5.h,

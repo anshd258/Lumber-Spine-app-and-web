@@ -325,11 +325,39 @@ class _RFactorScreenState extends State<RFactorScreen> {
                           return Padding(
                             padding: const EdgeInsets.only(top: 12),
                             child: BlueButton(
+                              text: 'Proceed',
+                              onTap: () {
+                                context
+                                    .read<CsVuploadCubit>()
+                                    .uploadFile(state.file, {
+                                  "tm": temp.tm!,
+                                  "td": temp.td!,
+                                  "N": N.text,
+                                  "i": i.text,
+                                  "n": n.text,
+                                  "c": 0.25.toString(),
+                                  "b": b.text
+                                });
+                                Navigator.pushNamed(context, '/graph_screen');
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    } else if (state is GetcsvLoadedWeb) {
+                      return Builder(
+                        builder: (context) {
+                          var temp = context.watch<DataCubitCubit>().state;
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: SizedBox(
+                              width: 40.w,
+                              child: BlueButton(
                                 text: 'Proceed',
                                 onTap: () {
                                   context
                                       .read<CsVuploadCubit>()
-                                      .uploadFile(state.file, {
+                                      .uploadWebFile(state.fileData, {
                                     "tm": temp.tm!,
                                     "td": temp.td!,
                                     "N": N.text,
@@ -339,7 +367,9 @@ class _RFactorScreenState extends State<RFactorScreen> {
                                     "b": b.text
                                   });
                                   Navigator.pushNamed(context, '/graph_screen');
-                                }),
+                                },
+                              ),
+                            ),
                           );
                         },
                       );

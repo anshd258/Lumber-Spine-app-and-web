@@ -1,5 +1,7 @@
 import 'package:data_hub/Middleware/constants/colors.dart';
+import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/UI/widgets/appbar.dart';
+import 'package:data_hub/UI/widgets/web_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -17,11 +19,14 @@ class _HistoryState extends State<History> {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return SafeArea(
       child: Scaffold(
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight),
-          child: Appbar1(title: 'History'),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: deviceType == 'phone'
+              ? const Appbar1(title: 'History')
+              : const WebAppbar(),
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 5.w),
@@ -38,7 +43,7 @@ class _HistoryState extends State<History> {
                     formattedDate,
                     style: GoogleFonts.roboto(
                       color: darkerGrey,
-                      fontSize: 15.sp,
+                      fontSize: deviceType == 'phone' ? 15.sp : 14.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -47,7 +52,7 @@ class _HistoryState extends State<History> {
                     'All history',
                     style: GoogleFonts.roboto(
                       color: blue,
-                      fontSize: 15.sp,
+                      fontSize: deviceType == 'phone' ? 15.sp : 14.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -94,6 +99,7 @@ class HistoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return Row(
       children: [
         Container(
@@ -113,7 +119,7 @@ class HistoryCard extends StatelessWidget {
               title,
               style: GoogleFonts.roboto(
                 color: blue,
-                fontSize: 16.sp,
+                fontSize: deviceType == 'phone' ? 16.sp : 13.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -124,7 +130,7 @@ class HistoryCard extends StatelessWidget {
           value,
           style: GoogleFonts.roboto(
             color: blue,
-            fontSize: 16.sp,
+            fontSize: deviceType == 'phone' ? 16.sp : 13.sp,
             fontWeight: FontWeight.bold,
           ),
         ),
