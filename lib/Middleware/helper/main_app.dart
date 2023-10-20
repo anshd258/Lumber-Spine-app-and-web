@@ -1,6 +1,7 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
 import 'package:data_hub/Middleware/bloc/Variabledatabloc/data_cubit_cubit.dart';
+import 'package:data_hub/Middleware/bloc/web_navbar_cubit.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/Middleware/helper/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,9 @@ class MainApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => GetcsvCubit(),
+          ),
+          BlocProvider(
+            create: (context) => WebNavbarCubit(),
           ),
           BlocProvider(
             create: (context) => DataCubitCubit(),

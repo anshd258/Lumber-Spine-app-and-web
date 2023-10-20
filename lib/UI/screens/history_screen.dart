@@ -22,12 +22,12 @@ class _HistoryState extends State<History> {
     String deviceType = MyDevice.getDeviceType(context);
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: deviceType == 'phone'
-              ? const Appbar1(title: 'History')
-              : const WebAppbar(),
-        ),
+        // appBar: PreferredSize(
+        //   preferredSize: const Size.fromHeight(kToolbarHeight),
+        //   child: deviceType == 'phone'
+        //       ? const Appbar1(title: 'History')
+        //       : const WebAppbar(),
+        // ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 5.w),
           child: Column(

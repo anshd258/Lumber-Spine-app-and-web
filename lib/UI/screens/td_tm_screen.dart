@@ -94,12 +94,12 @@ class _TdTmScreenState extends State<TdTmScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: deviceType == 'phone'
-            ? const PreferredSize(
-                preferredSize: Size.fromHeight(kToolbarHeight),
-                child: Appbar1(title: 'Analyze'),
-              )
-            : const WebAppbar(),
+        // appBar: deviceType == 'phone'
+        //     ? const PreferredSize(
+        //         preferredSize: Size.fromHeight(kToolbarHeight),
+        //         child: Appbar1(title: 'Analyze'),
+        //       )
+        //     : const WebAppbar(),
         body: Container(
           height: 800,
           margin: EdgeInsets.only(top: deviceType == 'phone' ? 0 : 2.h),

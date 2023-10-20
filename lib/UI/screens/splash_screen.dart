@@ -28,7 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
         .then((value) => print(value.name));
 
     await Future.delayed(const Duration(seconds: 3), () {});
-    Navigator.pushNamed(context, '/signin_screen');
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      '/signin_screen',
+      (route) => false,
+    );
   }
 
   @override

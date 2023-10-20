@@ -1,5 +1,7 @@
+import 'package:data_hub/Middleware/bloc/web_navbar_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -61,7 +63,8 @@ class _WebAppbarState extends State<WebAppbar> {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/analyze_screen');
+                    context.read<WebNavbarCubit>().changeState(1);
+                    //Navigator.pushNamed(context, '/analyze_screen');
                   },
                   child: Container(
                     padding: EdgeInsets.all(6.sp),
@@ -88,7 +91,8 @@ class _WebAppbarState extends State<WebAppbar> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/history_screen');
+                    context.read<WebNavbarCubit>().changeState(2);
+                    //  Navigator.pushNamed(context, '/history_screen');
                   },
                   child: Container(
                     padding: EdgeInsets.all(6.sp),
@@ -115,7 +119,8 @@ class _WebAppbarState extends State<WebAppbar> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/feedback_screen');
+                    context.read<WebNavbarCubit>().changeState(3);
+                    //    Navigator.pushNamed(context, '/feedback_screen');
                   },
                   child: Container(
                     padding: EdgeInsets.all(6.sp),

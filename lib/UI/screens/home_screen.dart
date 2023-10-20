@@ -1,8 +1,12 @@
+import 'package:data_hub/Middleware/bloc/web_navbar_cubit.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
+import 'package:data_hub/UI/screens/feedback_screen.dart';
+import 'package:data_hub/UI/screens/history_screen.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:data_hub/UI/widgets/bottom_navbar.dart';
 import 'package:data_hub/UI/widgets/web_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -62,40 +66,106 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               )
             : const WebAppbar(),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5.w),
-            child: Column(
-              children: [
-                deviceType == 'phone'
-                    ? SizedBox(
-                        height: 4.h,
-                      )
-                    : SizedBox(
-                        height: 7.h,
+        body: BlocConsumer<WebNavbarCubit, WebNavbarInitial>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            if (state.tabIndex == 1) {
+              return HomeWidget(deviceType: deviceType, desc: desc);
+            } else if (state.tabIndex == 2) {
+              return History();
+            } else {
+              return FeedbackScreen();
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class HomeWidget extends StatelessWidget {
+  const HomeWidget({
+    super.key,
+    required this.deviceType,
+    required this.desc,
+  });
+
+  final String deviceType;
+  final String desc;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5.w),
+        child: Column(
+          children: [
+            deviceType == 'phone'
+                ? SizedBox(
+                    height: 4.h,
+                  )
+                : SizedBox(
+                    height: 7.h,
+                  ),
+            MyCard(
+              title: 'Vibration Analysis',
+              desc: desc,
+              onTap: () {},
+            ),
+            deviceType == 'phone'
+                ? SizedBox(
+                    height: 4.h,
+                  )
+                : SizedBox(
+                    height: 1.h,
+                  ),
+            deviceType == 'phone'
+                ? GradientCircularRing(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/instructions_screen');
+                      },
+                      child: Container(
+                        height: 25.h,
+                        width: 180.w,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: blue,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Start Test',
+                            style: GoogleFonts.roboto(
+                              color: whiteText,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22.sp,
+                            ),
+                          ),
+                        ),
                       ),
-                MyCard(
-                  title: 'Vibration Analysis',
-                  desc: desc,
-                  onTap: () {},
-                ),
-                deviceType == 'phone'
-                    ? SizedBox(
-                        height: 4.h,
-                      )
-                    : SizedBox(
-                        height: 1.h,
-                      ),
-                deviceType == 'phone'
-                    ? GradientCircularRing(
-                        child: InkWell(
+                    ),
+                  )
+                : Stack(
+                    children: [
+                      Container(
+                        height: 33.h,
+                        width: 60.w,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: whiteText,
+                          border: Border.all(color: yellow, width: 7.sp),
+                        ),
+                        child: GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(
-                                context, '/instructions_screen');
+                                context, '/instructions_web_screen');
                           },
                           child: Container(
-                            height: 25.h,
-                            width: 180.w,
+                            margin: EdgeInsets.all(11.sp),
+                            height: 5.h,
+                            width: 5.w,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: blue,
@@ -106,68 +176,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: GoogleFonts.roboto(
                                   color: whiteText,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 22.sp,
+                                  fontSize: 17.sp,
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      )
-                    : Stack(
-                        children: [
-                          Container(
-                            height: 33.h,
-                            width: 60.w,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: whiteText,
-                              border: Border.all(color: yellow, width: 7.sp),
-                            ),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context, '/instructions_web_screen');
-                              },
-                              child: Container(
-                                margin: EdgeInsets.all(11.sp),
-                                height: 5.h,
-                                width: 5.w,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: blue,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Start Test',
-                                    style: GoogleFonts.roboto(
-                                      color: whiteText,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17.sp,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                deviceType == 'phone'
-                    ? BlueButton(
-                        text: 'History',
-                        onTap: () {
-                          Navigator.pushNamed(context, '/history_screen');
-                        })
-                    : Container(),
-                SizedBox(
-                  height: 5.h,
-                ),
-                deviceType == 'phone' ? const BottomNavBar() : Container(),
-              ],
+                    ],
+                  ),
+            SizedBox(
+              height: 10.h,
             ),
-          ),
+            deviceType == 'phone'
+                ? BlueButton(
+                    text: 'History',
+                    onTap: () {
+                      Navigator.pushNamed(context, '/history_screen');
+                    })
+                : Container(),
+            SizedBox(
+              height: 5.h,
+            ),
+            deviceType == 'phone' ? const BottomNavBar() : Container(),
+          ],
         ),
       ),
     );

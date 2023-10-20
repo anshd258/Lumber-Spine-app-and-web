@@ -23,12 +23,12 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     String deviceType = MyDevice.getDeviceType(context);
     TextEditingController ctr = TextEditingController();
     return Scaffold(
-      appBar: deviceType == 'phone'
-          ? const PreferredSize(
-              preferredSize: Size.fromHeight(kToolbarHeight),
-              child: Appbar1(title: 'Feedback'),
-            )
-          : const WebAppbar(),
+      // appBar: deviceType == 'phone'
+      //     ? const PreferredSize(
+      //         preferredSize: Size.fromHeight(kToolbarHeight),
+      //         child: Appbar1(title: 'Feedback'),
+      //       )
+      //     : const WebAppbar(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 5.w),
         child: SingleChildScrollView(
