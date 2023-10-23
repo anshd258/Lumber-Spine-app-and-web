@@ -3,6 +3,7 @@ import 'package:data_hub/Middleware/bloc/sign_in/sign_in_event.dart';
 import 'package:data_hub/Middleware/bloc/sign_in/sign_in_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -120,7 +121,8 @@ class SignInScreen extends StatelessWidget {
                 BlocListener<SignInBloc, SignInState>(
                   listener: (context, state) {
                     if (state is SignInSubmittedState) {
-                      Navigator.pushNamed(context, '/analyze_screen');
+                      // Navigator.pushNamed(context, '/analyze_screen');
+                      GoRouter.of(context).go('/home_screen');
                     }
                   },
                   child: BlocBuilder<SignInBloc, SignInState>(
@@ -158,7 +160,8 @@ class SignInScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/signup_screen');
+                          // Navigator.pushNamed(context, '/signup_screen');
+                          GoRouter.of(context).go('/signup_screen');
                         },
                         child: Text(
                           'Sign Up',

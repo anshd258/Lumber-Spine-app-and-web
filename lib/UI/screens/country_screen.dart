@@ -2,6 +2,7 @@ import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:data_hub/UI/widgets/country_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -62,8 +63,9 @@ class CountryScreen extends StatelessWidget {
                 BlueButton(
                     text: 'Continue',
                     onTap: () {
-                      Navigator.pushNamed(
-                          context, '/registration_completed_screen');
+                      // Navigator.pushNamed(
+                      //     context, '/registration_completed_screen');
+                      GoRouter.of(context).go('/registration_completed_screen');
                     }),
                 SizedBox(
                   height: 2.h,

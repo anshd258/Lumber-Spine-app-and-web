@@ -7,6 +7,7 @@ import 'package:data_hub/UI/widgets/bottom_navbar.dart';
 import 'package:data_hub/UI/widgets/web_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -68,15 +69,14 @@ class _HomeScreenState extends State<HomeScreen> {
             : const WebAppbar(),
         body: BlocConsumer<WebNavbarCubit, WebNavbarInitial>(
           listener: (context, state) {
-            // TODO: implement listener
           },
           builder: (context, state) {
             if (state.tabIndex == 1) {
               return HomeWidget(deviceType: deviceType, desc: desc);
             } else if (state.tabIndex == 2) {
-              return History();
+              return const History();
             } else {
-              return FeedbackScreen();
+              return const FeedbackScreen();
             }
           },
         ),
@@ -125,7 +125,8 @@ class HomeWidget extends StatelessWidget {
                 ? GradientCircularRing(
                     child: InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/instructions_screen');
+                        // Navigator.pushNamed(context, '/instructions_screen');
+                        GoRouter.of(context).go('/instructions_screen');
                       },
                       child: Container(
                         height: 25.h,
@@ -159,8 +160,9 @@ class HomeWidget extends StatelessWidget {
                         ),
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(
-                                context, '/instructions_web_screen');
+                            // Navigator.pushNamed(
+                            //     context, '/instructions_web_screen');
+                            GoRouter.of(context).go('/instructions_web_screen');
                           },
                           child: Container(
                             margin: EdgeInsets.all(11.sp),
@@ -192,7 +194,8 @@ class HomeWidget extends StatelessWidget {
                 ? BlueButton(
                     text: 'History',
                     onTap: () {
-                      Navigator.pushNamed(context, '/history_screen');
+                      // Navigator.pushNamed(context, '/history_screen');
+                       GoRouter.of(context).go('/history_screen');
                     })
                 : Container(),
             SizedBox(
@@ -346,7 +349,7 @@ class GradientCircularRing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      size: Size(200, 200),
+      size: const Size(200, 200),
       painter: GradientCircularRingPainter(),
       child: child,
     );

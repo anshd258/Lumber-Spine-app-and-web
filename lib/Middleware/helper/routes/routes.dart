@@ -17,42 +17,93 @@ import 'package:flutter/material.dart';
 
 import '../../../UI/screens/country_screen.dart';
 import '../../../UI/screens/signin_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
-var routes = <String, WidgetBuilder>{
-  '/': (context) => const SplashScreen(),
+GoRouter router = GoRouter(
+    routes: goo_routes, initialLocation: kIsWeb ? '/home_screen' : '/');
 
-  '/signin_screen': (context) => BlocProvider(
-        create: (context) => SignInBloc(),
-        child: SignInScreen(),
-      ),
+List<RouteBase> goo_routes = [
+  GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
+  GoRoute(
+    path: '/signin_screen',
+    builder: (context, state) => BlocProvider(
+      create: (context) => SignInBloc(),
+      child: SignInScreen(),
+    ),
+  ),
+  GoRoute(
+    path: '/signup_screen',
+    builder: (context, state) => BlocProvider(
+      create: (context) => SignInBloc(),
+      child: SignUpScreen(),
+    ),
+  ),
+  GoRoute(
+      path: '/country_screen',
+      builder: (context, state) => const CountryScreen()),
+  GoRoute(
+      path: '/registration_completed_screen',
+      builder: (context, state) => const RegistrationCompletedScreen()),
+  GoRoute(
+      path: '/home_screen', builder: (context, state) => const HomeScreen()),
+  GoRoute(
+      path: '/history_screen', builder: (context, state) => const History()),
+  GoRoute(
+      path: '/profile_screen',
+      builder: (context, state) => const ProfileScreen()),
+  GoRoute(
+      path: '/feedback_screen',
+      builder: (context, state) => const ProfileScreen()),
+  GoRoute(
+      path: '/instructions_screen',
+      builder: (context, state) => const Instructions()),
+  GoRoute(
+      path: '/instructions_web_screen',
+      builder: (context, state) => const InstructionsWeb()),
+  GoRoute(path: '/td_tm_screen', builder: (context, state) => TdTmScreen()),
+  GoRoute(
+      path: '/R_factor_screen',
+      builder: (context, state) => const RFactorScreen()),
+  GoRoute(
+      path: '/graph_screen', builder: (context, state) => const GraphScreen()),
+];
 
-  '/signup_screen': (context) => BlocProvider(
-        create: (context) => SignUpBloc(),
-        child: const SignUpScreen(),
-      ),
+// var routes = <String, WidgetBuilder>{
+//   '/': (context) => const SplashScreen(),
 
-  // '/otp_screen': (context) => OTPScreen(),
+//   '/signin_screen': (context) => BlocProvider(
+//         create: (context) => SignInBloc(),
+//         child: SignInScreen(),
+//       ),
 
-  '/country_screen': (context) => const CountryScreen(),
+//   '/signup_screen': (context) => BlocProvider(
+//         create: (context) => SignUpBloc(),
+//         child: const SignUpScreen(),
+//       ),
 
-  '/registration_completed_screen': (context) =>
-      const RegistrationCompletedScreen(),
+//   // '/otp_screen': (context) => OTPScreen(),
 
-  '/analyze_screen': (context) => const HomeScreen(),
+//   '/country_screen': (context) => const CountryScreen(),
 
-  '/history_screen': (context) => const History(),
+//   '/registration_completed_screen': (context) =>
+//       const RegistrationCompletedScreen(),
 
-  '/profile_screen': (context) => const ProfileScreen(),
+//   '/analyze_screen': (context) => const HomeScreen(),
 
-  '/feedback_screen': (context) => const FeedbackScreen(),
+//   '/history_screen': (context) => const History(),
 
-  '/instructions_screen': (context) => const Instructions(),
+//   '/profile_screen': (context) => const ProfileScreen(),
 
-  '/instructions_web_screen': (context) => const InstructionsWeb(),
+//   '/feedback_screen': (context) => const FeedbackScreen(),
 
-  '/td_tm_screen': (context) => TdTmScreen(),
+//   '/instructions_screen': (context) => const Instructions(),
 
-  '/R_factor_screen': (context) => RFactorScreen(),
+//   '/instructions_web_screen': (context) => const InstructionsWeb(),
 
-  '/graph_screen': (context) => const GraphScreen(),
-};
+//   '/td_tm_screen': (context) => TdTmScreen(),
+
+//   '/R_factor_screen': (context) => const RFactorScreen(),
+
+//   '/graph_screen': (context) => const GraphScreen(),
+// };

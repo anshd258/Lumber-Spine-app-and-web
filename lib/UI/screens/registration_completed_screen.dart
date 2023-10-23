@@ -1,6 +1,7 @@
 import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -100,7 +101,8 @@ class RegistrationCompletedScreen extends StatelessWidget {
                   child: BlueButton(
                       text: 'Get Started',
                       onTap: () {
-                        Navigator.pushNamed(context, '/analyze_screen');
+                        // Navigator.pushNamed(context, '/analyze_screen');
+                         GoRouter.of(context).go('/home_screen');
                       }),
                 ),
               )

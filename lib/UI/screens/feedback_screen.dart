@@ -2,9 +2,7 @@ import 'dart:convert';
 
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
-import 'package:data_hub/UI/widgets/appbar.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
-import 'package:data_hub/UI/widgets/web_appbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

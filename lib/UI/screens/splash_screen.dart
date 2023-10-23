@@ -4,6 +4,7 @@ import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/UI/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -28,11 +29,12 @@ class _SplashScreenState extends State<SplashScreen> {
         .then((value) => print(value.name));
 
     await Future.delayed(const Duration(seconds: 3), () {});
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      '/signin_screen',
-      (route) => false,
-    );
+    // Navigator.pushNamedAndRemoveUntil(
+    //   context,
+    //   '/signin_screen',
+    //   (route) => false
+    // );
+    GoRouter.of(context).go('/signin_screen');
   }
 
   @override

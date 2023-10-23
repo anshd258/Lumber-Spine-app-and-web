@@ -6,6 +6,7 @@ import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/Middleware/helper/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MainApp extends StatelessWidget {
@@ -30,11 +31,15 @@ class MainApp extends StatelessWidget {
             create: (context) => DataCubitCubit(),
           ),
         ],
-        child: MaterialApp(
+        // child: MaterialApp(
+        //   debugShowCheckedModeBanner: false,
+        //   title: 'Data Hub',
+        //   initialRoute: deviceType == 'phone' ? '/' : '/analyze_screen',
+        //   routes: routes,
+        // ),
+        child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          title: 'Data Hub',
-          initialRoute: deviceType == 'phone' ? '/' : '/analyze_screen',
-          routes: routes,
+          routerConfig: router,
         ),
       );
     });

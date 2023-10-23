@@ -1,9 +1,8 @@
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
-import 'package:data_hub/UI/widgets/appbar.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
-import 'package:data_hub/UI/widgets/web_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,7 +90,8 @@ class Instructions extends StatelessWidget {
                         return BlueButton(
                             text: 'Proceed',
                             onTap: () {
-                              Navigator.pushNamed(context, '/td_tm_screen');
+                              // Navigator.pushNamed(context, '/td_tm_screen');
+                              GoRouter.of(context).go('/td_tm_screen');
                             });
                       } else if (state is GetcsvError) {
                         return Center(

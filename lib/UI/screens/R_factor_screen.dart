@@ -8,6 +8,7 @@ import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:data_hub/UI/widgets/web_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -338,7 +339,8 @@ class _RFactorScreenState extends State<RFactorScreen> {
                                   "c": 0.25.toString(),
                                   "b": b.text
                                 });
-                                Navigator.pushNamed(context, '/graph_screen');
+                                // Navigator.pushNamed(context, '/graph_screen');
+                                GoRouter.of(context).go('/graph_screen');
                               },
                             ),
                           );
@@ -366,7 +368,8 @@ class _RFactorScreenState extends State<RFactorScreen> {
                                     "c": 0.25.toString(),
                                     "b": b.text
                                   });
-                                  Navigator.pushNamed(context, '/graph_screen');
+                                  // Navigator.pushNamed(context, '/graph_screen');
+                                   GoRouter.of(context).go('/graph_screen');
                                 },
                               ),
                             ),

@@ -8,6 +8,7 @@ import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -144,7 +145,8 @@ class _OTPScreenState extends State<OTPScreen> {
               BlocConsumer<OTPBloc, OTPState>(
                 listener: (context, state) {
                   if (state is OTPVerifiedState) {
-                    Navigator.pushNamed(context, '/country_screen');
+                    // Navigator.pushNamed(context, '/country_screen');
+                    GoRouter.of(context).go('/country_screen');
                   }
                 },
                 builder: (context, state) {

@@ -6,6 +6,7 @@ import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/UI/widgets/web_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -52,7 +53,8 @@ class _TdTmScreenState extends State<TdTmScreen> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/graph_screen');
+                      // Navigator.pushNamed(context, '/graph_screen');
+                      GoRouter.of(context).go('/graph_screen');
                     },
                     child: const Options(
                       text1: 'Static Compression',
@@ -62,7 +64,8 @@ class _TdTmScreenState extends State<TdTmScreen> {
                   SizedBox(height: 3.h),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/R_factor_screen');
+                      // Navigator.pushNamed(context, '/R_factor_screen');
+                       GoRouter.of(context).go('/R_factor_screen');
                     },
                     child: const Options(
                       text1: 'Static Compression Dose',
@@ -72,7 +75,8 @@ class _TdTmScreenState extends State<TdTmScreen> {
                   SizedBox(height: 3.h),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/R_factor_screen');
+                      // Navigator.pushNamed(context, '/R_factor_screen');
+                      GoRouter.of(context).go('/R_factor_screen');
                     },
                     child: const Options(
                       text1: '',
@@ -289,7 +293,8 @@ class _TdTmScreenState extends State<TdTmScreen> {
                           context
                               .read<DataCubitCubit>()
                               .getTdTm(td.text, tm.text);
-                          Navigator.pushNamed(context, '/R_factor_screen');
+                          // Navigator.pushNamed(context, '/R_factor_screen');
+                          GoRouter.of(context).go('/R_factor_screen');
                           // showSelectDialog(context);
                         }),
                   ),
