@@ -1,3 +1,8 @@
 const baseUrl =
-    "https://8af5-2400-80c0-3000-3321-595-2fcd-92a3-b3e6.ngrok-free.app/";
+    "https://ac68-2400-80c0-3000-26c0-350e-af8a-6bd5-43b6.ngrok-free.app";
 const uploadPath = "/upload";
+const signup = "/auth";
+const signIn = "/login";
+const history = "/user-history";
+
+ Map<String, String> header = {'Content-Type': 'application/json'};

@@ -60,6 +60,7 @@ dependencies:
   permission_handler: ^11.0.1
   csv: ^5.0.2
   go_router: ^12.0.0
+  cookie_jar: ^4.0.8
 
 dev_dependencies:
   flutter_test:

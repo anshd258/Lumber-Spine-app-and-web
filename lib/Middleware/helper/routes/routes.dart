@@ -21,7 +21,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 GoRouter router = GoRouter(
-    routes: goo_routes, initialLocation: kIsWeb ? '/home_screen' : '/');
+    routes: goo_routes, initialLocation: kIsWeb ? '/signin_screen' : '/');
 
 List<RouteBase> goo_routes = [
   GoRoute(path: '/', builder: (context, state) => const SplashScreen()),

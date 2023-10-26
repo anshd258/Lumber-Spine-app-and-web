@@ -8,6 +8,10 @@ class SignInEmailChangedEvent extends SignInEvent {
   });
 }
 
+class SignInAutoLogin extends SignInEvent{
+  
+}
+
 class SignInPasswordChangedEvent extends SignInEvent {
   final String passwordValue;
   SignInPasswordChangedEvent({

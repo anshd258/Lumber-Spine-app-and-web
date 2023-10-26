@@ -11,6 +11,7 @@ class SignInEmailErrorState extends SignInState {
     this.errorMessage,
   );
 }
+
 class SignInPasswordErrorState extends SignInState {
   final String errorMessage;
   SignInPasswordErrorState(
@@ -18,4 +19,7 @@ class SignInPasswordErrorState extends SignInState {
   );
 }
 
-class SignInSubmittedState extends SignInState{}
+class SignInSubmittedState extends SignInState {
+  String Uuid;
+  SignInSubmittedState({required this.Uuid});
+}

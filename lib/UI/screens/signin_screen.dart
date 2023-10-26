@@ -19,6 +19,11 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        context.read<SignInBloc>().add(SignInAutoLogin());
+      },
+    );
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,

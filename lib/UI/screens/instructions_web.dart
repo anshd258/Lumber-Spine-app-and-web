@@ -13,6 +13,7 @@ import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
 
 class InstructionsWeb extends StatelessWidget {
   const InstructionsWeb({super.key});
+  
 
   void showUploadDialogWeb(BuildContext context) {
     showDialog(
@@ -70,26 +71,7 @@ class InstructionsWeb extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           print('************ onTap called');
-                          final input = InputElement()
-                            ..type = 'file'
-                            ..accept = '.csv';
-                          input.onChange.listen((event) {
-                            final files = input.files;
-                            if (files!.isNotEmpty) {
-                              final file = files[0];
-                              final reader = FileReader();
-                              reader.onLoad.listen((e) {
-                                final result = reader.result;
-                                if (result is List<int>) {
-                                  context
-                                      .read<GetcsvCubit>()
-                                      .getWebFile(result);
-                                }
-                              });
-                              reader.readAsArrayBuffer(file);
-                            }
-                          });
-                          input.click();
+                          context.read<GetcsvCubit>().getWebFile();
                         },
                         child: Container(
                           height: deviceType == "phone" ? 3.5.h : 7.h,
@@ -409,3 +391,4 @@ class HeadingRow extends StatelessWidget {
     );
   }
 }
+

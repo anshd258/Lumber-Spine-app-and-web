@@ -13,8 +13,9 @@ class GetcsvLoaded extends GetcsvState {
 }
 
 class GetcsvLoadedWeb extends GetcsvState {
-  final List<List<dynamic>> fileData;
-  GetcsvLoadedWeb({required this.fileData});
+  final Uint8List fileData;
+  final String fileName;
+  GetcsvLoadedWeb({required this.fileData,required this.fileName});
 }
 
 class GetcsvError extends GetcsvState {

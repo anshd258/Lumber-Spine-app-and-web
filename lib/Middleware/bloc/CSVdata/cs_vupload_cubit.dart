@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:data_hub/Middleware/constants/ApiPaths.dart';
 import 'package:data_hub/Models/graphmodals.dart';
 
@@ -63,45 +64,43 @@ class CsVuploadCubit extends Cubit<CsVuploadState> {
     // }
   }
 
-  void uploadWebFile(List<List<dynamic>> webData, Map<String, String> data) async {
-  emit(CsVuploadUploading());
+  void uploadWebFile(
+      Uint8List webData, String fileName, Map<String, String> data) async {
+    emit(CsVuploadUploading());
 
-  var request = http.MultipartRequest('POST', Uri.parse(baseUrl + uploadPath));
-  request.fields.addAll(data);
+    var request =
+        http.MultipartRequest('POST', Uri.parse(baseUrl + uploadPath));
+    request.fields.addAll(data);
 
-  String csvContent = convertWebDataToCSV(webData);
+    request.files.add(await http.MultipartFile.fromBytes('file', webData,
+        filename: fileName));
 
-  File tempCsvFile = File('temp_web_data.csv');
-  await tempCsvFile.writeAsString(csvContent);
+    try {
+      http.StreamedResponse response = await request.send();
 
-  request.files.add(await http.MultipartFile.fromPath('file', tempCsvFile.path));
+      if (response.statusCode == 200) {
+        var res = ResponseGraphModal.fromJson(
+            json.decode(await response.stream.bytesToString()));
 
-  try {
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      var res = ResponseGraphModal.fromJson(
-          json.decode(await response.stream.bytesToString()));
-
-      emit(
-        CsVuploadDataRecieve(
-          data: res,
-        ),
-      );
-    } else {
-      throw Exception(await response.stream.bytesToString());
+        emit(
+          CsVuploadDataRecieve(
+            data: res,
+          ),
+        );
+      } else {
+        throw Exception(await response.stream.bytesToString());
+      }
+    } on Exception catch (_) {
+      print(_.toString());
+      emit(CsVuploadError());
     }
-  } on Exception catch (_) {
-    emit(CsVuploadError());
   }
-}
 
-String convertWebDataToCSV(List<List<dynamic>> webData) {
-  StringBuffer csvBuffer = StringBuffer();
-  for (List<dynamic> row in webData) {
-    csvBuffer.write(row.join(',') + '\n');
+  String convertWebDataToCSV(List<List<dynamic>> webData) {
+    StringBuffer csvBuffer = StringBuffer();
+    for (List<dynamic> row in webData) {
+      csvBuffer.write(row.join(',') + '\n');
+    }
+    return csvBuffer.toString();
   }
-  return csvBuffer.toString();
-}
-
 }

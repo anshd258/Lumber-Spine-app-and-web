@@ -202,18 +202,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       );
                     }
                   },
-                  child: BlocBuilder<SignUpBloc, SignUpState>(
+                  child: BlocConsumer<SignUpBloc, SignUpState>(
+                    listener: (context, state) {
+                      if (state is SignUpSubmittedState) {
+                        GoRouter.of(context).go('/signin_screen');
+                      }
+                    },
                     builder: (context, state) {
                       return BlueButton(
                         text: 'Sign Up',
                         onTap: () {
+                          print("signup");
                           if (state is SignUpValidState) {
                             // sendOTP();
-                            BlocProvider.of<SignUpBloc>(context).add(
-                              SendOTPEvent(
-                                email: _email.text,
-                              ),
-                            );
+                            // BlocProvider.of<SignUpBloc>(context).add(
+                            //   SendOTPEvent(
+                            //     email: _email.text,
+                            //   ),
+                            // );
                             BlocProvider.of<SignUpBloc>(context).add(
                               SignUpSubmittedEvent(
                                 name: _name.text,
@@ -251,13 +257,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: 4.h,
                 ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AccountButton(imageUrl: 'assets/sign_in/google.png'),
-                    AccountButton(imageUrl: 'assets/sign_in/apple.png'),
-                  ],
-                ),
+                // const Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     AccountButton(imageUrl: 'assets/sign_in/google.png'),
+                //     AccountButton(imageUrl: 'assets/sign_in/apple.png'),
+                //   ],
+                // ),
                 const Spacer(),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -274,7 +280,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       GestureDetector(
                         onTap: () {
                           // Navigator.pushNamed(context, '/signin_screen');
-                           GoRouter.of(context).go('/signin_screen');
+                          GoRouter.of(context).go('/signin_screen');
                         },
                         child: Text(
                           'Sign In',

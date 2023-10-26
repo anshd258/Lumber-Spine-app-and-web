@@ -1,18 +1,20 @@
-import 'dart:typed_data';
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/services/report_service.dart';
 import 'package:data_hub/UI/Graphs/Spline3axis.dart';
 import 'package:data_hub/UI/Graphs/SplineGraph.dart';
+import 'package:data_hub/UI/Graphs/frequncygraphs.dart';
 import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:data_hub/UI/widgets/result.dart';
 import 'package:data_hub/UI/widgets/utils.dart';
 import 'package:data_hub/UI/widgets/widget_to_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rive/rive.dart';
 
@@ -84,17 +86,18 @@ class _GraphScreenState extends State<GraphScreen> {
                   ),
                 );
               } else if (state is CsVuploadUploading) {
-                return const Expanded(
-                    child: RiveAnimation.asset('assets/loading.riv'));
-                // return Center(
-                //   child: LoadingAnimationWidget.newtonCradle(
-                //     color: blue,
-                //     size: 200,
-                //   ),
-                // );
+                // return const RiveAnimation.asset('assets/loading.riv');
+                return Center(
+                  child: LoadingAnimationWidget.newtonCradle(
+                    color: blue,
+                    size: 200,
+                  ),
+                );
               } else if (state is CsVuploadDataRecieve) {
                 return SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       WidgetToImage(
                         builder: (key) {
@@ -175,6 +178,47 @@ class _GraphScreenState extends State<GraphScreen> {
                           },
                         ),
                       ),
+                      PlaneGraph(
+                        data: state.data.ft!.amp!.proto1Unfiltered!,
+                        time: state.data.ft!.amp!.time!,
+                        xtitle: "Amplitude",
+                        ytitle: "",
+                        gradientColor: Colors.red,
+                        isShowingMainData: true,
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      PlaneGraph(
+                        data: state.data.ft!.amp!.ref1Unfiltered!,
+                        time: state.data.ft!.amp!.time!,
+                        xtitle: "Amplitude",
+                        ytitle: "",
+                        gradientColor: Colors.blue,
+                        isShowingMainData: true,
+                      ),
+                      // SizedBox(
+                      //   height: 3.h,
+                      // ),
+                      // PlaneGraph(
+                      //   data: state.data.ft!.frequency!.psdProto1Unfiltered!,
+                      //   time: state.data.ft!.frequency!.fPsd!,
+                      //   xtitle: "Amplitude",
+                      //   ytitle: "",
+                      //   gradientColor: Colors.red,
+                      //   isShowingMainData: true,
+                      // ),
+                      // SizedBox(
+                      //   height: 3.h,
+                      // ),
+                      // PlaneGraph(
+                      //   data: state.data.ft!.frequency!.psdRef1Unfiltered!,
+                      //   time: state.data.ft!.frequency!.fPsd!,
+                      //   xtitle: "Amplitude",
+                      //   ytitle: "",
+                      //   gradientColor: Colors.blue,
+                      //   isShowingMainData: true,
+                      // ),
                       SizedBox(
                         height: 3.h,
                       ),
@@ -191,22 +235,29 @@ class _GraphScreenState extends State<GraphScreen> {
                               final bytes4 = await Utils.capture(key4);
 
                               final data = await service.createReport(
-                                [bytes0, bytes1, bytes2, bytes3, bytes4],
-                                state.data.data!.dx!,
-                                state.data.data!.dxd!,
-                                state.data.data!.dy!,
-                                state.data.data!.dyd!,
-                                state.data.data!.dz!,
-                                state.data.data!.dzd!,
-                                state.data.data!.se!,
-                                state.data.data!.sed!,
-                                state.data.data!.r!,
+                                images: [
+                                  bytes0,
+                                  bytes1,
+                                  bytes2,
+                                  bytes3,
+                                  bytes4
+                                ],
+                                // state.data.data!.dx!,
+                                // state.data.data!.dxd!,
+                                // state.data.data!.dy!,
+                                // state.data.data!.dyd!,
+                                // state.data.data!.dz!,
+                                // state.data.data!.dzd!,
+                                se: state.data.data!.se!,
+                                sed: state.data.data!.sed!,
+                                r: state.data.data!.r!,
                               );
                               service
                                   .savePdfFile("report_$number", data)
                                   .then((value) {
                                 const snackBar = SnackBar(
-                                  content: Text('Report has been saved to device'),
+                                  content:
+                                      Text('Report has been saved to device'),
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);

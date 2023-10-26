@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:file_picker/file_picker.dart';
@@ -34,18 +35,23 @@ part 'getcsv_state.dart';
 class GetcsvCubit extends Cubit<GetcsvState> {
   GetcsvCubit() : super(GetcsvInitial());
 
-  Future<void> getWebFile(dynamic file) async {
-    try {
-      if (file is List<int>) {
-        final content = String.fromCharCodes(file);
-        final rowsAsListOfValues = const CsvToListConverter().convert(content);
+  Future<void> getWebFile() async {
+    emit(GetcsvLoading());
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowMultiple: false,
+        type: FileType.custom,
+        allowedExtensions: ['csv']).onError((error, stackTrace) {
+      emit(GetcsvError(message: 'Invalid file format'));
+      return null;
+    });
 
-        emit(GetcsvLoadedWeb(fileData: rowsAsListOfValues));
-      } else {
-        emit(GetcsvError(message: 'Invalid file format'));
+    if (result != null) {
+      Uint8List? fileBytes = result.files.first.bytes;
+  String fileName = result.files.first.name;
+      
+      if (fileBytes != null) {
+        emit(GetcsvLoadedWeb(fileData: fileBytes, fileName: fileName));
       }
-    } catch (e) {
-      emit(GetcsvError(message: e.toString()));
     }
   }
 

@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'package:data_hub/Middleware/bloc/sign_up/sign_up_events.dart';
 import 'package:data_hub/Middleware/bloc/sign_up/sign_up_states.dart';
+import 'package:data_hub/Middleware/constants/ApiPaths.dart';
 import 'package:email_otp/email_otp.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
@@ -31,8 +34,24 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       }
     });
 
-    on<SignUpSubmittedEvent>((event, emit) {
-      emit(SignUpSubmittedState());
+    on<SignUpSubmittedEvent>((event, emit) async {
+      Map<String, dynamic> body = {
+        "name": event.name,
+        "email": event.email,
+        "password": event.password
+      };
+     
+      
+      http.Response res = await http.post(
+        Uri.parse(baseUrl + signup),
+        headers: header,
+        body: json.encode(body),
+      );
+     
+      if (res.statusCode == 200) {
+        print(res.body);
+        emit(SignUpSubmittedState(Uuid: json.decode(res.body)['userID']));
+      }
     });
 
     on<SendOTPEvent>((event, emit) async {

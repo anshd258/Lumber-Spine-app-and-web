@@ -28,7 +28,10 @@ class SignUpPasswordErrorState extends SignUpState {
   );
 }
 
-class SignUpSubmittedState extends SignUpState {}
+class SignUpSubmittedState extends SignUpState {
+  String Uuid;
+  SignUpSubmittedState({required this.Uuid});
+}
 
 class OTPSentState extends SignUpState {
   final EmailOTP myAuth;

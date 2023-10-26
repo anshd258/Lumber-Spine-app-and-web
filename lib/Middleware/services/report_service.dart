@@ -5,16 +5,14 @@ import 'package:pdf/pdf.dart';
 
 class PdfReportService {
   Future<Uint8List> createReport(
-      List<Uint8List> images,
-      double dx,
-      double dxd,
-      double dy,
-      double dyd,
-      double dz,
-      double dzd,
-      double se,
-      double sed,
-      double r) {
+      {required List<Uint8List> images,
+      double? dxd,
+      double? dyd,
+      double? dz,
+      double? dzd,
+     required double se,
+     required double sed,
+     required double r}) {
     final pdf = pw.Document();
     pdf.addPage(
       pw.Page(
@@ -352,10 +350,10 @@ class PdfReportService {
                                       pw.Text('Acceleartion Dose (DX)',
                                           style:
                                               const pw.TextStyle(fontSize: 8)),
-                                      pw.Text(dx.toString(),
-                                          style: pw.TextStyle(
-                                              fontSize: 8,
-                                              fontWeight: pw.FontWeight.bold)),
+                                      // pw.Text(dxd.toString(),
+                                      //       style: pw.TextStyle(
+                                      //           fontSize: 8,
+                                      //           fontWeight: pw.FontWeight.bold)),
                                       pw.Divider(),
                                       pw.Text('Average Dose (DXD)',
                                           style:
@@ -385,10 +383,10 @@ class PdfReportService {
                                       pw.Text('Acceleartion Dose (DY)',
                                           style:
                                               const pw.TextStyle(fontSize: 8)),
-                                      pw.Text(dy.toString(),
-                                          style: pw.TextStyle(
-                                              fontSize: 8,
-                                              fontWeight: pw.FontWeight.bold)),
+                                      // pw.Text(dy.toString(),
+                                      //     style: pw.TextStyle(
+                                      //         fontSize: 8,
+                                      //         fontWeight: pw.FontWeight.bold)),
                                       pw.Divider(),
                                       pw.Text('Average Dose (DYD)',
                                           style:

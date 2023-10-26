@@ -359,7 +359,7 @@ class _RFactorScreenState extends State<RFactorScreen> {
                                 onTap: () {
                                   context
                                       .read<CsVuploadCubit>()
-                                      .uploadWebFile(state.fileData, {
+                                      .uploadWebFile(state.fileData,state.fileName, {
                                     "tm": temp.tm!,
                                     "td": temp.td!,
                                     "N": N.text,
