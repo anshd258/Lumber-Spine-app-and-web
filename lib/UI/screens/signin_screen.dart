@@ -1,6 +1,7 @@
 import 'package:data_hub/Middleware/bloc/sign_in/sign_in_bloc.dart';
 import 'package:data_hub/Middleware/bloc/sign_in/sign_in_event.dart';
 import 'package:data_hub/Middleware/bloc/sign_in/sign_in_state.dart';
+import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -19,11 +20,12 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        context.read<SignInBloc>().add(SignInAutoLogin());
-      },
-    );
+    String deviceType = MyDevice.getDeviceType(context);
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //   (timeStamp) {
+    //     // context.read<SignInBloc>().add(SignInAutoLogin());
+    //   },
+    // );
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -121,7 +123,7 @@ class SignInScreen extends StatelessWidget {
                   },
                 ),
                 SizedBox(
-                  height: 3.h,
+                  height: deviceType == 'phone' ? 3.h : 35.h,
                 ),
                 BlocListener<SignInBloc, SignInState>(
                   listener: (context, state) {
@@ -132,18 +134,23 @@ class SignInScreen extends StatelessWidget {
                   },
                   child: BlocBuilder<SignInBloc, SignInState>(
                     builder: (context, state) {
-                      return BlueButton(
-                          text: 'Sign In',
-                          onTap: () {
-                            if (state is SignInValidState) {
-                              BlocProvider.of<SignInBloc>(context).add(
-                                SignInSubmittedEvent(
-                                  email: _email.text,
-                                  password: _password.text,
-                                ),
-                              );
-                            }
-                          });
+                      return Center(
+                        child: SizedBox(
+                          width: deviceType == 'phone' ? double.infinity : 30.w,
+                          child: BlueButton(
+                              text: 'Sign In',
+                              onTap: () {
+                                if (state is SignInValidState) {
+                                  BlocProvider.of<SignInBloc>(context).add(
+                                    SignInSubmittedEvent(
+                                      email: _email.text,
+                                      password: _password.text,
+                                    ),
+                                  );
+                                }
+                              }),
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -160,7 +167,7 @@ class SignInScreen extends StatelessWidget {
                         'Don\'t have an account?',
                         style: GoogleFonts.roboto(
                           color: darkerGrey,
-                          fontSize: 16.sp,
+                          fontSize: deviceType == 'phone' ? 16.sp : 12.sp,
                         ),
                       ),
                       GestureDetector(
@@ -173,7 +180,7 @@ class SignInScreen extends StatelessWidget {
                           style: GoogleFonts.roboto(
                             color: green,
                             fontWeight: FontWeight.w700,
-                            fontSize: 16.sp,
+                            fontSize: deviceType == 'phone' ? 16.sp : 14.sp,
                           ),
                         ),
                       ),

@@ -1,12 +1,12 @@
-import 'dart:io';
+import 'dart:html';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 
-class PdfReportService {
-  Future<Uint8List> createReport(
+class PdfReportServiceWeb {
+  Future<Uint8List> createReportWeb(
       {required List<Uint8List> images,
       double? dxd,
       double? dyd,
@@ -585,11 +585,27 @@ class PdfReportService {
     return pdf.save();
   }
 
-  Future<void> savePdfFile(String fileName, Uint8List byteList) async {
-    final output = "/storage/emulated/0/Download";
-    var filePath = "${output}/$fileName.pdf";
-    final file = File(filePath);
-    await file.writeAsBytes(byteList);
-  }
+  // Future<void> savePdfFile(String fileName, Uint8List byteList) async {
+  //   final output = "/storage/emulated/0/Download";
+  //   var filePath = "${output}/$fileName.pdf";
+  //   final file = File(filePath);
+  //   await file.writeAsBytes(byteList);
+  // }
 
+  Future<void> savePdfFileWeb(String fileName, Uint8List byteList) async {
+    final blob = Blob([byteList]);
+
+    final url = Url.createObjectUrlFromBlob(blob);
+
+    // final anchor = AnchorElement(href: url)
+    //   ..target = 'webdownload'
+    //   ..download = fileName;
+
+    // anchor.click();
+
+    // Url.revokeObjectUrl(url);
+    AnchorElement anchorElement = new AnchorElement(href: url);
+    anchorElement.download = 'Data Hub Pdf';
+    anchorElement.click();
+  }
 }

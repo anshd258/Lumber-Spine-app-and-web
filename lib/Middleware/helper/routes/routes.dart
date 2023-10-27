@@ -20,8 +20,7 @@ import '../../../UI/screens/signin_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-GoRouter router = GoRouter(
-    routes: goo_routes, initialLocation: kIsWeb ? '/signin_screen' : '/');
+GoRouter router = GoRouter(routes: goo_routes, initialLocation: '/');
 
 List<RouteBase> goo_routes = [
   GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
@@ -36,7 +35,7 @@ List<RouteBase> goo_routes = [
     path: '/signup_screen',
     builder: (context, state) => BlocProvider(
       create: (context) => SignInBloc(),
-      child: SignUpScreen(),
+      child: const SignUpScreen(),
     ),
   ),
   GoRoute(

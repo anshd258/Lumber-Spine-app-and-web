@@ -1,3 +1,4 @@
+import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/UI/widgets/back_button.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class RegistrationCompletedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -23,22 +25,33 @@ class RegistrationCompletedScreen extends StatelessWidget {
               SizedBox(
                 height: 1.h,
               ),
-              Row(
-                children: [
-                  const MyBackButton(),
-                  SizedBox(
-                    width: 23.w,
-                  ),
-                  Text(
-                    'Registration',
-                    style: GoogleFonts.roboto(
-                      color: blue,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w700,
+              deviceType == 'phone'
+                  ? Row(
+                      children: [
+                        const MyBackButton(),
+                        SizedBox(
+                          width: 23.w,
+                        ),
+                        Text(
+                          'Registration',
+                          style: GoogleFonts.roboto(
+                            color: blue,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Center(
+                      child: Text(
+                        'Registration',
+                        style: GoogleFonts.roboto(
+                          color: blue,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
               SizedBox(
                 height: 18.h,
               ),
@@ -97,12 +110,12 @@ class RegistrationCompletedScreen extends StatelessWidget {
               ),
               Center(
                 child: SizedBox(
-                  width: 65.w,
+                  width: deviceType == 'phone' ? 65.w : 30.w,
                   child: BlueButton(
                       text: 'Get Started',
                       onTap: () {
                         // Navigator.pushNamed(context, '/analyze_screen');
-                         GoRouter.of(context).go('/home_screen');
+                        GoRouter.of(context).go('/home_screen');
                       }),
                 ),
               )

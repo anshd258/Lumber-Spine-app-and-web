@@ -1,6 +1,8 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
+import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/Middleware/services/report_service.dart';
+import 'package:data_hub/Middleware/services/report_service_web.dart';
 import 'package:data_hub/UI/Graphs/Spline3axis.dart';
 import 'package:data_hub/UI/Graphs/SplineGraph.dart';
 import 'package:data_hub/UI/Graphs/frequncygraphs.dart';
@@ -39,6 +41,7 @@ class _GraphScreenState extends State<GraphScreen> {
   Image? image4;
 
   final PdfReportService service = PdfReportService();
+  final PdfReportServiceWeb serviceWeb = PdfReportServiceWeb();
   int number = 0;
 
   // Future<File> saveImage(Uint8List bytes, String name) async {
@@ -55,6 +58,7 @@ class _GraphScreenState extends State<GraphScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -166,18 +170,7 @@ class _GraphScreenState extends State<GraphScreen> {
                       SizedBox(
                         height: 2.h,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: WidgetToImage(
-                          builder: (key) {
-                            key4 = key;
-                            return Result(
-                              sed: state.data.data!.sed!,
-                              r: state.data.data!.r!,
-                            );
-                          },
-                        ),
-                      ),
+
                       PlaneGraph(
                         data: state.data.ft!.amp!.proto1Unfiltered!,
                         time: state.data.ft!.amp!.time!,
@@ -222,46 +215,91 @@ class _GraphScreenState extends State<GraphScreen> {
                       SizedBox(
                         height: 3.h,
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: WidgetToImage(
+                          builder: (key) {
+                            key4 = key;
+                            return Result(
+                              sed: state.data.data!.sed!,
+                              r: state.data.data!.r!,
+                            );
+                          },
+                        ),
+                      ),
                       SizedBox(
-                        width: 95.w,
+                        width: deviceType == 'phone' ? 95.w : 30.w,
                         child: BlueButton(
                           text: 'Generate Report',
                           onTap: () async {
+                            print('Button pressed');
                             try {
                               final bytes0 = await Utils.capture(key0);
                               final bytes1 = await Utils.capture(key1);
                               final bytes2 = await Utils.capture(key2);
                               final bytes3 = await Utils.capture(key3);
                               final bytes4 = await Utils.capture(key4);
-
-                              final data = await service.createReport(
-                                images: [
-                                  bytes0,
-                                  bytes1,
-                                  bytes2,
-                                  bytes3,
-                                  bytes4
-                                ],
-                                // state.data.data!.dx!,
-                                // state.data.data!.dxd!,
-                                // state.data.data!.dy!,
-                                // state.data.data!.dyd!,
-                                // state.data.data!.dz!,
-                                // state.data.data!.dzd!,
-                                se: state.data.data!.se!,
-                                sed: state.data.data!.sed!,
-                                r: state.data.data!.r!,
-                              );
-                              service
-                                  .savePdfFile("report_$number", data)
-                                  .then((value) {
-                                const snackBar = SnackBar(
-                                  content:
-                                      Text('Report has been saved to device'),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              });
+                              print('Inside try block');
+                              final data = deviceType == 'phone'
+                                  ? await service.createReport(
+                                      images: [
+                                        bytes0,
+                                        bytes1,
+                                        bytes2,
+                                        bytes3,
+                                        bytes4
+                                      ],
+                                      // state.data.data!.dx!,
+                                      // state.data.data!.dxd!,
+                                      // state.data.data!.dy!,
+                                      // state.data.data!.dyd!,
+                                      // state.data.data!.dz!,
+                                      // state.data.data!.dzd!,
+                                      se: state.data.data!.se!,
+                                      sed: state.data.data!.sed!,
+                                      r: state.data.data!.r!,
+                                    )
+                                  : await serviceWeb.createReportWeb(
+                                      images: [
+                                        bytes0,
+                                        bytes1,
+                                        bytes2,
+                                        bytes3,
+                                        bytes4
+                                      ],
+                                      // state.data.data!.dx!,
+                                      // state.data.data!.dxd!,
+                                      // state.data.data!.dy!,
+                                      // state.data.data!.dyd!,
+                                      // state.data.data!.dz!,
+                                      // state.data.data!.dzd!,
+                                      se: state.data.data!.se!,
+                                      sed: state.data.data!.sed!,
+                                      r: state.data.data!.r!,
+                                    );
+                              deviceType == 'phone'
+                                  ? service
+                                      .savePdfFile("report_$number", data)
+                                      .then((value) {
+                                      print('PDF Saved');
+                                      const snackBar = SnackBar(
+                                        content: Text(
+                                            'Report has been saved to device'),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    })
+                                  : serviceWeb
+                                      .savePdfFileWeb("report_$number", data)
+                                      .then((value) {
+                                      print('PDF Saved');
+                                      const snackBar = SnackBar(
+                                        content: Text(
+                                            'Report has been saved to device'),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    });
                               number++;
                             } catch (e) {
                               print("Error capturing images: $e");

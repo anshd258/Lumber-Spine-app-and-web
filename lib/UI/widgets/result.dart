@@ -1,4 +1,5 @@
 import 'package:data_hub/Middleware/constants/colors.dart';
+import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/UI/widgets/progress1.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,18 +54,21 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Factor SeD',
-          style:
-              GoogleFonts.roboto(fontSize: 22.sp, fontWeight: FontWeight.bold),
+          style: GoogleFonts.roboto(
+              fontSize: deviceType == 'phone' ? 22.sp : 18.sp,
+              fontWeight: FontWeight.bold),
         ),
         Text(
           'Adverse health effects',
-          style:
-              GoogleFonts.roboto(fontSize: 17.sp, fontWeight: FontWeight.w300),
+          style: GoogleFonts.roboto(
+              fontSize: deviceType == 'phone' ? 17.sp : 14.sp,
+              fontWeight: FontWeight.w300),
         ),
         SizedBox(
           height: 3.h,
@@ -80,7 +84,7 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${widget.sed}',
+                      '${widget.sed.toStringAsFixed(5)}',
                       style: GoogleFonts.roboto(
                           fontSize: 20.sp, fontWeight: FontWeight.w300),
                     ),
@@ -93,31 +97,33 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
         SizedBox(
           height: 3.h,
         ),
-        Container(
-          height: 4.h,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: greenGradient,
-            borderRadius: BorderRadius.circular(10.sp),
-          ),
-          child: Center(
-            child: sed < 0.8
-                ? Text(
-                    "Low probability of adverse health effect !",
-                    style: GoogleFonts.roboto(
-                      fontSize: 16.sp,
-                      color: whiteText,
-                      fontWeight: FontWeight.w500,
+        Center(
+          child: Container(
+            height: deviceType == 'phone' ? 4.h : 6.h,
+            width: deviceType == 'phone' ? double.infinity : 50.w,
+            decoration: BoxDecoration(
+              color: greenGradient,
+              borderRadius: BorderRadius.circular(10.sp),
+            ),
+            child: Center(
+              child: sed < 0.8
+                  ? Text(
+                      "Low probability of adverse health effect !",
+                      style: GoogleFonts.roboto(
+                        fontSize: 16.sp,
+                        color: whiteText,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )
+                  : Text(
+                      "High probability of adverse health effect !",
+                      style: GoogleFonts.roboto(
+                        fontSize: 16.sp,
+                        color: whiteText,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  )
-                : Text(
-                    "High probability of adverse health effect !",
-                    style: GoogleFonts.roboto(
-                      fontSize: 16.sp,
-                      color: whiteText,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+            ),
           ),
         ),
         SizedBox(
@@ -125,13 +131,15 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
         ),
         Text(
           'Factor R',
-          style:
-              GoogleFonts.roboto(fontSize: 22.sp, fontWeight: FontWeight.bold),
+          style: GoogleFonts.roboto(
+              fontSize: deviceType == 'phone' ? 22.sp : 18.sp,
+              fontWeight: FontWeight.bold),
         ),
         Text(
           'Adverse health effects',
-          style:
-              GoogleFonts.roboto(fontSize: 17.sp, fontWeight: FontWeight.w300),
+          style: GoogleFonts.roboto(
+              fontSize: deviceType == 'phone' ? 17.sp : 14.sp,
+              fontWeight: FontWeight.w300),
         ),
         SizedBox(
           height: 3.h,
@@ -147,7 +155,7 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${_animation2.value}',
+                      _animation2.value.toStringAsFixed(5),
                       style: GoogleFonts.roboto(
                           fontSize: 20.sp, fontWeight: FontWeight.w300),
                     ),
@@ -160,31 +168,33 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
         SizedBox(
           height: 3.h,
         ),
-        Container(
-          height: 4.h,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: yellow,
-            borderRadius: BorderRadius.circular(10.sp),
+        Center(
+          child: Container(
+            height: deviceType == 'phone' ? 4.h : 6.h,
+            width: deviceType == 'phone' ? double.infinity : 50.w,
+            decoration: BoxDecoration(
+              color: yellow,
+              borderRadius: BorderRadius.circular(10.sp),
+            ),
+            child: Center(
+                child: r > 1.2
+                    ? Text(
+                        "High probability of adverse health effect !",
+                        style: GoogleFonts.roboto(
+                          fontSize: 16.sp,
+                          color: black,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    : Text(
+                        "Low probability of adverse health effect !",
+                        style: GoogleFonts.roboto(
+                          fontSize: 16.sp,
+                          color: black,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )),
           ),
-          child: Center(
-              child: r > 1.2
-                  ? Text(
-                      "High probability of adverse health effect !",
-                      style: GoogleFonts.roboto(
-                        fontSize: 16.sp,
-                        color: black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )
-                  : Text(
-                      "Low probability of adverse health effect !",
-                      style: GoogleFonts.roboto(
-                        fontSize: 16.sp,
-                        color: black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )),
         ),
       ],
     );

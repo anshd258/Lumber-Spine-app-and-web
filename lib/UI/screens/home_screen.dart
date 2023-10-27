@@ -68,8 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             : const WebAppbar(),
         body: BlocConsumer<WebNavbarCubit, WebNavbarInitial>(
-          listener: (context, state) {
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             if (state.tabIndex == 1) {
               return HomeWidget(deviceType: deviceType, desc: desc);
@@ -195,7 +194,7 @@ class HomeWidget extends StatelessWidget {
                     text: 'History',
                     onTap: () {
                       // Navigator.pushNamed(context, '/history_screen');
-                       GoRouter.of(context).go('/history_screen');
+                      GoRouter.of(context).go('/history_screen');
                     })
                 : Container(),
             SizedBox(

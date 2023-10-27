@@ -7,6 +7,7 @@ import 'package:data_hub/Middleware/bloc/sign_up/sign_up_bloc.dart';
 import 'package:data_hub/Middleware/bloc/sign_up/sign_up_events.dart';
 import 'package:data_hub/Middleware/bloc/sign_up/sign_up_states.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
+import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/UI/screens/otp_screen.dart';
 import 'package:data_hub/UI/widgets/account_button.dart';
 import 'package:data_hub/UI/widgets/back_button.dart';
@@ -59,6 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -74,7 +76,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: 1.h,
                 ),
-                const MyBackButton(),
+                deviceType == 'phone' ? const MyBackButton() : const SizedBox(),
                 SizedBox(
                   height: 3.h,
                 ),
@@ -185,7 +187,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   },
                 ),
                 SizedBox(
-                  height: 3.h,
+                  height: deviceType == 'phone' ? 3.h : 15.h,
                 ),
                 BlocListener<SignUpBloc, SignUpState>(
                   listener: (context, state) {
@@ -209,26 +211,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }
                     },
                     builder: (context, state) {
-                      return BlueButton(
-                        text: 'Sign Up',
-                        onTap: () {
-                          print("signup");
-                          if (state is SignUpValidState) {
-                            // sendOTP();
-                            // BlocProvider.of<SignUpBloc>(context).add(
-                            //   SendOTPEvent(
-                            //     email: _email.text,
-                            //   ),
-                            // );
-                            BlocProvider.of<SignUpBloc>(context).add(
-                              SignUpSubmittedEvent(
-                                name: _name.text,
-                                email: _email.text,
-                                password: _password.text,
-                              ),
-                            );
-                          }
-                        },
+                      return Center(
+                        child: SizedBox(
+                          width: deviceType == 'phone' ? double.infinity : 30.w,
+                          child: BlueButton(
+                            text: 'Sign Up',
+                            onTap: () {
+                              print("signup");
+                              if (state is SignUpValidState) {
+                                // sendOTP();
+                                // BlocProvider.of<SignUpBloc>(context).add(
+                                //   SendOTPEvent(
+                                //     email: _email.text,
+                                //   ),
+                                // );
+                                BlocProvider.of<SignUpBloc>(context).add(
+                                  SignUpSubmittedEvent(
+                                    name: _name.text,
+                                    email: _email.text,
+                                    password: _password.text,
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ),
                       );
                     },
                   ),
@@ -274,7 +281,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         'Already have an account? ',
                         style: GoogleFonts.roboto(
                           color: darkerGrey,
-                          fontSize: 16.sp,
+                          fontSize: deviceType == 'phone' ? 16.sp : 12.sp,
                         ),
                       ),
                       GestureDetector(
@@ -287,7 +294,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           style: GoogleFonts.roboto(
                             color: green,
                             fontWeight: FontWeight.w700,
-                            fontSize: 16.sp,
+                            fontSize: deviceType == 'phone' ? 16.sp : 14.sp,
                           ),
                         ),
                       ),

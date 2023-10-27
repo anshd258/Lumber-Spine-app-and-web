@@ -1,4 +1,5 @@
 import 'package:data_hub/Middleware/constants/colors.dart';
+import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -33,6 +34,7 @@ class _CountryDropdownState extends State<CountryDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    String deviceType = MyDevice.getDeviceType(context);
     return Padding(
       padding: EdgeInsets.all(12.sp),
       child: GestureDetector(
@@ -59,7 +61,7 @@ class _CountryDropdownState extends State<CountryDropdown> {
             Icon(
               Icons.keyboard_arrow_down_rounded,
               color: darkerGrey,
-              size: 21.sp,
+              size: deviceType == 'phone' ? 21.sp : 25.sp,
             ),
           ],
         ),

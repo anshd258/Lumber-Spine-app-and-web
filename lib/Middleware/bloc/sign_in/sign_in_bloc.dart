@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cookie_jar/cookie_jar.dart';
+// import 'package:cookie_jar/cookie_jar.dart';
 import 'package:data_hub/Middleware/constants/ApiPaths.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -17,10 +17,10 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
 
 
-final cookieJar = PersistCookieJar(
-  ignoreExpires: true,
+// final cookieJar = PersistCookieJar(
+//   ignoreExpires: true,
  
-);
+// );
     on<SignInEmailChangedEvent>((event, emit) {
       if (event.emailValue == "" ||
           !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,5}')
@@ -48,21 +48,21 @@ final cookieJar = PersistCookieJar(
           body: json.encode(body), headers: header);
       if (res.statusCode == 200) {
         String uuid = json.decode(res.body)['userID'];
-        List<Cookie> cookies = [Cookie('Uuid', uuid), ];
+    //     List<Cookie> cookies = [Cookie('Uuid', uuid), ];
         
-         await cookieJar.saveFromResponse(Uri.parse(baseUrl), cookies);
+    //     //  await cookieJar.saveFromResponse(Uri.parse(baseUrl), cookies);
        
         emit(SignInSubmittedState(Uuid: uuid));
       }
     });
-    on<SignInAutoLogin>(
-      (event, emit) async {
-        print("called");
-        List<Cookie> results = await cookieJar.loadForRequest(Uri.parse(baseUrl));
-  print(results);
-        print(results.first.value);
-        // uuid != null ? emit(SignInSubmittedState(Uuid: uuid)) : null;
-      },
-    );
+  //   on<SignInAutoLogin>(
+  //     (event, emit) async {
+  //       print("called");
+  //       List<Cookie> results = await cookieJar.loadForRequest(Uri.parse(baseUrl));
+  // print(results);
+  //       print(results.first.value);
+  //       // uuid != null ? emit(SignInSubmittedState(Uuid: uuid)) : null;
+  //     },
+  //   );
   }
 }
