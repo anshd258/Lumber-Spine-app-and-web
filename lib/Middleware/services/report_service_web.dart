@@ -1,9 +1,13 @@
 import 'dart:html';
-import 'dart:typed_data';
+// import 'dart:typed_data';
+// import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart';
+// import 'dart:async';
+import 'dart:io';
+import 'package:open_file/open_file.dart';
 
 class PdfReportServiceWeb {
   Future<Uint8List> createReportWeb(
@@ -16,7 +20,7 @@ class PdfReportServiceWeb {
       required double sed,
       required double r}) async {
     final font = await rootBundle.load("fonts/Inter-Regular.ttf");
-    final ttf = Font.ttf(font);
+    final ttf = pw.Font.ttf(font);
     final pdf = pw.Document();
     pdf.addPage(
       pw.Page(
@@ -585,27 +589,29 @@ class PdfReportServiceWeb {
     return pdf.save();
   }
 
-  // Future<void> savePdfFile(String fileName, Uint8List byteList) async {
-  //   final output = "/storage/emulated/0/Download";
-  //   var filePath = "${output}/$fileName.pdf";
-  //   final file = File(filePath);
-  //   await file.writeAsBytes(byteList);
-  // }
+  void downloadPdfInChrome(Uint8List pdfBytes, String fileName) {
+  final blob = Blob([pdfBytes]);
+  final url = Url.createObjectUrlFromBlob(blob);
 
-  Future<void> savePdfFileWeb(String fileName, Uint8List byteList) async {
-    final blob = Blob([byteList]);
+  final anchor = AnchorElement(href: url)
+    ..target = 'webdownload'
+    ..download = fileName
+    ..setAttribute('type', 'application/pdf'); 
 
-    final url = Url.createObjectUrlFromBlob(blob);
+  anchor.click();
 
-    // final anchor = AnchorElement(href: url)
-    //   ..target = 'webdownload'
-    //   ..download = fileName;
+  Url.revokeObjectUrl(url);
+}
 
-    // anchor.click();
+// Future<void> _saveAsFile(
+//   PdfDocument pdf,
+//   String fileName,
+// ) async {
+//   final output = await getExternalStorageDirectory();
+//   final filePath = '${output?.path}/$fileName.pdf';
 
-    // Url.revokeObjectUrl(url);
-    AnchorElement anchorElement = new AnchorElement(href: url);
-    anchorElement.download = 'Data Hub Pdf';
-    anchorElement.click();
-  }
+//   final file = File(filePath);
+//   await file.writeAsBytes(pdf.save());
+//   await OpenFile.open(filePath);
+// }
 }
