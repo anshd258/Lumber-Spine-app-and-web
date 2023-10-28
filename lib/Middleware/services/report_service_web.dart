@@ -1,13 +1,13 @@
-import 'dart:html';
+import 'dart:html' as h;
 // import 'dart:typed_data';
 // import 'package:flutter/rendering.dart';
+import 'package:file_saver/file_saver.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
+
+
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
-// import 'dart:async';
-import 'dart:io';
-import 'package:open_file/open_file.dart';
+
 
 class PdfReportServiceWeb {
   Future<Uint8List> createReportWeb(
@@ -589,19 +589,13 @@ class PdfReportServiceWeb {
     return pdf.save();
   }
 
-  void downloadPdfInChrome(Uint8List pdfBytes, String fileName) {
-  final blob = Blob([pdfBytes]);
-  final url = Url.createObjectUrlFromBlob(blob);
-
-  final anchor = AnchorElement(href: url)
-    ..target = 'webdownload'
-    ..download = fileName
-    ..setAttribute('type', 'application/pdf'); 
-
-  anchor.click();
-
-  Url.revokeObjectUrl(url);
-}
+  void downloadPdfInChrome(Uint8List pdfBytes, String fileName) async {
+    await FileSaver.instance.saveFile(
+        name: "report",
+        ext: ".pdf",
+        bytes:  pdfBytes,
+        mimeType: MimeType.pdf);
+  }
 
 // Future<void> _saveAsFile(
 //   PdfDocument pdf,

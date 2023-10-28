@@ -103,10 +103,10 @@ class _LineChartexpState extends State<LineChartexp> {
               borderWidth: 1,
             ),
           ),
-          series: <SplineSeries>[
-            SplineSeries<double, double>(
+          series: <FastLineSeries>[
+            FastLineSeries<double, double>(
               color: widget.gradientColor,
-              splineType: SplineType.monotonic,
+           
               xAxisName: widget.xtitle,
               yAxisName: widget.ytitle,
               opacity: 0.8,

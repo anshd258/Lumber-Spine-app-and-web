@@ -102,11 +102,11 @@ class _ThreeAxisGraphState extends State<ThreeAxisGraph> {
               borderWidth: 1,
             ),
           ),
-          series: <SplineSeries>[
-            SplineSeries<double, double>(
+          series: <FastLineSeries>[
+            FastLineSeries<double, double>(
               legendItemText: "X",
               color: Colors.blueAccent.shade400.withOpacity(0.8),
-              splineType: SplineType.monotonic,
+            
               opacity: 0.8,
               enableTooltip: true,
               dataSource: widget.data.data!.rawPeakX!,
@@ -114,10 +114,10 @@ class _ThreeAxisGraphState extends State<ThreeAxisGraph> {
                   double.parse(widget.data.data!.rawTimeX![index]),
               yValueMapper: (double datum, index) => datum,
             ),
-            SplineSeries<double, double>(
+            FastLineSeries<double, double>(
               legendItemText: "Y",
               color: Colors.greenAccent.shade400.withOpacity(0.5),
-              splineType: SplineType.monotonic,
+              
               opacity: 0.8,
               enableTooltip: true,
               dataSource: widget.data.data!.rawPeakY!,
@@ -125,10 +125,10 @@ class _ThreeAxisGraphState extends State<ThreeAxisGraph> {
                   double.parse(widget.data.data!.rawTimeY![index]),
               yValueMapper: (double datum, index) => datum,
             ),
-            SplineSeries<double, double>(
+            FastLineSeries<double, double>(
               legendItemText: "Z",
               color: Colors.redAccent.shade400.withOpacity(0.8),
-              splineType: SplineType.monotonic,
+             
               opacity: 0.8,
               enableTooltip: true,
               dataSource: widget.data.data!.rawPeakZ!,

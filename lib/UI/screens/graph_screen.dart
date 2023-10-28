@@ -1,3 +1,5 @@
+
+
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
@@ -19,7 +21,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rive/rive.dart';
-
 
 class GraphScreen extends StatefulWidget {
   const GraphScreen({super.key});
@@ -291,6 +292,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                       sed: state.data.data!.sed!,
                                       r: state.data.data!.r!,
                                     );
+                            
                               deviceType == 'phone'
                                   ? service
                                       .savePdfFile("report_$number", data)
@@ -303,15 +305,14 @@ class _GraphScreenState extends State<GraphScreen> {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(snackBar);
                                     })
-                                      : serviceWeb.downloadPdfInChrome(
-                                          data, "report_$number");
-                                  print(
-                                      'PDF download initiated'); 
-                                  const snackBar = SnackBar(
-                                    content: Text('Report download initiated'),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                                  : serviceWeb.downloadPdfInChrome(
+                                      data, "report_$number");
+                              print('PDF download initiated');
+                              const snackBar = SnackBar(
+                                content: Text('Report download initiated'),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                               number++;
                             } catch (e) {
                               print("Error capturing images: $e");
