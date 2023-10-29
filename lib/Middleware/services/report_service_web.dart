@@ -2,23 +2,29 @@ import 'dart:html' as h;
 // import 'dart:typed_data';
 // import 'package:flutter/rendering.dart';
 import 'package:file_saver/file_saver.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
 
-
 class PdfReportServiceWeb {
-  Future<Uint8List> createReportWeb(
-      {required List<Uint8List> images,
-      double? dxd,
-      double? dyd,
-      double? dz,
-      double? dzd,
-      required double se,
-      required double sed,
-      required double r}) async {
+  Future<Uint8List> createReportWeb({
+    required List<Uint8List> images,
+    double? dx,
+    double? dxd,
+    double? dy,
+    double? dyd,
+    double? dz,
+    double? dzd,
+    double? vdv,
+    double? vdx,
+    double? vdy,
+    double? vdz,
+    required double se,
+    required double sed,
+    required double r,
+  }) async {
     final font = await rootBundle.load("fonts/Inter-Regular.ttf");
     final ttf = pw.Font.ttf(font);
     final pdf = pw.Document();
@@ -32,60 +38,38 @@ class PdfReportServiceWeb {
               children: [
                 pw.Center(
                   child: pw.Container(
-                    height: 50,
-                    width: 190,
-                    padding: const pw.EdgeInsets.all(3),
-                    decoration: pw.BoxDecoration(
-                      color: PdfColor.fromHex('#EAC110'),
-                      borderRadius: pw.BorderRadius.circular(12),
-                    ),
-                    child: pw.Column(
-                      mainAxisAlignment: pw.MainAxisAlignment.center,
-                      crossAxisAlignment: pw.CrossAxisAlignment.center,
-                      children: [
-                        pw.Text(
-                          'Lumber Spline Health',
+                      height: 35,
+                      width: 80,
+                      padding: const pw.EdgeInsets.all(3),
+                      decoration: pw.BoxDecoration(
+                        color: PdfColor.fromHex('#EAC110'),
+                        borderRadius: pw.BorderRadius.circular(12),
+                      ),
+                      child: pw.Center(
+                        child: pw.Text(
+                          'Results',
                           style: pw.TextStyle(
                             fontSize: 14,
                             fontWeight: pw.FontWeight.bold,
                             font: ttf,
                           ),
                         ),
-                        pw.Text(
-                          'Report',
-                          style: pw.TextStyle(
-                            fontSize: 14,
-                            fontWeight: pw.FontWeight.bold,
-                            font: ttf,
-                          ),
-                        ),
-                      ],
+                      )),
+                ),
+                pw.SizedBox(
+                  height: 10,
+                ),
+                pw.Center(
+                  child: pw.Text(
+                    'Section 1: Graph',
+                    style: pw.TextStyle(
+                      fontSize: 10,
+                      font: ttf,
                     ),
-                  ),
-                ),
-                pw.Text(
-                  'Balvinder Singh',
-                  style: pw.TextStyle(
-                    fontSize: 13,
-                    font: ttf,
-                  ),
-                ),
-                pw.Text(
-                  '1240.csv',
-                  style: pw.TextStyle(
-                    fontSize: 13,
-                    font: ttf,
-                  ),
-                ),
-                pw.Text(
-                  '12th January, 2023',
-                  style: pw.TextStyle(
-                    fontSize: 13,
-                    font: ttf,
                   ),
                 ),
                 pw.SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
@@ -96,7 +80,7 @@ class PdfReportServiceWeb {
                         pw.Text(
                           'Graph Raw X: ',
                           style: pw.TextStyle(
-                            fontSize: 10,
+                            fontSize: 8,
                             fontWeight: pw.FontWeight.bold,
                             font: ttf,
                           ),
@@ -105,8 +89,8 @@ class PdfReportServiceWeb {
                           height: 5,
                         ),
                         pw.Container(
-                          height: 140,
-                          width: 160,
+                          height: 100,
+                          width: 150,
                           child: pw.Image(
                             pw.MemoryImage(images[0]),
                             fit: pw.BoxFit.fill,
@@ -120,7 +104,7 @@ class PdfReportServiceWeb {
                         pw.Text(
                           'Graph Raw Y: ',
                           style: pw.TextStyle(
-                            fontSize: 10,
+                            fontSize: 8,
                             fontWeight: pw.FontWeight.bold,
                             font: ttf,
                           ),
@@ -129,8 +113,8 @@ class PdfReportServiceWeb {
                           height: 5,
                         ),
                         pw.Container(
-                          height: 140,
-                          width: 160,
+                          height: 100,
+                          width: 150,
                           child: pw.Image(
                             pw.MemoryImage(images[1]),
                             fit: pw.BoxFit.fill,
@@ -144,7 +128,7 @@ class PdfReportServiceWeb {
                         pw.Text(
                           'Graph Raw Z: ',
                           style: pw.TextStyle(
-                            fontSize: 10,
+                            fontSize: 8,
                             fontWeight: pw.FontWeight.bold,
                             font: ttf,
                           ),
@@ -153,8 +137,8 @@ class PdfReportServiceWeb {
                           height: 5,
                         ),
                         pw.Container(
-                          height: 140,
-                          width: 160,
+                          height: 100,
+                          width: 150,
                           child: pw.Image(
                             pw.MemoryImage(images[2]),
                             fit: pw.BoxFit.fill,
@@ -171,9 +155,9 @@ class PdfReportServiceWeb {
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     pw.Text(
-                      'Graph x, y and z axis: ',
+                      'All Graphs',
                       style: pw.TextStyle(
-                        fontSize: 10,
+                        fontSize: 8,
                         fontWeight: pw.FontWeight.bold,
                         font: ttf,
                       ),
@@ -182,8 +166,8 @@ class PdfReportServiceWeb {
                       height: 5,
                     ),
                     pw.Container(
-                      height: 140,
-                      width: 250,
+                      height: 120,
+                      width: 300,
                       child: pw.Image(
                         pw.MemoryImage(images[3]),
                         fit: pw.BoxFit.fill,
@@ -192,7 +176,16 @@ class PdfReportServiceWeb {
                   ],
                 ),
                 pw.SizedBox(
-                  height: 15,
+                  height: 10,
+                ),
+                pw.Center(
+                  child: pw.Text(
+                    'Section 2: Frequency Analysis',
+                    style: pw.TextStyle(
+                      fontSize: 10,
+                      font: ttf,
+                    ),
+                  ),
                 ),
                 pw.Row(
                   children: [
@@ -210,164 +203,165 @@ class PdfReportServiceWeb {
                         pw.SizedBox(
                           height: 5,
                         ),
-                        pw.Row(
-                          children: [
-                            pw.Container(
-                              padding: const pw.EdgeInsets.all(5),
-                              height: 40,
-                              width: 70,
-                              decoration: pw.BoxDecoration(
-                                color: PdfColor.fromHex('#EAC110'),
-                                borderRadius: const pw.BorderRadius.horizontal(
-                                  left: pw.Radius.circular(10),
-                                  right: pw.Radius.circular(10),
-                                ),
-                              ),
-                              child: pw.Row(
-                                children: [
-                                  pw.Text(
-                                    'Dx',
-                                    style: pw.TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: pw.FontWeight.bold,
-                                      font: ttf,
-                                    ),
-                                  ),
-                                  pw.VerticalDivider(),
-                                  pw.Text(
-                                    'Dxd',
-                                    style: pw.TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: pw.FontWeight.bold,
-                                      font: ttf,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            pw.SizedBox(
-                              width: 5,
-                            ),
-                            pw.Container(
-                              padding: const pw.EdgeInsets.all(5),
-                              height: 40,
-                              width: 70,
-                              decoration: pw.BoxDecoration(
-                                color: PdfColor.fromHex('#FE8358'),
-                                borderRadius: const pw.BorderRadius.horizontal(
-                                  left: pw.Radius.circular(10),
-                                  right: pw.Radius.circular(10),
-                                ),
-                              ),
-                              child: pw.Row(
-                                children: [
-                                  pw.Text(
-                                    'Dy',
-                                    style: pw.TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: pw.FontWeight.bold,
-                                      font: ttf,
-                                    ),
-                                  ),
-                                  pw.VerticalDivider(),
-                                  pw.Text(
-                                    'Dyd',
-                                    style: pw.TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: pw.FontWeight.bold,
-                                      font: ttf,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            pw.SizedBox(
-                              width: 5,
-                            ),
-                            pw.Container(
-                              padding: const pw.EdgeInsets.all(5),
-                              height: 40,
-                              width: 70,
-                              decoration: pw.BoxDecoration(
-                                color: PdfColor.fromHex('#65C688'),
-                                borderRadius: const pw.BorderRadius.horizontal(
-                                  left: pw.Radius.circular(10),
-                                  right: pw.Radius.circular(10),
-                                ),
-                              ),
-                              child: pw.Row(
-                                children: [
-                                  pw.Text(
-                                    'Dz',
-                                    style: pw.TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: pw.FontWeight.bold,
-                                      font: ttf,
-                                    ),
-                                  ),
-                                  pw.VerticalDivider(),
-                                  pw.Text(
-                                    'Dzd',
-                                    style: pw.TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: pw.FontWeight.bold,
-                                      font: ttf,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            pw.SizedBox(
-                              width: 5,
-                            ),
-                            pw.Container(
-                              padding: const pw.EdgeInsets.all(5),
-                              height: 40,
-                              width: 90,
-                              decoration: pw.BoxDecoration(
-                                color: PdfColor.fromHex('#5696F9'),
-                                borderRadius: const pw.BorderRadius.horizontal(
-                                  left: pw.Radius.circular(10),
-                                  right: pw.Radius.circular(10),
-                                ),
-                              ),
-                              child: pw.Row(
-                                children: [
-                                  pw.Text(
-                                    'Se',
-                                    style: pw.TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: pw.FontWeight.bold,
-                                      font: ttf,
-                                    ),
-                                  ),
-                                  pw.VerticalDivider(),
-                                  pw.Text(
-                                    'Sed',
-                                    style: pw.TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: pw.FontWeight.bold,
-                                      font: ttf,
-                                    ),
-                                  ),
-                                  pw.VerticalDivider(),
-                                  pw.Text(
-                                    'R',
-                                    style: pw.TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: pw.FontWeight.bold,
-                                      font: ttf,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                        // pw.Row(
+                        //   children: [
+                        //     pw.Container(
+                        //       padding: const pw.EdgeInsets.all(5),
+                        //       height: 40,
+                        //       width: 70,
+                        //       decoration: pw.BoxDecoration(
+                        //         color: PdfColor.fromHex('#EAC110'),
+                        //         borderRadius: const pw.BorderRadius.horizontal(
+                        //           left: pw.Radius.circular(10),
+                        //           right: pw.Radius.circular(10),
+                        //         ),
+                        //       ),
+                        //       child: pw.Row(
+                        //         children: [
+                        //           pw.Text(
+                        //             'Dx',
+                        //             style: pw.TextStyle(
+                        //               fontSize: 10,
+                        //               fontWeight: pw.FontWeight.bold,
+                        //               font: ttf,
+                        //             ),
+                        //           ),
+                        //           pw.VerticalDivider(),
+                        //           pw.Text(
+                        //             'Dxd',
+                        //             style: pw.TextStyle(
+                        //               fontSize: 10,
+                        //               fontWeight: pw.FontWeight.bold,
+                        //               font: ttf,
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //     pw.SizedBox(
+                        //       width: 5,
+                        //     ),
+                        //     pw.Container(
+                        //       padding: const pw.EdgeInsets.all(5),
+                        //       height: 40,
+                        //       width: 70,
+                        //       decoration: pw.BoxDecoration(
+                        //         color: PdfColor.fromHex('#FE8358'),
+                        //         borderRadius: const pw.BorderRadius.horizontal(
+                        //           left: pw.Radius.circular(10),
+                        //           right: pw.Radius.circular(10),
+                        //         ),
+                        //       ),
+                        //       child: pw.Row(
+                        //         children: [
+                        //           pw.Text(
+                        //             'Dy',
+                        //             style: pw.TextStyle(
+                        //               fontSize: 10,
+                        //               fontWeight: pw.FontWeight.bold,
+                        //               font: ttf,
+                        //             ),
+                        //           ),
+                        //           pw.VerticalDivider(),
+                        //           pw.Text(
+                        //             'Dyd',
+                        //             style: pw.TextStyle(
+                        //               fontSize: 10,
+                        //               fontWeight: pw.FontWeight.bold,
+                        //               font: ttf,
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //     pw.SizedBox(
+                        //       width: 5,
+                        //     ),
+                        //     pw.Container(
+                        //       padding: const pw.EdgeInsets.all(5),
+                        //       height: 40,
+                        //       width: 70,
+                        //       decoration: pw.BoxDecoration(
+                        //         color: PdfColor.fromHex('#65C688'),
+                        //         borderRadius: const pw.BorderRadius.horizontal(
+                        //           left: pw.Radius.circular(10),
+                        //           right: pw.Radius.circular(10),
+                        //         ),
+                        //       ),
+                        //       child: pw.Row(
+                        //         children: [
+                        //           pw.Text(
+                        //             'Dz',
+                        //             style: pw.TextStyle(
+                        //               fontSize: 10,
+                        //               fontWeight: pw.FontWeight.bold,
+                        //               font: ttf,
+                        //             ),
+                        //           ),
+                        //           pw.VerticalDivider(),
+                        //           pw.Text(
+                        //             'Dzd',
+                        //             style: pw.TextStyle(
+                        //               fontSize: 10,
+                        //               fontWeight: pw.FontWeight.bold,
+                        //               font: ttf,
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //     pw.SizedBox(
+                        //       width: 5,
+                        //     ),
+                        //     pw.Container(
+                        //       padding: const pw.EdgeInsets.all(5),
+                        //       height: 40,
+                        //       width: 90,
+                        //       decoration: pw.BoxDecoration(
+                        //         color: PdfColor.fromHex('#5696F9'),
+                        //         borderRadius: const pw.BorderRadius.horizontal(
+                        //           left: pw.Radius.circular(10),
+                        //           right: pw.Radius.circular(10),
+                        //         ),
+                        //       ),
+                        //       child: pw.Row(
+                        //         children: [
+                        //           pw.Text(
+                        //             'Se',
+                        //             style: pw.TextStyle(
+                        //               fontSize: 10,
+                        //               fontWeight: pw.FontWeight.bold,
+                        //               font: ttf,
+                        //             ),
+                        //           ),
+                        //           pw.VerticalDivider(),
+                        //           pw.Text(
+                        //             'Sed',
+                        //             style: pw.TextStyle(
+                        //               fontSize: 10,
+                        //               fontWeight: pw.FontWeight.bold,
+                        //               font: ttf,
+                        //             ),
+                        //           ),
+                        //           pw.VerticalDivider(),
+                        //           pw.Text(
+                        //             'R',
+                        //             style: pw.TextStyle(
+                        //               fontSize: 10,
+                        //               fontWeight: pw.FontWeight.bold,
+                        //               font: ttf,
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         pw.SizedBox(
                           height: 15,
                         ),
                         pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
                           children: [
                             pw.Column(
                               children: [
@@ -563,23 +557,154 @@ class PdfReportServiceWeb {
                                 ],
                               ),
                             ),
+                            pw.SizedBox(width: 10),
+                            pw.Container(
+                              padding: const pw.EdgeInsets.all(5),
+                              height: 190,
+                              width: 180,
+                              decoration: pw.BoxDecoration(
+                                color: PdfColor.fromHex('#F3BE43'),
+                                borderRadius: pw.BorderRadius.circular(10),
+                              ),
+                              child: pw.Column(
+                                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                                children: [
+                                  pw.Text(
+                                    'Vibration Dose Value (VDV)',
+                                    style: pw.TextStyle(
+                                      fontSize: 8,
+                                      font: ttf,
+                                    ),
+                                  ),
+                                  pw.Text(
+                                    vdv.toString(),
+                                    style: pw.TextStyle(
+                                      fontSize: 8,
+                                      fontWeight: pw.FontWeight.bold,
+                                      font: ttf,
+                                    ),
+                                  ),
+                                  pw.Divider(),
+                                  pw.Text(
+                                    'Vibration Dose Value (VDV-X)',
+                                    style: pw.TextStyle(
+                                      fontSize: 8,
+                                      font: ttf,
+                                    ),
+                                  ),
+                                  pw.Text(
+                                    vdx.toString(),
+                                    style: pw.TextStyle(
+                                      fontSize: 8,
+                                      fontWeight: pw.FontWeight.bold,
+                                      font: ttf,
+                                    ),
+                                  ),
+                                  pw.Divider(),
+                                  pw.Text(
+                                    'Vibration Dose Value (VDV-Y)',
+                                    style: pw.TextStyle(
+                                      fontSize: 8,
+                                      font: ttf,
+                                    ),
+                                  ),
+                                  pw.Text(
+                                    vdy.toString(),
+                                    style: pw.TextStyle(
+                                      fontSize: 8,
+                                      fontWeight: pw.FontWeight.bold,
+                                      font: ttf,
+                                    ),
+                                  ),
+                                  pw.Divider(),
+                                  pw.Text(
+                                    'Vibration Dose Value (VDV-Z)',
+                                    style: pw.TextStyle(
+                                      fontSize: 8,
+                                      font: ttf,
+                                    ),
+                                  ),
+                                  pw.Text(
+                                    vdz.toString(),
+                                    style: pw.TextStyle(
+                                      fontSize: 8,
+                                      fontWeight: pw.FontWeight.bold,
+                                      font: ttf,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ],
                     ),
-                    pw.SizedBox(
-                      width: 20,
-                    ),
-                    pw.Container(
-                      height: 250,
-                      width: 120,
-                      child: pw.Image(
-                        pw.MemoryImage(images[4]),
-                        fit: pw.BoxFit.fill,
-                      ),
-                    ),
                   ],
                 ),
+                pw.SizedBox(
+                  height: 10,
+                ),
+                pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
+                    children: [
+                      pw.Column(
+                        children: [
+                          pw.Text(
+                            'Section 3: Adverse Health Effects',
+                            style: pw.TextStyle(
+                              fontSize: 10,
+                              font: ttf,
+                            ),
+                          ),
+                          pw.SizedBox(
+                            height: 10,
+                          ),
+                          pw.Container(
+                            height: 100,
+                            width: 120,
+                            child: pw.Image(
+                              pw.MemoryImage(images[4]),
+                              fit: pw.BoxFit.fill,
+                            ),
+                          ),
+                        ],
+                      ),
+                      pw.Column(
+                        children: [
+                          pw.Text(
+                            'Section 4: Power Spectral Density',
+                            style: pw.TextStyle(
+                              fontSize: 10,
+                              font: ttf,
+                            ),
+                          ),
+                          pw.SizedBox(
+                            height: 10,
+                          ),
+                          pw.Row(
+                            children: [
+                              pw.Container(
+                                height: 100,
+                                width: 150,
+                                child: pw.Image(
+                                  pw.MemoryImage(images[5]),
+                                  fit: pw.BoxFit.fill,
+                                ),
+                              ),
+                              pw.SizedBox(width: 20),
+                              pw.Container(
+                                height: 100,
+                                width: 150,
+                                child: pw.Image(
+                                  pw.MemoryImage(images[6]),
+                                  fit: pw.BoxFit.fill,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ]),
               ],
             ),
           );
@@ -591,10 +716,7 @@ class PdfReportServiceWeb {
 
   void downloadPdfInChrome(Uint8List pdfBytes, String fileName) async {
     await FileSaver.instance.saveFile(
-        name: "report",
-        ext: ".pdf",
-        bytes:  pdfBytes,
-        mimeType: MimeType.pdf);
+        name: "report", ext: ".pdf", bytes: pdfBytes, mimeType: MimeType.pdf);
   }
 
 // Future<void> _saveAsFile(

@@ -4,7 +4,9 @@ import 'package:data_hub/UI/widgets/progress1.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 import './progress2.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Result extends StatefulWidget {
   final double r;
@@ -74,26 +76,46 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
           height: 3.h,
         ),
         Center(
-          child: CustomPaint(
-            foregroundPainter: CircleProgress1(_animation1.value),
-            child: SizedBox(
-              width: 300,
-              height: 300,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '${widget.sed.toStringAsFixed(5)}',
-                      style: GoogleFonts.roboto(
-                          fontSize: 20.sp, fontWeight: FontWeight.w300),
-                    ),
-                  ],
-                ),
+          child: SizedBox(
+            width: deviceType == 'phone' ? double.infinity : 80.w,
+            child: SfLinearGauge(
+              minimum: 0,
+              maximum: 1,
+              ranges: [
+                LinearGaugeRange(
+                  startValue: 0,
+                  endValue: widget.sed,
+                )
+              ],
+              axisTrackStyle: const LinearAxisTrackStyle(
+                thickness: 5,
+                color: Colors.grey,
               ),
+              interval: 0.5,
             ),
           ),
         ),
+        // Center(
+        //   child: CustomPaint(
+        //     foregroundPainter: CircleProgress1(_animation1.value),
+        //     child: SizedBox(
+        //       width: 300,
+        //       height: 300,
+        //       child: Center(
+        //         child: Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             Text(
+        //               '${widget.sed.toStringAsFixed(5)}',
+        //               style: GoogleFonts.roboto(
+        //                   fontSize: 20.sp, fontWeight: FontWeight.w300),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         SizedBox(
           height: 3.h,
         ),
@@ -145,26 +167,46 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
           height: 3.h,
         ),
         Center(
-          child: CustomPaint(
-            foregroundPainter: CircleProgress2(widget.r),
-            child: SizedBox(
-              width: 300,
-              height: 300,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      _animation2.value.toStringAsFixed(5),
-                      style: GoogleFonts.roboto(
-                          fontSize: 20.sp, fontWeight: FontWeight.w300),
-                    ),
-                  ],
-                ),
+          child: SizedBox(
+            width: deviceType == 'phone' ? double.infinity : 80.w,
+            child: SfLinearGauge(
+              minimum: 0,
+              maximum: 1,
+              ranges: [
+                LinearGaugeRange(
+                  startValue: 0,
+                  endValue: widget.r,
+                )
+              ],
+              axisTrackStyle: const LinearAxisTrackStyle(
+                thickness: 5,
+                color: Colors.grey,
               ),
+              interval: 0.5,
             ),
           ),
         ),
+        // Center(
+        //   child: CustomPaint(
+        //     foregroundPainter: CircleProgress2(widget.r),
+        //     child: SizedBox(
+        //       width: 300,
+        //       height: 300,
+        //       child: Center(
+        //         child: Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             Text(
+        //               _animation2.value.toStringAsFixed(5),
+        //               style: GoogleFonts.roboto(
+        //                   fontSize: 20.sp, fontWeight: FontWeight.w300),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         SizedBox(
           height: 3.h,
         ),

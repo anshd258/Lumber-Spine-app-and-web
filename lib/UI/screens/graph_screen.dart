@@ -1,5 +1,3 @@
-
-
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
@@ -35,12 +33,18 @@ class _GraphScreenState extends State<GraphScreen> {
   GlobalKey? key2;
   GlobalKey? key3;
   GlobalKey? key4;
+  GlobalKey? key5;
+  GlobalKey? key6;
+  GlobalKey? key7;
 
   Image? image0;
   Image? image1;
   Image? image2;
   Image? image3;
   Image? image4;
+  Image? image5;
+  Image? image6;
+  Image? image7;
 
   final PdfReportService service = PdfReportService();
   final PdfReportServiceWeb serviceWeb = PdfReportServiceWeb();
@@ -173,24 +177,34 @@ class _GraphScreenState extends State<GraphScreen> {
                         height: 2.h,
                       ),
 
-                      PlaneGraph(
-                        data: state.data.ft!.amp!.proto1Unfiltered!,
-                        time: state.data.ft!.amp!.time!,
-                        xtitle: "Amplitude",
-                        ytitle: "",
-                        gradientColor: Colors.red,
-                        isShowingMainData: true,
+                      WidgetToImage(
+                        builder: (key) {
+                          key5 = key;
+                          return PlaneGraph(
+                            data: state.data.ft!.amp!.proto1Unfiltered!,
+                            time: state.data.ft!.amp!.time!,
+                            xtitle: "Amplitude",
+                            ytitle: "",
+                            gradientColor: Colors.red,
+                            isShowingMainData: true,
+                          );
+                        },
                       ),
                       SizedBox(
                         height: 3.h,
                       ),
-                      PlaneGraph(
-                        data: state.data.ft!.amp!.ref1Unfiltered!,
-                        time: state.data.ft!.amp!.time!,
-                        xtitle: "Amplitude",
-                        ytitle: "",
-                        gradientColor: Colors.blue,
-                        isShowingMainData: true,
+                      WidgetToImage(
+                        builder: (key) {
+                          key6 = key;
+                          return PlaneGraph(
+                            data: state.data.ft!.amp!.ref1Unfiltered!,
+                            time: state.data.ft!.amp!.time!,
+                            xtitle: "Amplitude",
+                            ytitle: "",
+                            gradientColor: Colors.blue,
+                            isShowingMainData: true,
+                          );
+                        },
                       ),
                       // SizedBox(
                       //   height: 3.h,
@@ -241,6 +255,8 @@ class _GraphScreenState extends State<GraphScreen> {
                               final bytes2 = await Utils.capture(key2);
                               final bytes3 = await Utils.capture(key3);
                               final bytes4 = await Utils.capture(key4);
+                              final bytes5 = await Utils.capture(key5);
+                              final bytes6 = await Utils.capture(key6);
                               print('Inside try block');
 
                               final data = deviceType == 'phone'
@@ -250,7 +266,9 @@ class _GraphScreenState extends State<GraphScreen> {
                                         bytes1,
                                         bytes2,
                                         bytes3,
-                                        bytes4
+                                        bytes4,
+                                        bytes5,
+                                        bytes6,
                                       ],
                                       // state.data.data!.dx!,
                                       // state.data.data!.dxd!,
@@ -286,13 +304,19 @@ class _GraphScreenState extends State<GraphScreen> {
                                         bytes1,
                                         bytes2,
                                         bytes3,
-                                        bytes4
+                                        bytes4,
+                                        bytes5,
+                                        bytes6,
                                       ],
                                       se: state.data.data!.se!,
                                       sed: state.data.data!.sed!,
                                       r: state.data.data!.r!,
+                                      vdv: state.data.vdvValues!.vDV,
+                                      vdx: state.data.vdvValues!.vDVX,
+                                      vdy: state.data.vdvValues!.vDVY,
+                                      vdz: state.data.vdvValues!.vDVZ,
                                     );
-                            
+
                               deviceType == 'phone'
                                   ? service
                                       .savePdfFile("report_$number", data)
