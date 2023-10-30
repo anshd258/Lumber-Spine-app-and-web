@@ -3,6 +3,7 @@ import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/Middleware/services/report_service.dart';
 import 'package:data_hub/Middleware/services/report_service_web.dart';
+import 'package:data_hub/Models/graphmodals.dart';
 import 'package:data_hub/UI/Graphs/Spline3axis.dart';
 import 'package:data_hub/UI/Graphs/SplineGraph.dart';
 import 'package:data_hub/UI/Graphs/frequncygraphs.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rive/rive.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class GraphScreen extends StatefulWidget {
   const GraphScreen({super.key});
@@ -62,6 +64,8 @@ class _GraphScreenState extends State<GraphScreen> {
   //   return file;
   // }
 
+  final List<String> vadvValueNames = ['VDV', 'VDX', 'VDY', 'VDZ'];
+
   @override
   Widget build(BuildContext context) {
     String deviceType = MyDevice.getDeviceType(context);
@@ -104,11 +108,103 @@ class _GraphScreenState extends State<GraphScreen> {
                   ),
                 );
               } else if (state is CsVuploadDataRecieve) {
+                final List<double?> vdvValsList = [
+                  state.data.vdvValues!.vDV,
+                  state.data.vdvValues!.vDVX,
+                  state.data.vdvValues!.vDVY,
+                  state.data.vdvValues!.vDVZ
+                ];
                 return SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
+                  physics: const AlwaysScrollableScrollPhysics(),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      Container(
+                        width: double.infinity,
+                        height: 17.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.transparent,
+                        ),
+                        child: BarChart(
+                          BarChartData(
+                            alignment: BarChartAlignment.center,
+                            borderData: FlBorderData(
+                                border: Border.all(color: Colors.black)),
+                            groupsSpace: 15,
+                            barTouchData: BarTouchData(enabled: true),
+                            titlesData: FlTitlesData(
+                              topTitles: const AxisTitles(
+                                axisNameWidget: Text(
+                                  '',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              bottomTitles: AxisTitles(
+                                  axisNameWidget: Container(
+                                padding:
+                                    const EdgeInsets.only(left: 35, right: 35),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: vadvValueNames
+                                        .map(
+                                          (e) => Text(
+                                            e,
+                                            style:
+                                                const TextStyle(fontSize: 12),
+                                          ),
+                                        )
+                                        .toList()),
+                              )),
+                            ),
+                            // barGroups: (vdvValsList)
+                            //     .map(
+                            //       (data) => BarChartGroupData(
+                            //         x: ,
+                            //         barsSpace: 10,
+                            //         barRods: [
+                            //           BarChartRodData(
+                            //             toY: data!.toDouble(),
+                            //             color: Colors.blue,
+                            //             width: 24,
+                            //             borderRadius: const BorderRadius.only(
+                            //               topLeft: Radius.circular(6),
+                            //               topRight: Radius.circular(6),
+                            //             ),
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     )
+                            //     .toList(),
+                            barGroups: vdvValsList.asMap().entries.map((entry) {
+                              final int index = entry.key;
+                              final double value = entry.value ?? 0.0;
+
+                              return BarChartGroupData(
+                                x: index,
+                                barsSpace: 10,
+                                barRods: [
+                                  BarChartRodData(
+                                    toY: value.toDouble(),
+                                    color: Colors.blue,
+                                    width: 24,
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(6),
+                                      topRight: Radius.circular(6),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
                       WidgetToImage(
                         builder: (key) {
                           key0 = key;

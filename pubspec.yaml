@@ -63,6 +63,7 @@ dependencies:
   cookie_jar: ^4.0.8
   open_file: ^3.3.2
   file_saver: ^0.2.6
+  fl_chart: ^0.64.0
 
 dev_dependencies:
   flutter_test:

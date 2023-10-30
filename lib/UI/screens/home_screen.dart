@@ -147,44 +147,68 @@ class HomeWidget extends StatelessWidget {
                       ),
                     ),
                   )
-                : Stack(
-                    children: [
-                      Container(
-                        height: 33.h,
-                        width: 60.w,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: whiteText,
-                          border: Border.all(color: yellow, width: 7.sp),
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            // Navigator.pushNamed(
-                            //     context, '/instructions_web_screen');
-                            GoRouter.of(context).go('/instructions_web_screen');
-                          },
-                          child: Container(
-                            margin: EdgeInsets.all(11.sp),
-                            height: 5.h,
-                            width: 5.w,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: blue,
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Start Test',
-                                style: GoogleFonts.roboto(
-                                  color: whiteText,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17.sp,
-                                ),
-                              ),
-                            ),
+                // : Stack(
+                //     children: [
+                //       Container(
+                //         height: 33.h,
+                //         width: 60.w,
+                //         decoration: BoxDecoration(
+                //           shape: BoxShape.circle,
+                //           color: whiteText,
+                //           border: Border.all(color: yellow, width: 7.sp),
+                //         ),
+                //         child: GestureDetector(
+                //           onTap: () {
+                //             // Navigator.pushNamed(
+                //             //     context, '/instructions_web_screen');
+                //             GoRouter.of(context).go('/instructions_web_screen');
+                //           },
+                //           child: Container(
+                //             margin: EdgeInsets.all(11.sp),
+                //             height: 5.h,
+                //             width: 5.w,
+                //             decoration: BoxDecoration(
+                //               shape: BoxShape.circle,
+                //               color: blue,
+                //             ),
+                //             child: Center(
+                //               child: Text(
+                //                 'Start Test',
+                //                 style: GoogleFonts.roboto(
+                //                   color: whiteText,
+                //                   fontWeight: FontWeight.bold,
+                //                   fontSize: 17.sp,
+                //                 ),
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                : InkWell(
+                    onTap: () {
+                      GoRouter.of(context).go('/instructions_web_screen');
+                    },
+                    child: Container(
+                      height: 7.h,
+                      width: 40.w,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: yellow),
+                        borderRadius: BorderRadius.circular(10.sp),
+                        color: blue,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Start Test',
+                          style: GoogleFonts.roboto(
+                            color: whiteText,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
             SizedBox(
               height: 10.h,
@@ -250,16 +274,29 @@ class MyCard extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  Container(
-                    height: 3.h,
-                    width: 12.w,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/home_page/w.png"),
-                        fit: BoxFit.contain,
+                  Row(
+                    children: [
+                      Text(
+                        'ISO 2631-1',
+                        style: GoogleFonts.roboto(
+                          color: whiteText,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                  ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Text(
+                        'ISO 2631-5',
+                        style: GoogleFonts.roboto(
+                          color: whiteText,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
               const Spacer(),
@@ -298,31 +335,35 @@ class MyCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Aw',
+                  'Aw : Acceleration Dose',
                   style: GoogleFonts.roboto(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 14.sp,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 Text(
                   'VDV : Daily Equivalent Static Compression Dose (Mpa)  ',
                   style: GoogleFonts.roboto(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 14.sp,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 Text(
                   'Sed: Daily Equivalent Static Compression Dose (Mpa)',
                   style: GoogleFonts.roboto(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 14.sp,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 Text(
                   'R: Risk Factor',
                   style: GoogleFonts.roboto(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 14.sp,
+                    fontWeight: FontWeight.w800,
                   ),
                 )
               ],

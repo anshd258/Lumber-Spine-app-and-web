@@ -15,3 +15,7 @@ Color greenGradient = const Color.fromARGB(255, 29, 171, 135);
 Color orangeGradient = const Color.fromARGB(255, 255, 103, 73);
 Color redGradient = const Color.fromARGB(255, 234, 36, 39);
 Color blueGradient = const Color.fromARGB(255, 21, 25, 64);
+Color radioColor = const Color.fromARGB(255, 1, 126, 250);
+Color deactivatedYellow = const Color.fromARGB(255, 232, 211, 122);
+Color deactivatedBlack = const Color.fromARGB(255, 127, 129, 146);
+Color deactivatedRed = const Color.fromARGB(165, 222, 64, 64);

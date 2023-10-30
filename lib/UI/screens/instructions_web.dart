@@ -1,19 +1,55 @@
-import 'dart:html';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+
+import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/UI/widgets/appbar.dart';
 import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:data_hub/UI/widgets/web_appbar.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
 
-class InstructionsWeb extends StatelessWidget {
+class InstructionsWeb extends StatefulWidget {
   const InstructionsWeb({super.key});
-  
+
+  @override
+  State<InstructionsWeb> createState() => _InstructionsWebState();
+}
+
+class _InstructionsWebState extends State<InstructionsWeb> {
+  int highlightedPoint = 1;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    startHighlightAnimation();
+  }
+
+  void startHighlightAnimation() {
+    const duration = Duration(seconds: 2);
+
+    _timer = Timer.periodic(duration, (timer) {
+      if (highlightedPoint == 5) {
+        timer.cancel();
+      } else {
+        setState(() {
+          highlightedPoint++;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   void showUploadDialogWeb(BuildContext context) {
     showDialog(
@@ -177,13 +213,27 @@ class InstructionsWeb extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const HeadingRow(
-                            title: 'Save Data in .csv Format !', no: '1'),
+                        highlightedPoint == 1
+                            ? HeadingRow(
+                                isActivated: true,
+                                title: 'Save Data in .csv Format !',
+                                no: '1')
+                            : HeadingRow(
+                                isActivated: false,
+                                title: 'Save Data in .csv Format !',
+                                no: '1'),
                         SizedBox(
                           height: 2.h,
                         ),
-                        const HeadingRow(
-                            title: 'Replace Header Row of .csv file', no: '2'),
+                        highlightedPoint == 2
+                            ? HeadingRow(
+                                isActivated: true,
+                                title: 'Replace Header Row of .csv file',
+                                no: '2')
+                            : HeadingRow(
+                                isActivated: false,
+                                title: 'Replace Header Row of .csv file',
+                                no: '2'),
                         Row(
                           children: [
                             SizedBox(
@@ -193,9 +243,11 @@ class InstructionsWeb extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'as instructed below',
+                                  'as instructed on right',
                                   style: GoogleFonts.roboto(
-                                    color: blue,
+                                    color: highlightedPoint == 2
+                                        ? black
+                                        : deactivatedBlack,
                                     fontSize:
                                         deviceType == 'phone' ? 16.sp : 14.sp,
                                   ),
@@ -203,7 +255,9 @@ class InstructionsWeb extends StatelessWidget {
                                 Text(
                                   '*USE UPPERCASE TEXT ONLY',
                                   style: GoogleFonts.roboto(
-                                    color: red,
+                                    color: highlightedPoint == 2
+                                        ? red
+                                        : deactivatedRed,
                                     fontSize:
                                         deviceType == 'phone' ? 13.sp : 12.sp,
                                   ),
@@ -226,61 +280,126 @@ class InstructionsWeb extends StatelessWidget {
                             : SizedBox(
                                 height: 3.h,
                               ),
-                        Row(
-                          children: [
-                            SizedBox(width: 12.w),
-                            Text(
-                              'Required Units',
-                              style: GoogleFonts.roboto(
-                                color: blue,
-                                fontWeight: FontWeight.bold,
-                                fontSize: deviceType == 'phone' ? 16.sp : 14.sp,
-                              ),
-                            ),
-                          ],
-                        ),
+                        highlightedPoint == 3
+                            ? HeadingRow(
+                                isActivated: true,
+                                title: 'Required Units',
+                                no: '3')
+                            : HeadingRow(
+                                isActivated: false,
+                                title: 'Required Units',
+                                no: '3'),
                         SizedBox(height: 0.5.h),
                         Row(
                           children: [
-                            const dataNeeded(title1: 'TIME (seconds)'),
+                            highlightedPoint == 3
+                                ? subTitleData(
+                                    isActivated: true, title1: 'TIME (seconds)')
+                                : subTitleData(
+                                    isActivated: false,
+                                    title1: 'TIME (seconds)'),
                             SizedBox(width: 2.w),
-                            const dataNeeded(title1: 'X, Y, Z (m/s2)'),
+                            highlightedPoint == 3
+                                ? subTitleData(
+                                    isActivated: true, title1: 'X, Y, Z (m/s2)')
+                                : subTitleData(
+                                    isActivated: false,
+                                    title1: 'X, Y, Z (m/s2)'),
                           ],
                         ),
                         SizedBox(height: 2.h),
-                        const HeadingRow(title: 'Time Parameters', no: '3'),
-                        const dataNeeded(
-                          title1: 'Td (duration of the daily exposure)',
-                        ),
-                        const dataNeeded(
-                          title1: 'Tm (period over which accelareration dose',
-                        ),
+                        highlightedPoint == 4
+                            ? HeadingRow(
+                                isActivated: true,
+                                title: 'Time Parameters',
+                                no: '4')
+                            : HeadingRow(
+                                isActivated: false,
+                                title: 'Time Parameters',
+                                no: '4'),
+                        highlightedPoint == 4
+                            ? subTitleData(
+                                isActivated: true,
+                                title1: 'Td (duration of the daily exposure)',
+                              )
+                            : subTitleData(
+                                isActivated: false,
+                                title1: 'Td (duration of the daily exposure)'),
+                        highlightedPoint == 4
+                            ? subTitleData(
+                                isActivated: true,
+                                title1:
+                                    'Tm (period over which accelareration dose',
+                              )
+                            : subTitleData(
+                                isActivated: false,
+                                title1:
+                                    'Tm (period over which accelareration dose',
+                              ),
                         Row(
                           children: [
                             SizedBox(width: 17.w),
                             Text(
                               '(Dk) is measured)',
                               style: GoogleFonts.roboto(
-                                  color: blue,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500),
+                                color: highlightedPoint == 4
+                                    ? black
+                                    : deactivatedBlack,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ],
                         ),
                         SizedBox(height: 2.h),
-                        const HeadingRow(title: 'R Factor Parameters', no: '4'),
-                        const dataNeeded(
-                          title1: 'N (the number of exposure days per year)',
-                        ),
-                        const dataNeeded(
-                          title1: 'i (year counter)',
-                        ),
-                        const dataNeeded(
-                          title1: 'n (the number of years of exposure)',
-                        ),
-                        const dataNeeded(
-                          title1: 'b (the age at which the exposure starts)',
-                        ),
+                        highlightedPoint == 5
+                            ? HeadingRow(
+                                isActivated: true,
+                                title: 'R Factor Parameters',
+                                no: '5')
+                            : HeadingRow(
+                                isActivated: false,
+                                title: 'R Factor Parameters',
+                                no: '5'),
+                        highlightedPoint == 5
+                            ? subTitleData(
+                                isActivated: true,
+                                title1:
+                                    'N (the number of exposure days per year)',
+                              )
+                            : subTitleData(
+                                isActivated: false,
+                                title1:
+                                    'N (the number of exposure days per year)'),
+                        highlightedPoint == 5
+                            ? subTitleData(
+                                isActivated: true,
+                                title1: 'i (year counter)',
+                              )
+                            : subTitleData(
+                                isActivated: false,
+                                title1: 'i (year counter)',
+                              ),
+                        highlightedPoint == 5
+                            ? subTitleData(
+                                isActivated: true,
+                                title1: 'n (the number of years of exposure)',
+                              )
+                            : subTitleData(
+                                isActivated: false,
+                                title1: 'n (the number of years of exposure)',
+                              ),
+                        highlightedPoint == 5
+                            ? subTitleData(
+                                isActivated: true,
+                                title1:
+                                    'b (the age at which the exposure starts)',
+                              )
+                            : subTitleData(
+                                isActivated: false,
+                                title1:
+                                    'b (the age at which the exposure starts)',
+                              ),
                       ],
                     ),
                   ),
@@ -306,12 +425,14 @@ class InstructionsWeb extends StatelessWidget {
   }
 }
 
-class dataNeeded extends StatelessWidget {
+class subTitleData extends StatelessWidget {
   final String title1;
-  const dataNeeded({
-    super.key,
+  bool isActivated;
+  subTitleData({
+    Key? key,
     required this.title1,
-  });
+    required this.isActivated,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -321,19 +442,21 @@ class dataNeeded extends StatelessWidget {
           children: [
             SizedBox(width: 10.w),
             Container(
-              height: 2.h,
-              width: 5.w,
+              height: 1.5.h,
+              width: 3.w,
               decoration: BoxDecoration(
-                color: yellow,
+                color: isActivated ? green : radioColor,
                 shape: BoxShape.circle,
-                border: Border.all(color: blue),
+                border: Border.all(color: black),
               ),
             ),
             SizedBox(width: 2.w),
             Text(
               title1,
               style: GoogleFonts.roboto(
-                  color: blue, fontSize: 12.sp, fontWeight: FontWeight.w500),
+                  color: isActivated ? blue : deactivatedBlack,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500),
             ),
           ],
         ),
@@ -348,10 +471,12 @@ class dataNeeded extends StatelessWidget {
 class HeadingRow extends StatelessWidget {
   final String title;
   final String no;
-  const HeadingRow({
+  bool isActivated;
+  HeadingRow({
     super.key,
     required this.title,
     required this.no,
+    required this.isActivated,
   });
 
   @override
@@ -363,14 +488,14 @@ class HeadingRow extends StatelessWidget {
           height: 4.h,
           width: 10.w,
           decoration: BoxDecoration(
-            color: yellow,
+            color: isActivated ? yellow : deactivatedYellow,
             shape: BoxShape.circle,
           ),
           child: Center(
             child: Text(
               no,
               style: GoogleFonts.roboto(
-                  color: blue,
+                  color: isActivated ? black : deactivatedBlack,
                   fontWeight: FontWeight.bold,
                   fontSize: deviceType == 'phone' ? 16.sp : 14.sp),
             ),
@@ -391,4 +516,3 @@ class HeadingRow extends StatelessWidget {
     );
   }
 }
-
