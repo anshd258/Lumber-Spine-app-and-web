@@ -65,6 +65,7 @@ class _GraphScreenState extends State<GraphScreen> {
   // }
 
   final List<String> vadvValueNames = ['VDV', 'VDX', 'VDY', 'VDZ'];
+  final List<String> awValueNames = ['Awx', 'Awy', 'Awz'];
 
   @override
   Widget build(BuildContext context) {
@@ -114,94 +115,18 @@ class _GraphScreenState extends State<GraphScreen> {
                   state.data.vdvValues!.vDVY,
                   state.data.vdvValues!.vDVZ
                 ];
+                final List<double?> awValsList = [
+                  state.data.awNew!.awx,
+                  state.data.awNew!.awy,
+                  state.data.awNew!.awz,
+                ];
                 return SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Container(
-                        width: double.infinity,
-                        height: 17.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.transparent,
-                        ),
-                        child: BarChart(
-                          BarChartData(
-                            alignment: BarChartAlignment.center,
-                            borderData: FlBorderData(
-                                border: Border.all(color: Colors.black)),
-                            groupsSpace: 15,
-                            barTouchData: BarTouchData(enabled: true),
-                            titlesData: FlTitlesData(
-                              topTitles: const AxisTitles(
-                                axisNameWidget: Text(
-                                  '',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              bottomTitles: AxisTitles(
-                                  axisNameWidget: Container(
-                                padding:
-                                    const EdgeInsets.only(left: 35, right: 35),
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: vadvValueNames
-                                        .map(
-                                          (e) => Text(
-                                            e,
-                                            style:
-                                                const TextStyle(fontSize: 12),
-                                          ),
-                                        )
-                                        .toList()),
-                              )),
-                            ),
-                            // barGroups: (vdvValsList)
-                            //     .map(
-                            //       (data) => BarChartGroupData(
-                            //         x: ,
-                            //         barsSpace: 10,
-                            //         barRods: [
-                            //           BarChartRodData(
-                            //             toY: data!.toDouble(),
-                            //             color: Colors.blue,
-                            //             width: 24,
-                            //             borderRadius: const BorderRadius.only(
-                            //               topLeft: Radius.circular(6),
-                            //               topRight: Radius.circular(6),
-                            //             ),
-                            //           ),
-                            //         ],
-                            //       ),
-                            //     )
-                            //     .toList(),
-                            barGroups: vdvValsList.asMap().entries.map((entry) {
-                              final int index = entry.key;
-                              final double value = entry.value ?? 0.0;
-
-                              return BarChartGroupData(
-                                x: index,
-                                barsSpace: 10,
-                                barRods: [
-                                  BarChartRodData(
-                                    toY: value.toDouble(),
-                                    color: Colors.blue,
-                                    width: 24,
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(6),
-                                      topRight: Radius.circular(6),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
+                      BarGraph(vadvValueNames: vadvValueNames, vdvValsList: vdvValsList),
+                      BarGraph(vadvValueNames: awValueNames, vdvValsList: awValsList),
                       SizedBox(
                         height: 2.h,
                       ),
@@ -456,6 +381,104 @@ class _GraphScreenState extends State<GraphScreen> {
 
   Widget buildImage(Uint8List? bytes) {
     return bytes != null ? Image.memory(bytes) : Container();
+  }
+}
+
+class BarGraph extends StatelessWidget {
+  const BarGraph({
+    super.key,
+    required this.vadvValueNames,
+    required this.vdvValsList,
+  });
+
+  final List<String> vadvValueNames;
+  final List<double?> vdvValsList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 40.w,
+      height: 17.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.transparent,
+      ),
+      child: BarChart(
+        BarChartData(
+          alignment: BarChartAlignment.center,
+          borderData: FlBorderData(
+              border: Border.all(color: Colors.black)),
+          groupsSpace: 25,
+          barTouchData: BarTouchData(enabled: true),
+          titlesData: FlTitlesData(
+            topTitles: const AxisTitles(
+              axisNameWidget: Text(
+                '',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+            bottomTitles: AxisTitles(
+                axisNameWidget: Container(
+              padding:
+                  const EdgeInsets.only(left: 35, right: 35),
+              child: Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceAround,
+                  children: vadvValueNames
+                      .map(
+                        (e) => Text(
+                          e,
+                          style:
+                              const TextStyle(fontSize: 12),
+                        ),
+                      )
+                      .toList()),
+            )),
+          ),
+          // barGroups: (vdvValsList)
+          //     .map(
+          //       (data) => BarChartGroupData(
+          //         x: ,
+          //         barsSpace: 10,
+          //         barRods: [
+          //           BarChartRodData(
+          //             toY: data!.toDouble(),
+          //             color: Colors.blue,
+          //             width: 24,
+          //             borderRadius: const BorderRadius.only(
+          //               topLeft: Radius.circular(6),
+          //               topRight: Radius.circular(6),
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     )
+          //     .toList(),
+          barGroups: vdvValsList.asMap().entries.map((entry) {
+            final int index = entry.key;
+            final double value = entry.value ?? 0.0;
+
+            return BarChartGroupData(
+              x: index,
+              barsSpace: 10,
+              barRods: [
+                BarChartRodData(
+                  toY: value.toDouble(),
+                  color: Colors.blue,
+                  width: 24,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(6),
+                    topRight: Radius.circular(6),
+                  ),
+                ),
+              ],
+            );
+          }).toList(),
+        ),
+      ),
+    );
   }
 }
 
