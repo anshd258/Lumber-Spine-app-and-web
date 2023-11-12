@@ -2,6 +2,7 @@ import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
 import 'package:data_hub/Middleware/bloc/Variabledatabloc/data_cubit_cubit.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
+import 'package:data_hub/UI/screens/graph_screen.dart';
 import 'package:data_hub/UI/widgets/appbar.dart';
 
 import 'package:data_hub/UI/widgets/blue_button.dart';
@@ -340,7 +341,18 @@ class _RFactorScreenState extends State<RFactorScreen> {
                                   "b": b.text
                                 });
                                 // Navigator.pushNamed(context, '/graph_screen');
-                                GoRouter.of(context).go('/graph_screen');
+                                // GoRouter.of(context).go('/graph_screen');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => GraphScreen(
+                                      N: N.text,
+                                      i: i.text,
+                                      n: n.text,
+                                      c: 0.25.toString(),
+                                    ),
+                                  ),
+                                );
                               },
                             ),
                           );
@@ -357,9 +369,8 @@ class _RFactorScreenState extends State<RFactorScreen> {
                               child: BlueButton(
                                 text: 'Proceed',
                                 onTap: () {
-                                  context
-                                      .read<CsVuploadCubit>()
-                                      .uploadWebFile(state.fileData,state.fileName, {
+                                  context.read<CsVuploadCubit>().uploadWebFile(
+                                      state.fileData, state.fileName, {
                                     "tm": temp.tm!,
                                     "td": temp.td!,
                                     "N": N.text,
@@ -369,7 +380,18 @@ class _RFactorScreenState extends State<RFactorScreen> {
                                     "b": b.text
                                   });
                                   // Navigator.pushNamed(context, '/graph_screen');
-                                   GoRouter.of(context).go('/graph_screen');
+                                  //  GoRouter.of(context).go('/graph_screen');
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => GraphScreen(
+                                        N: N.text,
+                                        i: i.text,
+                                        n: n.text,
+                                        c: 0.25.toString(),
+                                      ),
+                                    ),
+                                  );
                                 },
                               ),
                             ),

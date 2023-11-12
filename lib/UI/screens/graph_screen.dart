@@ -1,3 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rive/rive.dart';
+
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
@@ -12,18 +23,19 @@ import 'package:data_hub/UI/widgets/blue_button.dart';
 import 'package:data_hub/UI/widgets/result.dart';
 import 'package:data_hub/UI/widgets/utils.dart';
 import 'package:data_hub/UI/widgets/widget_to_image.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-// import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rive/rive.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 class GraphScreen extends StatefulWidget {
-  const GraphScreen({super.key});
+  final String N;
+  final String i;
+  final String n;
+  final String c;
+  const GraphScreen({
+    Key? key,
+    required this.N,
+    required this.i,
+    required this.n,
+    required this.c,
+  }) : super(key: key);
 
   @override
   State<GraphScreen> createState() => _GraphScreenState();
@@ -78,7 +90,8 @@ class _GraphScreenState extends State<GraphScreen> {
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Text(
-            "Graphs",
+            // "Graphs",
+            '',
             style: GoogleFonts.roboto(
               color: blue,
               fontSize: 18.sp,
@@ -116,6 +129,7 @@ class _GraphScreenState extends State<GraphScreen> {
                   state.data.vdvValues!.vDVZ
                 ];
                 final List<double?> awValsList = [
+                  state.data.aw!.aw,
                   state.data.awNew!.awx,
                   state.data.awNew!.awy,
                   state.data.awNew!.awz,
@@ -125,108 +139,285 @@ class _GraphScreenState extends State<GraphScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      BarGraph(vadvValueNames: vadvValueNames, vdvValsList: vdvValsList),
-                      BarGraph(vadvValueNames: awValueNames, vdvValsList: awValsList),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      WidgetToImage(
-                        builder: (key) {
-                          key0 = key;
-                          return MyNeumorCont(
-                            data: state.data.data!.rawPeakX!,
-                            xtitle: "Time (s)",
-                            ytitle: "X",
-                            gradientColor:
-                                const Color.fromARGB(255, 0, 146, 230),
-                            isShowingMainData: true,
-                            max: state.data.data!.rawPosX!,
-                            min: state.data.data!.rawNegX!,
-                            time: state.data.data!.rawTimeX!,
-                          );
-                        },
+                      Text(
+                        'Section 1: Graph',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       SizedBox(
                         height: 2.h,
                       ),
-                      WidgetToImage(
-                        builder: (key) {
-                          key1 = key;
-                          return MyNeumorCont(
-                            data: state.data.data!.rawPeakY!,
-                            xtitle: "Time (s)",
-                            ytitle: "Y",
-                            gradientColor: Colors.greenAccent.shade400,
-                            isShowingMainData: true,
-                            max: state.data.data!.rawPosY!,
-                            min: state.data.data!.rawNegY!,
-                            time: state.data.data!.rawTimeY!,
-                          );
-                        },
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            children: [
+                              BarGraph(
+                                vadvValueNames: vadvValueNames,
+                                vdvValsList: vdvValsList,
+                              ),
+                              Text(
+                                'Aw, Awx, Awy, Awz overall - bar graph',
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                ),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              BarGraph(
+                                vadvValueNames: awValueNames,
+                                vdvValsList: awValsList,
+                              ),
+                              Text(
+                                'Vdv, Vdvx, Vdvy, Vdvz overall - bar graph',
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
                       ),
-                      // if (bytes != null) Image.memory(bytes!),
-                      // Text('Image'),
-                      // buildImage(bytes1),
-                      // SizedBox(
-                      //   height: 2.h,
-                      // ),
-                      WidgetToImage(
-                        builder: (key) {
-                          key2 = key;
-                          return MyNeumorCont(
-                            data: state.data.data!.rawPeakZ!,
-                            xtitle: "Time (s)",
-                            ytitle: "Z",
-                            gradientColor: Colors.redAccent.shade400,
-                            isShowingMainData: true,
-                            max: state.data.data!.rawPosZ!,
-                            min: state.data.data!.rawNegZ!,
-                            time: state.data.data!.rawTimeZ!,
-                          );
-                        },
+                      SizedBox(
+                        height: 4.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: 30.h,
+                            width: 25.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 30.h,
+                                  width: 2.w,
+                                  color:
+                                      const Color.fromARGB(255, 243, 190, 67),
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Column(
+                                  children: [
+                                    ValCard(
+                                        title: 'Acceleration Dose Value(Aw)',
+                                        val: state.data.aw!.aw),
+                                    const Divider(
+                                      color: Colors.grey,
+                                    ),
+                                    ValCard(
+                                        title: 'Acceleration Dose Value(Aw)',
+                                        val: state.data.awNew!.awx),
+                                    const Divider(
+                                      color: Colors.grey,
+                                    ),
+                                    ValCard(
+                                        title: 'Acceleration Dose Value(Aw)',
+                                        val: state.data.awNew!.awy),
+                                    const Divider(
+                                      color: Colors.grey,
+                                    ),
+                                    ValCard(
+                                        title: 'Acceleration Dose Value(Aw)',
+                                        val: state.data.awNew!.awz),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: 30.h,
+                            width: 25.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 30.h,
+                                  width: 2.w,
+                                  color:
+                                      const Color.fromARGB(255, 243, 190, 67),
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Column(
+                                  children: [
+                                    ValCard(
+                                        title: 'Vibration Dose Value(Aw)',
+                                        val: state.data.vdvValues!.vDV),
+                                    const Divider(
+                                      color: Colors.grey,
+                                    ),
+                                    ValCard(
+                                        title: 'Vibration Dose Value(Aw)',
+                                        val: state.data.vdvValues!.vDVX),
+                                    const Divider(
+                                      color: Colors.grey,
+                                    ),
+                                    ValCard(
+                                        title: 'Vibration Dose Value(Aw)',
+                                        val: state.data.vdvValues!.vDVY),
+                                    const Divider(
+                                      color: Colors.grey,
+                                    ),
+                                    ValCard(
+                                        title: 'Vibration Dose Value(Aw)',
+                                        val: state.data.vdvValues!.vDVZ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 4.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 30.w,
+                            child: WidgetToImage(
+                              builder: (key) {
+                                key0 = key;
+                                return MyNeumorCont(
+                                  data: state.data.data!.rawPeakX!,
+                                  xtitle: "Time (s)",
+                                  ytitle: "X",
+                                  gradientColor:
+                                      const Color.fromARGB(255, 0, 146, 230),
+                                  isShowingMainData: true,
+                                  max: state.data.data!.rawPosX!,
+                                  min: state.data.data!.rawNegX!,
+                                  time: state.data.data!.rawTimeX!,
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 30.w,
+                            child: WidgetToImage(
+                              builder: (key) {
+                                key1 = key;
+                                return MyNeumorCont(
+                                  data: state.data.data!.rawPeakY!,
+                                  xtitle: "Time (s)",
+                                  ytitle: "Y",
+                                  gradientColor: Colors.greenAccent.shade400,
+                                  isShowingMainData: true,
+                                  max: state.data.data!.rawPosY!,
+                                  min: state.data.data!.rawNegY!,
+                                  time: state.data.data!.rawTimeY!,
+                                );
+                              },
+                            ),
+                          ),
+                          // if (bytes != null) Image.memory(bytes!),
+                          // Text('Image'),
+                          // buildImage(bytes1),
+                          // SizedBox(
+                          //   height: 2.h,
+                          // ),
+                          SizedBox(
+                            width: 30.w,
+                            child: WidgetToImage(
+                              builder: (key) {
+                                key2 = key;
+                                return MyNeumorCont(
+                                  data: state.data.data!.rawPeakZ!,
+                                  xtitle: "Time (s)",
+                                  ytitle: "Z",
+                                  gradientColor: Colors.redAccent.shade400,
+                                  isShowingMainData: true,
+                                  max: state.data.data!.rawPosZ!,
+                                  min: state.data.data!.rawNegZ!,
+                                  time: state.data.data!.rawTimeZ!,
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 2.h,
                       ),
-                      WidgetToImage(
-                        builder: (key) {
-                          key3 = key;
-                          return ThreeAxisGraph(data: state.data);
-                        },
-                      ),
                       SizedBox(
-                        height: 2.h,
-                      ),
-
-                      WidgetToImage(
-                        builder: (key) {
-                          key5 = key;
-                          return PlaneGraph(
-                            data: state.data.ft!.amp!.proto1Unfiltered!,
-                            time: state.data.ft!.amp!.time!,
-                            xtitle: "Amplitude",
-                            ytitle: "",
-                            gradientColor: Colors.red,
-                            isShowingMainData: true,
-                          );
-                        },
+                        width: double.infinity,
+                        height: 50.h,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          height: 20.h,
+                          width: double.infinity,
+                          child: WidgetToImage(
+                            builder: (key) {
+                              key3 = key;
+                              return ThreeAxisGraph(data: state.data);
+                            },
+                          ),
+                        ),
                       ),
                       SizedBox(
                         height: 3.h,
                       ),
-                      WidgetToImage(
-                        builder: (key) {
-                          key6 = key;
-                          return PlaneGraph(
-                            data: state.data.ft!.amp!.ref1Unfiltered!,
-                            time: state.data.ft!.amp!.time!,
-                            xtitle: "Amplitude",
-                            ytitle: "",
-                            gradientColor: Colors.blue,
-                            isShowingMainData: true,
-                          );
-                        },
+                      Text(
+                        'Section 2: Frequency Analysis',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 30.w,
+                            child: WidgetToImage(
+                              builder: (key) {
+                                key5 = key;
+                                return PlaneGraph(
+                                  data: state.data.ft!.amp!.proto1Unfiltered!,
+                                  time: state.data.ft!.amp!.time!,
+                                  xtitle: "Amplitude",
+                                  ytitle: "",
+                                  gradientColor: Colors.red,
+                                  isShowingMainData: true,
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 30.w,
+                            child: WidgetToImage(
+                              builder: (key) {
+                                key6 = key;
+                                return PlaneGraph(
+                                  data: state.data.ft!.amp!.ref1Unfiltered!,
+                                  time: state.data.ft!.amp!.time!,
+                                  xtitle: "Amplitude",
+                                  ytitle: "",
+                                  gradientColor: Colors.blue,
+                                  isShowingMainData: true,
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+
                       // SizedBox(
                       //   height: 3.h,
                       // ),
@@ -252,17 +443,271 @@ class _GraphScreenState extends State<GraphScreen> {
                       SizedBox(
                         height: 3.h,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: WidgetToImage(
-                          builder: (key) {
-                            key4 = key;
-                            return Result(
-                              sed: state.data.data!.sed!,
-                              r: state.data.data!.r!,
-                            );
-                          },
+                      Text(
+                        'Section 3: Compressive Stress (Sed)',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 25.w,
+                            height: 100.h,
+                            child: WidgetToImage(
+                              builder: (key) {
+                                key4 = key;
+                                return Result(
+                                  sed: state.data.data!.sed!,
+                                  r: state.data.data!.r!,
+                                );
+                              },
+                            ),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                height: 12.h,
+                                width: 22.w,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 15.h,
+                                      width: 2.w,
+                                      color: const Color.fromARGB(
+                                          255, 243, 190, 67),
+                                    ),
+                                    SizedBox(
+                                      width: 1.w,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ValCard(
+                                            title: 'Acceleration Dose (DX)',
+                                            val: state.data.aw!.aw),
+                                        ValCard(
+                                            title: 'Acceleration Dose (DXD)',
+                                            val: state.data.awNew!.awx),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 2.h),
+                              Container(
+                                height: 12.h,
+                                width: 22.w,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 15.h,
+                                      width: 2.w,
+                                      color: const Color.fromARGB(
+                                          255, 243, 190, 67),
+                                    ),
+                                    SizedBox(
+                                      width: 1.w,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ValCard(
+                                            title: 'Acceleration Dose (DY)',
+                                            val: state.data.aw!.aw),
+                                        ValCard(
+                                            title: 'Acceleration Dose (DYD)',
+                                            val: state.data.awNew!.awx),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 2.h),
+                              Container(
+                                height: 12.h,
+                                width: 22.w,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 15.h,
+                                      width: 2.w,
+                                      color: const Color.fromARGB(
+                                          255, 243, 190, 67),
+                                    ),
+                                    SizedBox(
+                                      width: 1.w,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ValCard(
+                                            title: 'Acceleration Dose (DZ)',
+                                            val: state.data.aw!.aw),
+                                        ValCard(
+                                            title: 'Acceleration Dose (DZD)',
+                                            val: state.data.awNew!.awx),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 25.h,
+                            width: 27.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 30.h,
+                                  width: 2.w,
+                                  color:
+                                      const Color.fromARGB(255, 243, 190, 67),
+                                ),
+                                SizedBox(
+                                  width: 1.w,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ValCard(
+                                        title: 'Compressive Stress (SE)',
+                                        val: state.data.aw!.aw),
+                                    ValCard(
+                                        title:
+                                            'Equivalent Static Compression Dose (SED)',
+                                        val: state.data.aw!.aw),
+                                    Text(
+                                      'N is ${widget.N}',
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Text(
+                                      'i is ${widget.i}',
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Text(
+                                      'n is ${widget.n}',
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Text(
+                                      'c is ${widget.c}',
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        'Section 4: Remarks',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(5.sp),
+                            height: 11.h,
+                            width: 35.h,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black,
+                                ),
+                                borderRadius: BorderRadius.circular(5.sp)),
+                            child: Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Sed  ${state.data.data!.sed!}',
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const Divider(),
+                                  Text(
+                                    'R  ${state.data.data!.r!}',
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10.w),
+                          Container(
+                            padding: EdgeInsets.all(5.sp),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.yellow,
+                            ),
+                            child: Center(
+                              child: SizedBox(
+                                width: 60.w,
+                                height: 11.h,
+                                child: Text(
+                                  "Decrease Daily Exposure to 0.42 to get low probability of adverse health effect !",
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5.h,
                       ),
                       SizedBox(
                         width: deviceType == 'phone' ? 95.w : 30.w,
@@ -398,7 +843,7 @@ class BarGraph extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 40.w,
-      height: 17.h,
+      height: 34.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: Colors.transparent,
@@ -406,32 +851,26 @@ class BarGraph extends StatelessWidget {
       child: BarChart(
         BarChartData(
           alignment: BarChartAlignment.center,
-          borderData: FlBorderData(
-              border: Border.all(color: Colors.black)),
+          borderData: FlBorderData(border: Border.all(color: Colors.black)),
           groupsSpace: 25,
           barTouchData: BarTouchData(enabled: true),
           titlesData: FlTitlesData(
             topTitles: const AxisTitles(
               axisNameWidget: Text(
                 '',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
             bottomTitles: AxisTitles(
                 axisNameWidget: Container(
-              padding:
-                  const EdgeInsets.only(left: 35, right: 35),
+              padding: const EdgeInsets.only(left: 35, right: 35),
               child: Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: vadvValueNames
                       .map(
                         (e) => Text(
                           e,
-                          style:
-                              const TextStyle(fontSize: 12),
+                          style: const TextStyle(fontSize: 12),
                         ),
                       )
                       .toList()),
@@ -513,6 +952,38 @@ class MyNeumorCont extends StatelessWidget {
       max: max,
       min: min,
       time: time,
+    );
+  }
+}
+
+class ValCard extends StatelessWidget {
+  final String title;
+  final double? val;
+  const ValCard({
+    Key? key,
+    required this.title,
+    required this.val,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
     );
   }
 }

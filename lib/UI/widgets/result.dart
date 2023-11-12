@@ -121,7 +121,7 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
         ),
         Center(
           child: Container(
-            height: deviceType == 'phone' ? 4.h : 6.h,
+            height: deviceType == 'phone' ? 4.h : 4.h,
             width: deviceType == 'phone' ? double.infinity : 50.w,
             decoration: BoxDecoration(
               color: greenGradient,
@@ -212,7 +212,7 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
         ),
         Center(
           child: Container(
-            height: deviceType == 'phone' ? 4.h : 6.h,
+            height: deviceType == 'phone' ? 4.h : 4.h,
             width: deviceType == 'phone' ? double.infinity : 50.w,
             decoration: BoxDecoration(
               color: yellow,
@@ -223,7 +223,7 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
                     ? Text(
                         "High probability of adverse health effect !",
                         style: GoogleFonts.roboto(
-                          fontSize: 16.sp,
+                          fontSize: 10.sp,
                           color: black,
                           fontWeight: FontWeight.w500,
                         ),
@@ -231,7 +231,7 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
                     : Text(
                         "Low probability of adverse health effect !",
                         style: GoogleFonts.roboto(
-                          fontSize: 16.sp,
+                          fontSize: 10.sp,
                           color: black,
                           fontWeight: FontWeight.w500,
                         ),

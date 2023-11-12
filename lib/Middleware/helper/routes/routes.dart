@@ -65,8 +65,8 @@ List<RouteBase> goo_routes = [
   GoRoute(
       path: '/R_factor_screen',
       builder: (context, state) => const RFactorScreen()),
-  GoRoute(
-      path: '/graph_screen', builder: (context, state) => const GraphScreen()),
+  // GoRoute(
+  //     path: '/graph_screen', builder: (context, state) => const GraphScreen()),
 ];
 
 // var routes = <String, WidgetBuilder>{
