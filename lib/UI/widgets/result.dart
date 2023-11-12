@@ -132,7 +132,7 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
                   ? Text(
                       "Low probability of adverse health effect !",
                       style: GoogleFonts.roboto(
-                        fontSize: 16.sp,
+                        fontSize: 10.sp,
                         color: whiteText,
                         fontWeight: FontWeight.w500,
                       ),
@@ -140,7 +140,7 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
                   : Text(
                       "High probability of adverse health effect !",
                       style: GoogleFonts.roboto(
-                        fontSize: 16.sp,
+                        fontSize: 10.sp,
                         color: whiteText,
                         fontWeight: FontWeight.w500,
                       ),
