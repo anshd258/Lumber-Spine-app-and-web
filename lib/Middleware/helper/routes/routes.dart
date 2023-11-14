@@ -1,9 +1,9 @@
+import 'package:data_hub/Middleware/bloc/Repository/authrepo.dart';
 import 'package:data_hub/Middleware/bloc/sign_in/sign_in_bloc.dart';
-import 'package:data_hub/Middleware/bloc/sign_up/sign_up_bloc.dart';
 import 'package:data_hub/UI/screens/R_factor_screen.dart';
-import 'package:data_hub/UI/screens/feedback_screen.dart';
+
 import 'package:data_hub/UI/screens/home_screen.dart';
-import 'package:data_hub/UI/screens/graph_screen.dart';
+
 import 'package:data_hub/UI/screens/history_screen.dart';
 import 'package:data_hub/UI/screens/instructions_screen.dart';
 import 'package:data_hub/UI/screens/instructions_web.dart';
@@ -13,7 +13,7 @@ import 'package:data_hub/UI/screens/sign_up.dart';
 import 'package:data_hub/UI/screens/splash_screen.dart';
 import 'package:data_hub/UI/screens/td_tm_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/material.dart';
+
 
 import '../../../UI/screens/country_screen.dart';
 import '../../../UI/screens/signin_screen.dart';
@@ -21,21 +21,21 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 GoRouter router = GoRouter(
-    routes: goo_routes, initialLocation: kIsWeb ? '/country_screen' : '/');
+    routes: goo_routes, initialLocation: kIsWeb ? '/' : '/');
 
 List<RouteBase> goo_routes = [
   GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
   GoRoute(
     path: '/signin_screen',
     builder: (context, state) => BlocProvider(
-      create: (context) => SignInBloc(),
+      create: (context) => SignInBloc(RepositoryProvider.of<localStorage>(context)),
       child: SignInScreen(),
     ),
   ),
   GoRoute(
     path: '/signup_screen',
     builder: (context, state) => BlocProvider(
-      create: (context) => SignInBloc(),
+      create: (context) => SignInBloc(RepositoryProvider.of<localStorage>(context)),
       child: const SignUpScreen(),
     ),
   ),

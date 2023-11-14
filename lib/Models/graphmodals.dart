@@ -1,40 +1,40 @@
 class ResponseGraphModal {
   Aw? aw;
+  AwGraph? awGraph;
   AwNew? awNew;
   Data? data;
   Ft? ft;
+  RRange? rRange;
+  RRange? sedRange;
   VdvValues? vdvValues;
 
-  ResponseGraphModal({this.aw, this.awNew, this.data, this.ft, this.vdvValues});
+  ResponseGraphModal(
+      {this.aw,
+      this.sedRange,
+      this.rRange,
+      this.awGraph,
+      this.awNew,
+      this.data,
+      this.ft,
+      this.vdvValues});
 
   ResponseGraphModal.fromJson(Map<String, dynamic> json) {
     aw = json['aw'] != null ? new Aw.fromJson(json['aw']) : null;
+    awGraph = json['aw_graph'] != null
+        ? new AwGraph.fromJson(json['aw_graph'])
+        : null;
+
     awNew = json['aw_new'] != null ? new AwNew.fromJson(json['aw_new']) : null;
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     ft = json['ft'] != null ? new Ft.fromJson(json['ft']) : null;
+    rRange =
+        json['r_range'] != null ? new RRange.fromJson(json['r_range']) : null;
+    sedRange = json['sed_range'] != null
+        ? new RRange.fromJson(json['sed_range'])
+        : null;
     vdvValues = json['vdv_values'] != null
         ? new VdvValues.fromJson(json['vdv_values'])
         : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.aw != null) {
-      data['aw'] = this.aw!.toJson();
-    }
-    if (this.awNew != null) {
-      data['aw_new'] = this.awNew!.toJson();
-    }
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    if (this.ft != null) {
-      data['ft'] = this.ft!.toJson();
-    }
-    if (this.vdvValues != null) {
-      data['vdv_values'] = this.vdvValues!.toJson();
-    }
-    return data;
   }
 }
 
@@ -54,10 +54,35 @@ class Aw {
   }
 }
 
+class AwGraph {
+  double? aW;
+  double? aWX;
+  double? aWY;
+  double? aWZ;
+  double? aWMAX;
+  AwGraph({this.aW, this.aWX, this.aWY, this.aWZ, this.aWMAX});
+  AwGraph.fromJson(Map<String, dynamic> json) {
+    aW = json['AW'];
+    aWX = json['AWX'];
+    aWY = json['AWY'];
+    aWZ = json['AWZ'];
+    aWMAX = json['AW_MAX'];
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['AW'] = this.aW;
+    data['AWX'] = this.aWX;
+    data['AWY'] = this.aWY;
+    data['AWZ'] = this.aWZ;
+    data['AW_MAX'] = this.aWMAX;
+    return data;
+  }
+}
+
 class AwNew {
-  List<int>? awXnew;
-  List<int>? awYnew;
-  List<int>? awZnew;
+  List<double>? awXnew;
+  List<double>? awYnew;
+  List<double>? awZnew;
   double? awx;
   double? awy;
   double? awz;
@@ -65,27 +90,41 @@ class AwNew {
   AwNew({this.awXnew, this.awYnew, this.awZnew, this.awx, this.awy, this.awz});
 
   AwNew.fromJson(Map<String, dynamic> json) {
-    awXnew = json['aw_Xnew'].cast<int>();
-    awYnew = json['aw_Ynew'].cast<int>();
-    awZnew = json['aw_Znew'].cast<int>();
+    awXnew = json['aw_Xnew'].cast<double>();
+    awYnew = json['aw_Ynew'].cast<double>();
+    awZnew = json['aw_Znew'].cast<double>();
     awx = json['awx'];
     awy = json['awy'];
     awz = json['awz'];
   }
+}
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['aw_Xnew'] = this.awXnew;
-    data['aw_Ynew'] = this.awYnew;
-    data['aw_Znew'] = this.awZnew;
-    data['awx'] = this.awx;
-    data['awy'] = this.awy;
-    data['awz'] = this.awz;
-    return data;
+class RRange {
+  double? endingvalueHigh;
+  double? endingvalueLow;
+  double? endingvalueMid;
+  double? startvalueHigh;
+  double? startvalueLow;
+  double? startvalueMid;
+  RRange(
+      {this.endingvalueHigh,
+      this.endingvalueLow,
+      this.endingvalueMid,
+      this.startvalueHigh,
+      this.startvalueLow,
+      this.startvalueMid});
+  RRange.fromJson(Map<String, dynamic> json) {
+    endingvalueHigh = json['endingvalue_high'];
+    endingvalueLow = json['endingvalue_low'];
+    endingvalueMid = json['endingvalue_mid'];
+    startvalueHigh = json['startvalue_high'];
+    startvalueLow = json['startvalue_low'];
+    startvalueMid = json['startvalue_mid'];
   }
 }
 
 class Data {
+  AccelrationDoses? accelrationDoses;
   double? r;
   double? rawMaxNeg;
   double? rawMaxPos;
@@ -98,14 +137,17 @@ class Data {
   double? rawPosX;
   double? rawPosY;
   double? rawPosZ;
+  String? remark;
   List<String>? rawTimeX;
   List<String>? rawTimeY;
   List<String>? rawTimeZ;
   double? se;
   double? sed;
+  double? timeStamp;
 
   Data(
-      {this.r,
+      {this.accelrationDoses,
+      this.r,
       this.rawMaxNeg,
       this.rawMaxPos,
       this.rawNegX,
@@ -121,9 +163,14 @@ class Data {
       this.rawTimeY,
       this.rawTimeZ,
       this.se,
+      this.remark,
+      this.timeStamp,
       this.sed});
 
   Data.fromJson(Map<String, dynamic> json) {
+    accelrationDoses = json['accelration_doses'] != null
+        ? new AccelrationDoses.fromJson(json['accelration_doses'])
+        : null;
     r = json['r'];
     rawMaxNeg = json['raw_max_neg'];
     rawMaxPos = json['raw_max_pos'];
@@ -139,30 +186,28 @@ class Data {
     rawTimeX = json['raw_time_x'].cast<String>();
     rawTimeY = json['raw_time_y'].cast<String>();
     rawTimeZ = json['raw_time_z'].cast<String>();
+    remark = json['remark'];
     se = json['se'];
     sed = json['sed'];
+    timeStamp = json['timeStamp'];
   }
+}
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['r'] = this.r;
-    data['raw_max_neg'] = this.rawMaxNeg;
-    data['raw_max_pos'] = this.rawMaxPos;
-    data['raw_neg_x'] = this.rawNegX;
-    data['raw_neg_y'] = this.rawNegY;
-    data['raw_neg_z'] = this.rawNegZ;
-    data['raw_peak_x'] = this.rawPeakX;
-    data['raw_peak_y'] = this.rawPeakY;
-    data['raw_peak_z'] = this.rawPeakZ;
-    data['raw_pos_x'] = this.rawPosX;
-    data['raw_pos_y'] = this.rawPosY;
-    data['raw_pos_z'] = this.rawPosZ;
-    data['raw_time_x'] = this.rawTimeX;
-    data['raw_time_y'] = this.rawTimeY;
-    data['raw_time_z'] = this.rawTimeZ;
-    data['se'] = this.se;
-    data['sed'] = this.sed;
-    return data;
+class AccelrationDoses {
+  double? dx;
+  double? dxd;
+  double? dy;
+  double? dyd;
+  double? dz;
+  double? dzd;
+  AccelrationDoses({this.dx, this.dxd, this.dy, this.dyd, this.dz, this.dzd});
+  AccelrationDoses.fromJson(Map<String, dynamic> json) {
+    dx = json['dx'];
+    dxd = json['dxd'];
+    dy = json['dy'];
+    dyd = json['dyd'];
+    dz = json['dz'];
+    dzd = json['dzd'];
   }
 }
 
@@ -181,20 +226,6 @@ class Ft {
     magnitude = json['Magnitude'] != null
         ? new Magnitude.fromJson(json['Magnitude'])
         : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.amp != null) {
-      data['Amp'] = this.amp!.toJson();
-    }
-    if (this.frequency != null) {
-      data['Frequency'] = this.frequency!.toJson();
-    }
-    if (this.magnitude != null) {
-      data['Magnitude'] = this.magnitude!.toJson();
-    }
-    return data;
   }
 }
 
@@ -259,39 +290,22 @@ class Magnitude {
     magnitudeSpectrumRef1Unfiltered =
         json['magnitude_spectrum_ref1_unfiltered'].cast<double>();
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['frequency'] = this.frequency;
-    data['magnitude_spectrum_proto1_unfiltered'] =
-        this.magnitudeSpectrumProto1Unfiltered;
-    data['magnitude_spectrum_ref1_unfiltered'] =
-        this.magnitudeSpectrumRef1Unfiltered;
-    return data;
-  }
 }
 
 class VdvValues {
   double? vDV;
+  double? vDVMax;
   double? vDVX;
   double? vDVY;
   double? vDVZ;
 
-  VdvValues({this.vDV, this.vDVX, this.vDVY, this.vDVZ});
+  VdvValues({this.vDV, this.vDVX, this.vDVMax, this.vDVY, this.vDVZ});
 
   VdvValues.fromJson(Map<String, dynamic> json) {
     vDV = json['VDV'];
+    vDVMax = json['VDV_Max'];
     vDVX = json['VDV_X'];
     vDVY = json['VDV_Y'];
     vDVZ = json['VDV_Z'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['VDV'] = this.vDV;
-    data['VDV_X'] = this.vDVX;
-    data['VDV_Y'] = this.vDVY;
-    data['VDV_Z'] = this.vDVZ;
-    return data;
   }
 }

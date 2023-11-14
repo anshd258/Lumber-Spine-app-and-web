@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:data_hub/Middleware/bloc/Repository/authrepo.dart';
 import 'package:data_hub/Middleware/constants/ApiPaths.dart';
 import 'package:data_hub/Models/graphmodals.dart';
 
@@ -11,14 +12,19 @@ import 'package:meta/meta.dart';
 part 'cs_vupload_state.dart';
 
 class CsVuploadCubit extends Cubit<CsVuploadState> {
-  CsVuploadCubit() : super(CsVuploadInitial());
+  localStorage _storage;
+  CsVuploadCubit(this._storage) : super(CsVuploadInitial());
 
   void uploadFile(File csv, Map<String, String> data) async {
+    var uuid = await _storage.getId();
+    print(uuid);
+    Map<String, String> headers = {"userID": uuid!};
     emit(CsVuploadUploading());
 
     var request =
         http.MultipartRequest('POST', Uri.parse(baseUrl + uploadPath));
     request.fields.addAll(data);
+    request.headers.addAll(headers);
     request.files.add(await http.MultipartFile.fromPath('file', csv.path));
 
     try {
@@ -67,11 +73,14 @@ class CsVuploadCubit extends Cubit<CsVuploadState> {
   void uploadWebFile(
       Uint8List webData, String fileName, Map<String, String> data) async {
     emit(CsVuploadUploading());
+    var uuid = await _storage.getId();
+    print(uuid);
+    Map<String, String> headers = {"userID": uuid!};
 
     var request =
         http.MultipartRequest('POST', Uri.parse(baseUrl + uploadPath));
     request.fields.addAll(data);
-
+    request.headers.addAll(headers);
     request.files.add(await http.MultipartFile.fromBytes('file', webData,
         filename: fileName));
 

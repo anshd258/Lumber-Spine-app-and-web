@@ -14,6 +14,7 @@ class BlueButton extends StatelessWidget {
       onTap: () => onTap(),
       child: Container(
         height: 6.h,
+        margin: EdgeInsets.all(1.h),
         width: double.infinity,
         decoration: BoxDecoration(
           color: blue,

@@ -123,7 +123,7 @@ class SignInScreen extends StatelessWidget {
                   },
                 ),
                 SizedBox(
-                  height: deviceType == 'phone' ? 3.h : 35.h,
+                  height: deviceType == 'phone' ? 3.h : 30.h,
                 ),
                 BlocListener<SignInBloc, SignInState>(
                   listener: (context, state) {
@@ -157,7 +157,6 @@ class SignInScreen extends StatelessWidget {
                 SizedBox(
                   height: 4.h,
                 ),
-                const Spacer(),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Row(

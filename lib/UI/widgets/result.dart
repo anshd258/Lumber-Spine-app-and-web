@@ -1,5 +1,6 @@
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
+import 'package:data_hub/Models/graphmodals.dart';
 import 'package:data_hub/UI/widgets/progress1.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +12,14 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class Result extends StatefulWidget {
   final double r;
   final double sed;
-  const Result({Key? key, required this.r, required this.sed});
+  final RRange sedRange;
+  final RRange rRange;
+  const Result(
+      {Key? key,
+      required this.rRange,
+      required this.sedRange,
+      required this.r,
+      required this.sed});
 
   @override
   State<Result> createState() => _ResultState();
@@ -56,6 +64,18 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var remarkR = "Low probability of adverse health effect !";
+    var remarkSed = "Low probability of adverse health effect !";
+    if (widget.sed > widget.sedRange.startvalueHigh!) {
+      remarkSed = "High probability of adverse health effect !";
+    } else if (widget.sed < widget.sedRange.endingvalueLow!) {
+      remarkSed = "High probability of adverse health effect !";
+    }
+    if (widget.r > widget.rRange.startvalueHigh!) {
+      remarkR = "High probability of adverse health effect !";
+    } else if (widget.r < widget.rRange.endingvalueLow!) {
+      remarkR = "High probability of adverse health effect !";
+    }
     String deviceType = MyDevice.getDeviceType(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,14 +99,27 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
           child: SizedBox(
             width: deviceType == 'phone' ? double.infinity : 80.w,
             child: SfLinearGauge(
-              minimum: 0,
-              maximum: 1,
+              minimum: widget.sedRange.startvalueLow!,
+              maximum: widget.sedRange.endingvalueHigh!,
               ranges: [
                 LinearGaugeRange(
-                  startValue: 0,
-                  endValue: widget.sed,
+                  startValue: widget.sedRange.startvalueLow!,
+                  color: Colors.yellow,
+                  endValue: widget.sedRange.endingvalueLow!,
+                ),
+                LinearGaugeRange(
+                  startValue: widget.sedRange.startvalueMid!,
+                  color: Colors.green,
+                  endValue: widget.sedRange.endingvalueMid!,
+                ),
+                LinearGaugeRange(
+                  startValue: widget.sedRange.startvalueHigh!,
+                  color: Colors.red,
+                  endValue: widget.sedRange.endingvalueHigh!,
                 )
               ],
+              markerPointers: [LinearShapePointer(value: widget.sed)],
+              barPointers: [LinearBarPointer(value: widget.sed)],
               axisTrackStyle: const LinearAxisTrackStyle(
                 thickness: 5,
                 color: Colors.grey,
@@ -128,24 +161,14 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10.sp),
             ),
             child: Center(
-              child: sed < 0.8
-                  ? Text(
-                      "Low probability of adverse health effect !",
-                      style: GoogleFonts.roboto(
-                        fontSize: 10.sp,
-                        color: whiteText,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )
-                  : Text(
-                      "High probability of adverse health effect !",
-                      style: GoogleFonts.roboto(
-                        fontSize: 10.sp,
-                        color: whiteText,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-            ),
+                child: Text(
+              remarkSed,
+              style: GoogleFonts.roboto(
+                fontSize: 10.sp,
+                color: whiteText,
+                fontWeight: FontWeight.w500,
+              ),
+            )),
           ),
         ),
         SizedBox(
@@ -170,14 +193,27 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
           child: SizedBox(
             width: deviceType == 'phone' ? double.infinity : 80.w,
             child: SfLinearGauge(
-              minimum: 0,
-              maximum: 1,
+              minimum: widget.rRange.startvalueLow!,
+              maximum: widget.rRange.endingvalueHigh!,
               ranges: [
                 LinearGaugeRange(
-                  startValue: 0,
-                  endValue: widget.r,
+                  startValue: widget.rRange.startvalueLow!,
+                  color: Colors.yellow,
+                  endValue: widget.rRange.endingvalueLow!,
+                ),
+                LinearGaugeRange(
+                  startValue: widget.rRange.startvalueMid!,
+                  color: Colors.green,
+                  endValue: widget.rRange.endingvalueMid!,
+                ),
+                LinearGaugeRange(
+                  startValue: widget.rRange.startvalueHigh!,
+                  color: Colors.red,
+                  endValue: widget.rRange.endingvalueHigh!,
                 )
               ],
+              markerPointers: [LinearShapePointer(value: widget.r)],
+              barPointers: [LinearBarPointer(value: widget.r)],
               axisTrackStyle: const LinearAxisTrackStyle(
                 thickness: 5,
                 color: Colors.grey,
@@ -219,23 +255,14 @@ class _ResultState extends State<Result> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(10.sp),
             ),
             child: Center(
-                child: r > 1.2
-                    ? Text(
-                        "High probability of adverse health effect !",
-                        style: GoogleFonts.roboto(
-                          fontSize: 10.sp,
-                          color: black,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      )
-                    : Text(
-                        "Low probability of adverse health effect !",
-                        style: GoogleFonts.roboto(
-                          fontSize: 10.sp,
-                          color: black,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      )),
+                child: Text(
+              remarkR,
+              style: GoogleFonts.roboto(
+                fontSize: 10.sp,
+                color: black,
+                fontWeight: FontWeight.w500,
+              ),
+            )),
           ),
         ),
       ],

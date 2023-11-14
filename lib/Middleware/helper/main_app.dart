@@ -1,13 +1,14 @@
 import 'package:data_hub/Middleware/bloc/CSVdata/cs_vupload_cubit.dart';
 import 'package:data_hub/Middleware/bloc/CSVdata/getcsv_cubit.dart';
+import 'package:data_hub/Middleware/bloc/Repository/authrepo.dart';
 import 'package:data_hub/Middleware/bloc/Variabledatabloc/data_cubit_cubit.dart';
+import 'package:data_hub/Middleware/bloc/history/history_cubit.dart';
 import 'package:data_hub/Middleware/bloc/sign_in/sign_in_bloc.dart';
 import 'package:data_hub/Middleware/bloc/web_navbar_cubit.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:data_hub/Middleware/helper/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../bloc/sign_up/sign_up_bloc.dart';
@@ -22,10 +23,15 @@ class MainApp extends StatelessWidget {
       return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => CsVuploadCubit(),
+            create: (context) =>
+                CsVuploadCubit(RepositoryProvider.of<localStorage>(context)),
           ),
           BlocProvider(
             create: (context) => GetcsvCubit(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                HistoryCubit(RepositoryProvider.of<localStorage>(context)),
           ),
           BlocProvider(
             create: (context) => WebNavbarCubit(),
@@ -35,8 +41,10 @@ class MainApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => SignUpBloc(),
-          ),BlocProvider(
-            create: (context) => SignInBloc(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                SignInBloc(RepositoryProvider.of<localStorage>(context)),
           ),
         ],
         // child: MaterialApp(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:data_hub/Middleware/bloc/Repository/authrepo.dart';
 import 'package:data_hub/Middleware/bloc/sign_up/sign_up_events.dart';
 import 'package:data_hub/Middleware/bloc/sign_up/sign_up_states.dart';
 import 'package:data_hub/Middleware/constants/ApiPaths.dart';
@@ -7,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
+
   SignUpBloc() : super(SignUpInitialState()) {
     on<SignUpNameChangedEvent>((event, emit) {
       if (event.nameValue == "" ||

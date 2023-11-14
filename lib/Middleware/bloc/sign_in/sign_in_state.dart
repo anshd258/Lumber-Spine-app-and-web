@@ -18,6 +18,12 @@ class SignInPasswordErrorState extends SignInState {
     this.errorMessage,
   );
 }
+class SignInSubmittedErrorState extends SignInState {
+  final String errorMessage;
+  SignInSubmittedErrorState(
+    this.errorMessage,
+  );
+}
 
 class SignInSubmittedState extends SignInState {
   String Uuid;

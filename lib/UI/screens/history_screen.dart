@@ -1,7 +1,10 @@
+import 'package:data_hub/Middleware/bloc/history/history_cubit.dart';
 import 'package:data_hub/Middleware/constants/colors.dart';
 import 'package:data_hub/Middleware/helper/device.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:intl/intl.dart';
 
@@ -14,6 +17,11 @@ class History extends StatefulWidget {
 
 class _HistoryState extends State<History> {
   String formattedDate = DateFormat.yMMMEd().format(DateTime.now());
+  @override
+  void initState() {
+    getHistory();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +34,8 @@ class _HistoryState extends State<History> {
         //       ? const Appbar1(title: 'History')
         //       : const WebAppbar(),
         // ),
-        body: Padding(
+        body: Container(
+          height: 100.h,
           padding: EdgeInsets.symmetric(horizontal: 5.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -59,78 +68,137 @@ class _HistoryState extends State<History> {
               SizedBox(
                 height: 2.h,
               ),
-              const HistoryCard(
-                url: 'assets/home_page/hbv.png',
-                title: 'Sed',
-                value: '-15.99 aw',
-              ),
-              Divider(color: lighterGrey),
-              SizedBox(
-                height: 1.h,
-              ),
-              const HistoryCard(
-                url: 'assets/home_page/lumber.png',
-                title: 'R',
-                value: '-15.99 aw',
-              ),
-              const Spacer(),
-              SizedBox(height: 2.h),
+              BlocConsumer<HistoryCubit, HistoryState>(
+                listener: (context, state) {
+                  // TODO: implement listener
+                },
+                builder: (context, state) {
+                  if (state is HistoryLoading) {
+                    return Center(
+                      child: LoadingAnimationWidget.newtonCradle(
+                        color: blue,
+                        size: 200,
+                      ),
+                    );
+                  }
+                  if (state is HistoryError) {
+                    return Center(
+                      child: Icon(
+                        Icons.error_outline_rounded,
+                        color: Colors.redAccent.shade400,
+                        size: 50,
+                      ),
+                    );
+                  }
+                  if (state is HistoryLoaded) {
+                    return Expanded(
+                      flex: 1,
+                      child: SingleChildScrollView(
+                        child: Column(
+                            children: state.history.val!
+                                .map((e) => HistoryCard(
+                                      title: e.data!.filename!,
+                                      sed: e.data!.sed!.toString(),
+                                      r: e.data!.r!.toString(),
+                                    ))
+                                .toList()),
+                      ),
+                    );
+                  } else {
+                    return Center();
+                  }
+                },
+              )
             ],
           ),
         ),
       ),
     );
   }
+
+  void getHistory() {
+    context.read<HistoryCubit>().getHistory();
+  }
 }
 
 class HistoryCard extends StatelessWidget {
-  final String url;
+  final String r;
   final String title;
-  final String value;
+  final String sed;
 
   const HistoryCard({
     super.key,
-    required this.url,
+    required this.r,
     this.title = '',
-    required this.value,
+    required this.sed,
   });
 
   @override
   Widget build(BuildContext context) {
     String deviceType = MyDevice.getDeviceType(context);
-    return Row(
+    return Column(
       children: [
-        Container(
-          height: 7.h,
-          width: 20.w,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(url),
-              fit: BoxFit.contain,
-            ),
-          ),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: GoogleFonts.roboto(
-                color: blue,
-                fontSize: deviceType == 'phone' ? 16.sp : 13.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        const Spacer(),
         Text(
-          value,
-          style: GoogleFonts.roboto(
+          title,
+          style: GoogleFonts.lato(
             color: blue,
             fontSize: deviceType == 'phone' ? 16.sp : 13.sp,
             fontWeight: FontWeight.bold,
           ),
+        ),
+        Row(
+          children: [
+            // Container(
+            //   height: 7.h,
+            //   width: 20.w,
+            //   decoration: BoxDecoration(
+            //     image: DecorationImage(
+            //       image: AssetImage(url),
+            //       fit: BoxFit.contain,
+            //     ),
+            //   ),
+            // ),
+
+            Text(
+              "Sed",
+              style: GoogleFonts.roboto(
+                color: blue,
+                fontSize: deviceType == 'phone' ? 16.sp : 13.sp,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+
+            const Spacer(),
+            Text(
+              sed,
+              style: GoogleFonts.roboto(
+                color: blue,
+                fontSize: deviceType == 'phone' ? 16.sp : 13.sp,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Text(
+              "R",
+              style: GoogleFonts.roboto(
+                color: blue,
+                fontSize: deviceType == 'phone' ? 16.sp : 13.sp,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            const Spacer(),
+            Text(
+              r,
+              style: GoogleFonts.roboto(
+                color: blue,
+                fontSize: deviceType == 'phone' ? 16.sp : 13.sp,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ],
         ),
       ],
     );
