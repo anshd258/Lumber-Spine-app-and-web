@@ -1,4 +1,4 @@
-const baseUrl = "https://9e5f-223-182-103-158.ngrok-free.app";
+const baseUrl = "https://103b-223-182-103-158.ngrok-free.app/";
 const uploadPath = "/upload";
 const signup = "/auth";
 const signIn = "/login";

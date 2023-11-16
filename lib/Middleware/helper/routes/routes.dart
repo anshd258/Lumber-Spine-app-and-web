@@ -14,7 +14,6 @@ import 'package:data_hub/UI/screens/splash_screen.dart';
 import 'package:data_hub/UI/screens/td_tm_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 import '../../../UI/screens/country_screen.dart';
 import '../../../UI/screens/signin_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -28,14 +27,16 @@ List<RouteBase> goo_routes = [
   GoRoute(
     path: '/signin_screen',
     builder: (context, state) => BlocProvider(
-      create: (context) => SignInBloc(RepositoryProvider.of<localStorage>(context)),
+      create: (context) =>
+          SignInBloc(RepositoryProvider.of<localStorage>(context)),
       child: SignInScreen(),
     ),
   ),
   GoRoute(
     path: '/signup_screen',
     builder: (context, state) => BlocProvider(
-      create: (context) => SignInBloc(RepositoryProvider.of<localStorage>(context)),
+      create: (context) =>
+          SignInBloc(RepositoryProvider.of<localStorage>(context)),
       child: const SignUpScreen(),
     ),
   ),
