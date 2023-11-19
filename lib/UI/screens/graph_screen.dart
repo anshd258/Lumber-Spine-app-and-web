@@ -186,7 +186,7 @@ class _GraphScreenState extends State<GraphScreen> {
                               children: [
                                 SizedBox(
                                   height: 40.h,
-                                  width: 60.w,
+                                  width: 80.w,
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
@@ -281,7 +281,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                                   ),
                                                   ValCard(
                                                       title:
-                                                          'Acceleration Dose Value(Aw)',
+                                                          'Acceleration Dose Value(Awx)',
                                                       val: state
                                                           .data.awNew!.awx),
                                                   Container(
@@ -291,7 +291,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                                   ),
                                                   ValCard(
                                                       title:
-                                                          'Acceleration Dose Value(Aw)',
+                                                          'Acceleration Dose Value(Awy)',
                                                       val: state
                                                           .data.awNew!.awy),
                                                   Container(
@@ -301,7 +301,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                                   ),
                                                   ValCard(
                                                       title:
-                                                          'Acceleration Dose Value(Aw)',
+                                                          'Acceleration Dose Value(Awz)',
                                                       val: state
                                                           .data.awNew!.awz),
                                                 ],
@@ -339,7 +339,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                                 children: [
                                                   ValCard(
                                                       title:
-                                                          'Vibration Dose Value(Aw)',
+                                                          'Vibration Dose Value(VDV)',
                                                       val: state
                                                           .data.vdvValues!.vDV),
                                                   Container(
@@ -349,7 +349,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                                   ),
                                                   ValCard(
                                                       title:
-                                                          'Vibration Dose Value(Aw)',
+                                                          'Vibration Dose Value(VDVx)',
                                                       val: state.data.vdvValues!
                                                           .vDVX),
                                                   Container(
@@ -359,7 +359,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                                   ),
                                                   ValCard(
                                                       title:
-                                                          'Vibration Dose Value(Aw)',
+                                                          'Vibration Dose Value(VDVy)',
                                                       val: state.data.vdvValues!
                                                           .vDVY),
                                                   Container(
@@ -369,7 +369,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                                   ),
                                                   ValCard(
                                                       title:
-                                                          'Vibration Dose Value(Aw)',
+                                                          'Vibration Dose Value(VDVz)',
                                                       val: state.data.vdvValues!
                                                           .vDVZ),
                                                 ],
@@ -831,31 +831,71 @@ class _GraphScreenState extends State<GraphScreen> {
                                 SizedBox(
                                   height: 5.h,
                                 ),
-                                Container(
-                                  width: 450,
-                                  padding: EdgeInsets.all(5.sp),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: Colors.yellow,
-                                  ),
-                                  child: Center(
-                                    child: SizedBox(
-                                      width: 60.w,
+                                Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5.w),
+                                      padding: EdgeInsets.all(5.sp),
                                       height: 11.h,
+                                      width: 35.h,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.black,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.sp)),
                                       child: Center(
-                                        child: Text(
-                                          state.data.data!.remark!,
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w600,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Sed  ${state.data.data!.sed!}',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            const Divider(thickness: 2),
+                                            Text(
+                                              'R  ${state.data.data!.r!}',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width:10.w),
+                                    Container(
+                                      width: 450,
+                                      padding: EdgeInsets.all(5.sp),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Colors.yellow,
+                                      ),
+                                      child: Center(
+                                        child: SizedBox(
+                                          width: 60.w,
+                                          height: 11.h,
+                                          child: Center(
+                                            child: Text(
+                                              state.data.data!.remark!,
+                                              maxLines: 2,
+                                              textAlign: TextAlign.center,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ],
                             ),
