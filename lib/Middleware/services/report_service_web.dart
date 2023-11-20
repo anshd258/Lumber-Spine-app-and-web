@@ -56,338 +56,338 @@ class PdfReportServiceWeb {
         build: (pw.Context context) {
           return pw.Padding(
             padding: const pw.EdgeInsets.all(0),
-            child:  pw.Container(
-                          height: double.infinity,
-                          width: double.infinity,
-                          child: pw.Image(
-                            pw.MemoryImage(images[0]),
-                            fit: pw.BoxFit.fill,
-                          ),
-                        ),
+            child: pw.Container(
+              height: 950,
+              width: 420,
+              child: pw.Image(
+                pw.MemoryImage(images[0]),
+                fit: pw.BoxFit.fill,
+              ),
+            ),
             // child: pw.Column(
             //   crossAxisAlignment: pw.CrossAxisAlignment.start,
             //   children: [
-                // pw.Center(
-                //   child: pw.Container(
-                //       height: 35,
-                //       width: 80,
-                //       padding: const pw.EdgeInsets.all(3),
-                //       decoration: pw.BoxDecoration(
-                //         color: PdfColor.fromHex('#EAC110'),
-                //         borderRadius: pw.BorderRadius.circular(12),
-                //       ),
-                //       child: pw.Center(
-                //         child: pw.Text(
-                //           'Results',
-                //           style: pw.TextStyle(
-                //             fontSize: 14,
-                //             fontWeight: pw.FontWeight.bold,
-                //             font: ttf,
-                //           ),
-                //         ),
-                //       )),
-                // ),
-                // pw.SizedBox(
-                //   height: 10,
-                // ),
-                // pw.Center(
-                //   child: pw.Text(
-                //     'Section 1: Graph',
-                //     style: pw.TextStyle(
-                //       fontSize: 10,
-                //       font: ttf,
-                //     ),
-                //   ),
-                // ),
-                // pw.SizedBox(
-                //   height: 10,
-                // ),
-                // pw.Row(
-                //   mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
-                //   children: [
-                //     pw.Column(
-                //       crossAxisAlignment: pw.CrossAxisAlignment.start,
-                //       children: [
-                //         pw.Text(
-                //           'Graph Raw X: ',
-                //           style: pw.TextStyle(
-                //             fontSize: 8,
-                //             fontWeight: pw.FontWeight.bold,
-                //             font: ttf,
-                //           ),
-                //         ),
-                //         pw.SizedBox(
-                //           height: 5,
-                //         ),
-                //         pw.Container(
-                //           height: 100,
-                //           width: 150,
-                //           child: pw.Image(
-                //             pw.MemoryImage(images[0]),
-                //             fit: pw.BoxFit.fill,
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //     pw.Column(
-                //       crossAxisAlignment: pw.CrossAxisAlignment.start,
-                //       children: [
-                //         pw.Text(
-                //           'Graph Raw Y: ',
-                //           style: pw.TextStyle(
-                //             fontSize: 8,
-                //             fontWeight: pw.FontWeight.bold,
-                //             font: ttf,
-                //           ),
-                //         ),
-                //         pw.SizedBox(
-                //           height: 5,
-                //         ),
-                //         pw.Container(
-                //           height: 100,
-                //           width: 150,
-                //           child: pw.Image(
-                //             pw.MemoryImage(images[1]),
-                //             fit: pw.BoxFit.fill,
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //     pw.Column(
-                //       crossAxisAlignment: pw.CrossAxisAlignment.start,
-                //       children: [
-                //         pw.Text(
-                //           'Graph Raw Z: ',
-                //           style: pw.TextStyle(
-                //             fontSize: 8,
-                //             fontWeight: pw.FontWeight.bold,
-                //             font: ttf,
-                //           ),
-                //         ),
-                //         pw.SizedBox(
-                //           height: 5,
-                //         ),
-                //         pw.Container(
-                //           height: 100,
-                //           width: 150,
-                //           child: pw.Image(
-                //             pw.MemoryImage(images[2]),
-                //             fit: pw.BoxFit.fill,
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //   ],
-                // ),
-                // pw.SizedBox(
-                //   height: 5,
-                // ),
-                // pw.Column(
-                //   crossAxisAlignment: pw.CrossAxisAlignment.start,
-                //   children: [
-                //     pw.Text(
-                //       'All Graphs',
-                //       style: pw.TextStyle(
-                //         fontSize: 8,
-                //         fontWeight: pw.FontWeight.bold,
-                //         font: ttf,
-                //       ),
-                //     ),
-                //     pw.SizedBox(
-                //       height: 5,
-                //     ),
-                //     pw.Container(
-                //       height: 120,
-                //       width: 300,
-                //       child: pw.Image(
-                //         pw.MemoryImage(images[3]),
-                //         fit: pw.BoxFit.fill,
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                // pw.SizedBox(
-                //   height: 10,
-                // ),
-                // pw.Center(
-                //   child: pw.Text(
-                //     'Section 2: Frequency Analysis',
-                //     style: pw.TextStyle(
-                //       fontSize: 10,
-                //       font: ttf,
-                //     ),
-                //   ),
-                // ),
-                // pw.Row(
-                //   children: [
-                //     pw.Column(
-                //       crossAxisAlignment: pw.CrossAxisAlignment.start,
-                //       children: [
-                //         pw.Text(
-                //           'Peaks: ',
-                //           style: pw.TextStyle(
-                //             fontSize: 12,
-                //             fontWeight: pw.FontWeight.bold,
-                //             font: ttf,
-                //           ),
-                //         ),
-                //         pw.SizedBox(
-                //           height: 5,
-                //         ),
-                        // pw.Row(
-                        //   children: [
-                        //     pw.Container(
-                        //       padding: const pw.EdgeInsets.all(5),
-                        //       height: 40,
-                        //       width: 70,
-                        //       decoration: pw.BoxDecoration(
-                        //         color: PdfColor.fromHex('#EAC110'),
-                        //         borderRadius: const pw.BorderRadius.horizontal(
-                        //           left: pw.Radius.circular(10),
-                        //           right: pw.Radius.circular(10),
-                        //         ),
-                        //       ),
-                        //       child: pw.Row(
-                        //         children: [
-                        //           pw.Text(
-                        //             'Dx',
-                        //             style: pw.TextStyle(
-                        //               fontSize: 10,
-                        //               fontWeight: pw.FontWeight.bold,
-                        //               font: ttf,
-                        //             ),
-                        //           ),
-                        //           pw.VerticalDivider(),
-                        //           pw.Text(
-                        //             'Dxd',
-                        //             style: pw.TextStyle(
-                        //               fontSize: 10,
-                        //               fontWeight: pw.FontWeight.bold,
-                        //               font: ttf,
-                        //             ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //     pw.SizedBox(
-                        //       width: 5,
-                        //     ),
-                        //     pw.Container(
-                        //       padding: const pw.EdgeInsets.all(5),
-                        //       height: 40,
-                        //       width: 70,
-                        //       decoration: pw.BoxDecoration(
-                        //         color: PdfColor.fromHex('#FE8358'),
-                        //         borderRadius: const pw.BorderRadius.horizontal(
-                        //           left: pw.Radius.circular(10),
-                        //           right: pw.Radius.circular(10),
-                        //         ),
-                        //       ),
-                        //       child: pw.Row(
-                        //         children: [
-                        //           pw.Text(
-                        //             'Dy',
-                        //             style: pw.TextStyle(
-                        //               fontSize: 10,
-                        //               fontWeight: pw.FontWeight.bold,
-                        //               font: ttf,
-                        //             ),
-                        //           ),
-                        //           pw.VerticalDivider(),
-                        //           pw.Text(
-                        //             'Dyd',
-                        //             style: pw.TextStyle(
-                        //               fontSize: 10,
-                        //               fontWeight: pw.FontWeight.bold,
-                        //               font: ttf,
-                        //             ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //     pw.SizedBox(
-                        //       width: 5,
-                        //     ),
-                        //     pw.Container(
-                        //       padding: const pw.EdgeInsets.all(5),
-                        //       height: 40,
-                        //       width: 70,
-                        //       decoration: pw.BoxDecoration(
-                        //         color: PdfColor.fromHex('#65C688'),
-                        //         borderRadius: const pw.BorderRadius.horizontal(
-                        //           left: pw.Radius.circular(10),
-                        //           right: pw.Radius.circular(10),
-                        //         ),
-                        //       ),
-                        //       child: pw.Row(
-                        //         children: [
-                        //           pw.Text(
-                        //             'Dz',
-                        //             style: pw.TextStyle(
-                        //               fontSize: 10,
-                        //               fontWeight: pw.FontWeight.bold,
-                        //               font: ttf,
-                        //             ),
-                        //           ),
-                        //           pw.VerticalDivider(),
-                        //           pw.Text(
-                        //             'Dzd',
-                        //             style: pw.TextStyle(
-                        //               fontSize: 10,
-                        //               fontWeight: pw.FontWeight.bold,
-                        //               font: ttf,
-                        //             ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //     pw.SizedBox(
-                        //       width: 5,
-                        //     ),
-                        //     pw.Container(
-                        //       padding: const pw.EdgeInsets.all(5),
-                        //       height: 40,
-                        //       width: 90,
-                        //       decoration: pw.BoxDecoration(
-                        //         color: PdfColor.fromHex('#5696F9'),
-                        //         borderRadius: const pw.BorderRadius.horizontal(
-                        //           left: pw.Radius.circular(10),
-                        //           right: pw.Radius.circular(10),
-                        //         ),
-                        //       ),
-                        //       child: pw.Row(
-                        //         children: [
-                        //           pw.Text(
-                        //             'Se',
-                        //             style: pw.TextStyle(
-                        //               fontSize: 10,
-                        //               fontWeight: pw.FontWeight.bold,
-                        //               font: ttf,
-                        //             ),
-                        //           ),
-                        //           pw.VerticalDivider(),
-                        //           pw.Text(
-                        //             'Sed',
-                        //             style: pw.TextStyle(
-                        //               fontSize: 10,
-                        //               fontWeight: pw.FontWeight.bold,
-                        //               font: ttf,
-                        //             ),
-                        //           ),
-                        //           pw.VerticalDivider(),
-                        //           pw.Text(
-                        //             'R',
-                        //             style: pw.TextStyle(
-                        //               fontSize: 10,
-                        //               fontWeight: pw.FontWeight.bold,
-                        //               font: ttf,
-                        //             ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
+            // pw.Center(
+            //   child: pw.Container(
+            //       height: 35,
+            //       width: 80,
+            //       padding: const pw.EdgeInsets.all(3),
+            //       decoration: pw.BoxDecoration(
+            //         color: PdfColor.fromHex('#EAC110'),
+            //         borderRadius: pw.BorderRadius.circular(12),
+            //       ),
+            //       child: pw.Center(
+            //         child: pw.Text(
+            //           'Results',
+            //           style: pw.TextStyle(
+            //             fontSize: 14,
+            //             fontWeight: pw.FontWeight.bold,
+            //             font: ttf,
+            //           ),
+            //         ),
+            //       )),
+            // ),
+            // pw.SizedBox(
+            //   height: 10,
+            // ),
+            // pw.Center(
+            //   child: pw.Text(
+            //     'Section 1: Graph',
+            //     style: pw.TextStyle(
+            //       fontSize: 10,
+            //       font: ttf,
+            //     ),
+            //   ),
+            // ),
+            // pw.SizedBox(
+            //   height: 10,
+            // ),
+            // pw.Row(
+            //   mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
+            //   children: [
+            //     pw.Column(
+            //       crossAxisAlignment: pw.CrossAxisAlignment.start,
+            //       children: [
+            //         pw.Text(
+            //           'Graph Raw X: ',
+            //           style: pw.TextStyle(
+            //             fontSize: 8,
+            //             fontWeight: pw.FontWeight.bold,
+            //             font: ttf,
+            //           ),
+            //         ),
+            //         pw.SizedBox(
+            //           height: 5,
+            //         ),
+            //         pw.Container(
+            //           height: 100,
+            //           width: 150,
+            //           child: pw.Image(
+            //             pw.MemoryImage(images[0]),
+            //             fit: pw.BoxFit.fill,
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //     pw.Column(
+            //       crossAxisAlignment: pw.CrossAxisAlignment.start,
+            //       children: [
+            //         pw.Text(
+            //           'Graph Raw Y: ',
+            //           style: pw.TextStyle(
+            //             fontSize: 8,
+            //             fontWeight: pw.FontWeight.bold,
+            //             font: ttf,
+            //           ),
+            //         ),
+            //         pw.SizedBox(
+            //           height: 5,
+            //         ),
+            //         pw.Container(
+            //           height: 100,
+            //           width: 150,
+            //           child: pw.Image(
+            //             pw.MemoryImage(images[1]),
+            //             fit: pw.BoxFit.fill,
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //     pw.Column(
+            //       crossAxisAlignment: pw.CrossAxisAlignment.start,
+            //       children: [
+            //         pw.Text(
+            //           'Graph Raw Z: ',
+            //           style: pw.TextStyle(
+            //             fontSize: 8,
+            //             fontWeight: pw.FontWeight.bold,
+            //             font: ttf,
+            //           ),
+            //         ),
+            //         pw.SizedBox(
+            //           height: 5,
+            //         ),
+            //         pw.Container(
+            //           height: 100,
+            //           width: 150,
+            //           child: pw.Image(
+            //             pw.MemoryImage(images[2]),
+            //             fit: pw.BoxFit.fill,
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
+            // pw.SizedBox(
+            //   height: 5,
+            // ),
+            // pw.Column(
+            //   crossAxisAlignment: pw.CrossAxisAlignment.start,
+            //   children: [
+            //     pw.Text(
+            //       'All Graphs',
+            //       style: pw.TextStyle(
+            //         fontSize: 8,
+            //         fontWeight: pw.FontWeight.bold,
+            //         font: ttf,
+            //       ),
+            //     ),
+            //     pw.SizedBox(
+            //       height: 5,
+            //     ),
+            //     pw.Container(
+            //       height: 120,
+            //       width: 300,
+            //       child: pw.Image(
+            //         pw.MemoryImage(images[3]),
+            //         fit: pw.BoxFit.fill,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // pw.SizedBox(
+            //   height: 10,
+            // ),
+            // pw.Center(
+            //   child: pw.Text(
+            //     'Section 2: Frequency Analysis',
+            //     style: pw.TextStyle(
+            //       fontSize: 10,
+            //       font: ttf,
+            //     ),
+            //   ),
+            // ),
+            // pw.Row(
+            //   children: [
+            //     pw.Column(
+            //       crossAxisAlignment: pw.CrossAxisAlignment.start,
+            //       children: [
+            //         pw.Text(
+            //           'Peaks: ',
+            //           style: pw.TextStyle(
+            //             fontSize: 12,
+            //             fontWeight: pw.FontWeight.bold,
+            //             font: ttf,
+            //           ),
+            //         ),
+            //         pw.SizedBox(
+            //           height: 5,
+            //         ),
+            // pw.Row(
+            //   children: [
+            //     pw.Container(
+            //       padding: const pw.EdgeInsets.all(5),
+            //       height: 40,
+            //       width: 70,
+            //       decoration: pw.BoxDecoration(
+            //         color: PdfColor.fromHex('#EAC110'),
+            //         borderRadius: const pw.BorderRadius.horizontal(
+            //           left: pw.Radius.circular(10),
+            //           right: pw.Radius.circular(10),
+            //         ),
+            //       ),
+            //       child: pw.Row(
+            //         children: [
+            //           pw.Text(
+            //             'Dx',
+            //             style: pw.TextStyle(
+            //               fontSize: 10,
+            //               fontWeight: pw.FontWeight.bold,
+            //               font: ttf,
+            //             ),
+            //           ),
+            //           pw.VerticalDivider(),
+            //           pw.Text(
+            //             'Dxd',
+            //             style: pw.TextStyle(
+            //               fontSize: 10,
+            //               fontWeight: pw.FontWeight.bold,
+            //               font: ttf,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //     pw.SizedBox(
+            //       width: 5,
+            //     ),
+            //     pw.Container(
+            //       padding: const pw.EdgeInsets.all(5),
+            //       height: 40,
+            //       width: 70,
+            //       decoration: pw.BoxDecoration(
+            //         color: PdfColor.fromHex('#FE8358'),
+            //         borderRadius: const pw.BorderRadius.horizontal(
+            //           left: pw.Radius.circular(10),
+            //           right: pw.Radius.circular(10),
+            //         ),
+            //       ),
+            //       child: pw.Row(
+            //         children: [
+            //           pw.Text(
+            //             'Dy',
+            //             style: pw.TextStyle(
+            //               fontSize: 10,
+            //               fontWeight: pw.FontWeight.bold,
+            //               font: ttf,
+            //             ),
+            //           ),
+            //           pw.VerticalDivider(),
+            //           pw.Text(
+            //             'Dyd',
+            //             style: pw.TextStyle(
+            //               fontSize: 10,
+            //               fontWeight: pw.FontWeight.bold,
+            //               font: ttf,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //     pw.SizedBox(
+            //       width: 5,
+            //     ),
+            //     pw.Container(
+            //       padding: const pw.EdgeInsets.all(5),
+            //       height: 40,
+            //       width: 70,
+            //       decoration: pw.BoxDecoration(
+            //         color: PdfColor.fromHex('#65C688'),
+            //         borderRadius: const pw.BorderRadius.horizontal(
+            //           left: pw.Radius.circular(10),
+            //           right: pw.Radius.circular(10),
+            //         ),
+            //       ),
+            //       child: pw.Row(
+            //         children: [
+            //           pw.Text(
+            //             'Dz',
+            //             style: pw.TextStyle(
+            //               fontSize: 10,
+            //               fontWeight: pw.FontWeight.bold,
+            //               font: ttf,
+            //             ),
+            //           ),
+            //           pw.VerticalDivider(),
+            //           pw.Text(
+            //             'Dzd',
+            //             style: pw.TextStyle(
+            //               fontSize: 10,
+            //               fontWeight: pw.FontWeight.bold,
+            //               font: ttf,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //     pw.SizedBox(
+            //       width: 5,
+            //     ),
+            //     pw.Container(
+            //       padding: const pw.EdgeInsets.all(5),
+            //       height: 40,
+            //       width: 90,
+            //       decoration: pw.BoxDecoration(
+            //         color: PdfColor.fromHex('#5696F9'),
+            //         borderRadius: const pw.BorderRadius.horizontal(
+            //           left: pw.Radius.circular(10),
+            //           right: pw.Radius.circular(10),
+            //         ),
+            //       ),
+            //       child: pw.Row(
+            //         children: [
+            //           pw.Text(
+            //             'Se',
+            //             style: pw.TextStyle(
+            //               fontSize: 10,
+            //               fontWeight: pw.FontWeight.bold,
+            //               font: ttf,
+            //             ),
+            //           ),
+            //           pw.VerticalDivider(),
+            //           pw.Text(
+            //             'Sed',
+            //             style: pw.TextStyle(
+            //               fontSize: 10,
+            //               fontWeight: pw.FontWeight.bold,
+            //               font: ttf,
+            //             ),
+            //           ),
+            //           pw.VerticalDivider(),
+            //           pw.Text(
+            //             'R',
+            //             style: pw.TextStyle(
+            //               fontSize: 10,
+            //               fontWeight: pw.FontWeight.bold,
+            //               font: ttf,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ],
+            // ),
             //             pw.SizedBox(
             //               height: 15,
             //             ),
